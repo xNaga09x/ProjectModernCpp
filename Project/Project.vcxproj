@@ -127,8 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Stopwatch_test.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="User_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="User.h" />

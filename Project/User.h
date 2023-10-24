@@ -4,8 +4,10 @@
 
 class User
 {
-private:
 public:
+	User();
+	User(const uint32_t& id, const std::string name, const std::vector<std::pair<int, int>>& matchHistory, const float historyAverage);
+private:
 	uint32_t m_id;
 	std::string m_name;
 	std::vector<std::pair<int, int>>m_matchHistory;
