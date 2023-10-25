@@ -13,3 +13,43 @@ User::User(const uint32_t& id, const std::string name, const std::vector<std::pa
 {
 
 }
+
+int32_t User::getId() const
+{
+	return m_id;
+}
+
+std::string User::getName() const
+{
+	return m_name;
+}
+
+std::vector<std::pair<int, int>> User::getMatchHistory() const
+{
+	return m_matchHistory;
+}
+
+float User::getHistoryAverage() const
+{
+	return m_historyAverage;
+}
+
+void User::setId(const uint32_t id)
+{
+	m_id = id;
+}
+
+void User::setName(const std::string& name)
+{
+	m_name = name;
+}
+
+void User::setMatchHistory(const std::vector<std::pair<int, int>>& matchHistory)
+{
+	m_matchHistory;
+}
+
+void User::setHistoryAverage(float historyAverage)
+{
+	m_historyAverage = historyAverage;
+}
