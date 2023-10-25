@@ -6,9 +6,13 @@ class Round:
 	public Game
 {
 private:
-	int noRounds;
-	static const int noSubrounds = Players.size();
+	int m_noRounds;
+	static const int m_noSubrounds = Players.size();
 	//constructori
 
+public:
+
+	Round();
+	Round(int m_noRounds);
 };
 

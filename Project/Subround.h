@@ -4,9 +4,13 @@ class Subround :
     public Round
 {
 private:
-    User painter;
-    std::vector<User>guessers;
-    //constructori
+    User m_painter;
+    std::vector<User>m_guessers;
 
+public:
+
+    Subround();
+
+    Subround(const User& m_painter, const std::vector<User>& m_guessers);
 };
 
