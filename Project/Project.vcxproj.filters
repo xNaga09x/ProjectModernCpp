@@ -21,9 +21,21 @@
     <ClCompile Include="User_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Round.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Subround.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Round.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Subround.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
