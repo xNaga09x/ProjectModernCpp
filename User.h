@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-
+#include<regex>
 class User
 {
 public:
@@ -15,6 +15,7 @@ public:
 	void setName(const std::string& name);
 	void setMatchHistory(const std::vector<std::pair<int, int>>& matchHistory);
 	void setHistoryAverage(float historyAverage);
+	bool validateName(const std::string& name);
 
 private:
 	uint32_t m_id;

@@ -1,5 +1,6 @@
 #include "User.h"
-
+#include<regex>
+#include<iostream>
 User::User()
 {
 }
@@ -52,4 +53,18 @@ void User::setMatchHistory(const std::vector<std::pair<int, int>>& matchHistory)
 void User::setHistoryAverage(float historyAverage)
 {
 	m_historyAverage = historyAverage;
+}
+
+bool User::validateName(const std::string& name)
+{
+	std::regex pattern("^(?=.*[a-zA-Z])(?=.*[0-9]).+$");
+	if (std::regex_match(name, pattern))
+	{
+		return true;
+	}
+	else
+	{
+		std::cout << "The NameUser " << name << " is not valid!";
+		return false;
+	}
 }
