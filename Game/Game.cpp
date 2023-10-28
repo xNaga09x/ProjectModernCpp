@@ -7,10 +7,17 @@ Game::Game()
 {
 }
 
-void Game::setPlayerScoreDefault(int score)
+void Game::setPlayerScoreDefault(float score)
 {
 	this->m_Scores.push_back(getID(), score); // getID din User.h
 }
+
+
+void Game::MediumTime()
+{
+
+}
+
 
 void Game::sortPlayersByScore() {
 	std::sort(m_Scores.begin(), m_Scores.end(), [](const auto& a, const auto& b) {
