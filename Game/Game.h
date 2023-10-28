@@ -1,8 +1,9 @@
 #pragma once
-//#include "User.h"
+#include "User.h"
 #include<vector>
 #include<string>
 #include<algorithm>
+#include<fstream>
 class Game
 {
 private:
@@ -10,12 +11,15 @@ private:
 	std::vector<User> m_Players;
 	std::vector<std::string> m_usedWords;
 	std::vector<std::string> m_Words;
-	std::vector<std::pair <int32_t, float>> m_Scores;//playerID, scor
+	std::vector<std::pair <uint32_t, float>> m_Scores;//playerID, scor
 public:
 	Game();
-	void setPlayerScoreDefault(float score=0);
+	~Game();
+	void setPlayerScoreDefault(float, User);
 	void MediumTime();
 	void sortPlayersByScore();
+	std::string selectRandomWord(const std::vector<std::string> m_Words) const;
 	void addUsedWord(const std::string&);
+	void citireFisier(std::vector<std::string>& m_Words);
 };
 
