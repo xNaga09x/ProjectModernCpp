@@ -1,16 +1,16 @@
-//#pragma once
-//#include "Round.h"
-//class Subround :
-//    public Round
-//{
-//private:
-//    User m_painter;
-//    std::vector<User>m_guessers;
-//
-//public:
-//
-//    Subround();
-//
-//    Subround(const User& m_painter, const std::vector<User>& m_guessers);
-//};
-//
+#pragma once
+#include "Round.h"
+class Subround :
+    public Round
+{
+private:
+    user::User m_painter;
+    std::vector<user::User>m_guessers;
+
+public:
+
+    Subround();
+
+    Subround(const user::User& m_painter, const std::vector<user::User>& m_guessers);
+};
+

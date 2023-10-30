@@ -9,7 +9,7 @@ User::User()
 }
 
 
-User::User(const uint32_t& id, const std::string name, const std::vector<std::pair<int, int>>& matchHistory, const float historyAverage)
+User::User(const uint32_t& id, const std::string name, const std::vector<std::pair<uint32_t, int>>& matchHistory, const float historyAverage)
 	:m_id(id)
 	,m_name(name)
 	,m_matchHistory(matchHistory)
@@ -28,7 +28,7 @@ std::string User::getName() const
 	return m_name;
 }
 
-std::vector<std::pair<int, int>> User::getMatchHistory() const
+std::vector<std::pair<uint32_t, int>> User::getMatchHistory() const
 {
 	return m_matchHistory;
 }
@@ -48,12 +48,12 @@ void User::setName(const std::string& name)
 	m_name = name;
 }
 
-void User::setMatchHistory(const std::vector<std::pair<int, int>>& matchHistory)
+void User::setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory)
 {
 	m_matchHistory;
 }
 
-void User::setHistoryAverage(const std::vector<std::pair<int, int>>& matchHistory)
+void User::setHistoryAverage(const std::vector<std::pair<uint32_t, int>>& matchHistory)
 {
 	int size = this->getMatchHistory().size();
 	int sum = 0;
@@ -73,19 +73,19 @@ bool User::validateName(const std::string& name)
 	}
 	else
 	{
-		std::cout << "The NameUser " << name << " is not valid!";
+		std::cout << "The Name " << name << " is not valid!";
 		return false;
 	}
 }
 
-//std::ostream& operator<<(std::ostream& os, const User& user)
-//{
-//	os << "ID:" << user.getId() << "\nName:" << user.getName() << "\nMatch History:\n";
-//	os << "Match ID    Match Score\n";
-//	for (int i = 0; i < user.getMatchHistory().size(); i++)
-//	{
-//		os << user.getMatchHistory()[i].first << "    " << user.getMatchHistory()[i].second << "\n";
-//	}
-//	os<< "History Average:" << user.getHistoryAverage() << "\n";
-//	return os;
-//}
+std::ostream& user::operator<<(std::ostream& os, const User& user)
+{
+	os << "ID:" << user.getId() << "\nName:" << user.getName() << "\nMatch History:\n";
+	os << "Match ID    Match Score\n";
+	for (int i = 0; i < user.getMatchHistory().size(); i++)
+	{
+		os << "   "<<user.getMatchHistory()[i].first << "             " << user.getMatchHistory()[i].second << "\n";
+	}
+	os << "History Average:" << user.getHistoryAverage() << "\n";
+	return os;
+}
