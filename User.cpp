@@ -1,6 +1,9 @@
-#include "User.h"
-#include<regex>
-#include<iostream>
+module user;
+import <format>;
+import <regex>;
+
+using user::User;
+
 User::User()
 {
 }
@@ -35,7 +38,7 @@ float User::getHistoryAverage() const
 	return m_historyAverage;
 }
 
-void User::setId(const uint32_t id)
+void User::setId(const uint32_t& id)
 {
 	m_id = id;
 }
@@ -50,9 +53,15 @@ void User::setMatchHistory(const std::vector<std::pair<int, int>>& matchHistory)
 	m_matchHistory;
 }
 
-void User::setHistoryAverage(float historyAverage)
+void User::setHistoryAverage(const std::vector<std::pair<int, int>>& matchHistory)
 {
-	m_historyAverage = historyAverage;
+	int size = this->getMatchHistory().size();
+	int sum = 0;
+	for (int i = 0; i < this->getMatchHistory().size(); i++)
+		sum += this->getMatchHistory()[i].second;
+
+
+	m_historyAverage = sum / size;
 }
 
 bool User::validateName(const std::string& name)
@@ -68,3 +77,15 @@ bool User::validateName(const std::string& name)
 		return false;
 	}
 }
+
+//std::ostream& operator<<(std::ostream& os, const User& user)
+//{
+//	os << "ID:" << user.getId() << "\nName:" << user.getName() << "\nMatch History:\n";
+//	os << "Match ID    Match Score\n";
+//	for (int i = 0; i < user.getMatchHistory().size(); i++)
+//	{
+//		os << user.getMatchHistory()[i].first << "    " << user.getMatchHistory()[i].second << "\n";
+//	}
+//	os<< "History Average:" << user.getHistoryAverage() << "\n";
+//	return os;
+//}

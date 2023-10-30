@@ -15,10 +15,10 @@ namespace user
 		std::vector<std::pair<int, int>> getMatchHistory() const;
 		float getHistoryAverage() const;
 
-		void setId(const uint32_t id);
+		void setId(const uint32_t& id);
 		void setName(const std::string& name);
 		void setMatchHistory(const std::vector<std::pair<int, int>>& matchHistory);
-		void setHistoryAverage(float historyAverage);
+		void setHistoryAverage(const std::vector<std::pair<int, int>>& matchHistory);
 
 		bool validateName(const std::string& name);
 
@@ -28,4 +28,16 @@ namespace user
 		std::vector<std::pair<int, int>>m_matchHistory;
 		float m_historyAverage;
 	};
+	export std::ostream& operator<<(std::ostream& os, const User& user);
+	std::ostream& operator<<(std::ostream& os, const User& user)
+	{
+		os << "ID:" << user.getId() << "\nName:" << user.getName() << "\nMatch History:\n";
+		os << "Match ID    Match Score\n";
+		for (int i = 0; i < user.getMatchHistory().size(); i++)
+		{
+			os << "   "<<user.getMatchHistory()[i].first << "             " << user.getMatchHistory()[i].second << "\n";
+		}
+		os << "History Average:" << user.getHistoryAverage() << "\n";
+		return os;
+	}
 }
