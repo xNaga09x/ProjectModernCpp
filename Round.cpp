@@ -9,7 +9,6 @@ Round::Round()
 
 
 Round::Round(int noRounds)
-	: m_noRounds(noRounds)
+	:m_noRounds(noRounds)
 {
-
 }

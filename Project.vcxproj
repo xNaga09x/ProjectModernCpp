@@ -144,18 +144,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="GuessingWords.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game.cppm" />
-    <ClCompile Include="Round.cpp" />
-    <ClCompile Include="Round.cppm" />
-    <ClCompile Include="Subround.cpp" />
-    <ClCompile Include="Subround.cppm" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="user.cppm" />
     <ClCompile Include="User_test.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="GuessingWords.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -49,7 +49,7 @@ void Game::MediumTime()
 	
 }
 
-void Game::citireFisier(std::vector<std::string>& m_Words)
+void Game::FileRead()
 {
 	std::ifstream file("GuessingWords.txt");
 	std::string word;

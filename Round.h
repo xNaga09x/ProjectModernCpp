@@ -1,5 +1,5 @@
 #pragma once
-#include "Game.h"
+import "Game.h";
 import user;
 
 class Round:

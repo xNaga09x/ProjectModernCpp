@@ -1,10 +1,9 @@
 #pragma once
 import user;
-#include<vector>
-#include<string>
-#include<algorithm>
-#include<fstream>
-import user;
+import <vector>;
+import <string>;
+import <algorithm>;
+import <fstream>;
 
 class Game
 {

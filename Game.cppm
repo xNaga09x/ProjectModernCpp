@@ -26,7 +26,7 @@ namespace game
 		void sortPlayersByScore();
 		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
 		void addUsedWord(const std::string&);
-		void citireFisier(std::vector<std::string>& m_Words);
+		void FileRead();
 	private:
 		static const int noRounds = 4;
 		std::vector<user::User> m_Players;

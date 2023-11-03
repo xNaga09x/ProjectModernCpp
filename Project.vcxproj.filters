@@ -15,37 +15,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="User.cpp">
-      <Filter>Source Files</Filter>
+    <Text Include="GuessingWords.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="user.cppm">
+      <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="User.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="User_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="user.cppm">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cppm">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="Round.cppm">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Round.cpp">
+    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Subround.cppm">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Subround.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="GuessingWords.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>
