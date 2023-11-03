@@ -18,4 +18,5 @@ int main()
 	std::cout<<a;
 	Game b = Game();
 	b.FileRead();
+	std::cout << b.selectRandomWord(b.getWords());
 }

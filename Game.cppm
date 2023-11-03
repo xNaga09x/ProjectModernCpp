@@ -27,6 +27,8 @@ namespace game
 		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
 		void addUsedWord(const std::string&);
 		void FileRead();
+		int getCurrentRound(int);
+		void GameOver(int);
 	private:
 		static const int noRounds = 4;
 		std::vector<user::User> m_Players;
