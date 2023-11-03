@@ -1,5 +1,7 @@
 export module user;
+
 import <iostream>;
+import <string>;
 import <vector>;
 
 namespace user

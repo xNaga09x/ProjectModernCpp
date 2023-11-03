@@ -1,8 +1,10 @@
-#include "Game.h"
-#include <iostream>
-#include <Windows.h>
-#include <cstdlib>
-#include <random>
+module game;
+import <Windows.h>;
+import <iostream>;
+import <fstream>;
+import <random>;
+using game::Game;
+
 Game::Game()
 {
 }
