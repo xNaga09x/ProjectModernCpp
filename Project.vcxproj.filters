@@ -35,5 +35,17 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Subround.cppm">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Round.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Round.cppm">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Subround.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

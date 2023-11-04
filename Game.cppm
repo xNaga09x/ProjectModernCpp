@@ -29,6 +29,10 @@ namespace game
 		void FileRead();
 		int getCurrentRound(int);
 		void GameOver(int);
+
+		Game& operator=(const Game& other);//copy assigment
+		Game(Game&& other) noexcept;//move constructor
+		Game& operator=(Game&& other) noexcept;//move assigment
 	private:
 		static const int noRounds = 4;
 		std::vector<user::User> m_Players;

@@ -78,6 +78,40 @@ void game::Game::GameOver(int currentRound = 0)
 	}
 }
 
+Game& game::Game::operator=(const Game& other)
+{
+	if (this == &other)
+	{
+		return *this;
+	}
+	m_Players = other.m_Players;
+	m_usedWords = other.m_usedWords;
+	m_Words = other.m_Words;
+	m_Scores = other.m_Scores;
+	return *this;
+}
+
+game::Game::Game(Game&& other) noexcept
+{
+	m_Players = std::move(other.m_Players);
+	m_usedWords = std::move(other.m_usedWords);
+	m_Words = std::move(other.m_Words);
+	m_Scores = std::move(other.m_Scores);
+}
+
+Game& game::Game::operator=(Game&& other) noexcept
+{
+	if (this == &other) {
+		return *this;
+	}
+	m_Players = std::move(other.m_Players);
+	m_usedWords = std::move(other.m_usedWords);
+	m_Words = std::move(other.m_Words);
+	m_Scores = std::move(other.m_Scores);
+	return *this;
+
+}
+
 
 void Game::sortPlayersByScore() {
 	std::sort(m_Scores.begin(), m_Scores.end(), [](const auto& a, const auto& b) {
