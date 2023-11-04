@@ -16,6 +16,8 @@ namespace round
 		Round();
 		Round(int m_noRounds);
 		Round(const Round& other);
+		int getNoRounds() const;
+		void setNoRounds(int noRounds);
 		Round(Round&& other) noexcept;
 		Round& operator=(Round&& other) noexcept;
 		Round& operator=(const Round& other);

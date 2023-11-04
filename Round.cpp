@@ -18,6 +18,17 @@ round::Round::Round(const Round& other)
 {
 }
 
+int round::Round::getNoRounds() const
+{
+    return m_noRounds;
+
+}
+
+void round::Round::setNoRounds(int noRounds)
+{
+    m_noRounds = noRounds;
+}
+
 round::Round::Round(Round&& other) noexcept
 	: m_noRounds(other.m_noRounds)
 {

@@ -1,7 +1,6 @@
 module subround;
 import user;
 
-using subround::Subround;
 
 Subround::Subround()
 {
@@ -11,6 +10,26 @@ Subround::Subround()
 Subround::Subround(const user::User& painter, const std::vector<user::User>& guessers)
 	: m_painter(painter), m_guessers(guessers)
 {
+}
+
+const user::User& Subround::getPainter() const
+{
+	return m_painter;
+}
+
+void Subround::setPainter(const user::User& painter)
+{
+	m_painter = painter;
+}
+
+const std::vector<user::User>& subround::Subround::getGuessers() const
+{
+	return m_guessers;
+}
+
+void Subround::setGuessers(const std::vector<user::User>& guessers)
+{
+	m_guessers = guessers;
 }
 
 Subround& subround::Subround::operator=(const Subround& other)
