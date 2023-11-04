@@ -15,5 +15,9 @@ namespace round
 
 		Round();
 		Round(int m_noRounds);
+		Round(const Round& other);
+		Round(Round&& other) noexcept;
+		Round& operator=(Round&& other) noexcept;
+		Round& operator=(const Round& other);
 	};
 }
