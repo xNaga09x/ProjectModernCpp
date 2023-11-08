@@ -1,22 +1,21 @@
 module user;
 import <format>;
 import <regex>;
-
 using user::User;
+
 
 User::User()
 {
 }
 
-
 User::User(const uint32_t& id, const std::string name, const std::vector<std::pair<uint32_t, int>>& matchHistory, const float historyAverage)
-	:m_id(id)
-	,m_name(name)
-	,m_matchHistory(matchHistory)
-	,m_historyAverage(historyAverage)
+	: m_id(id)
+	, m_name(name)
+	, m_matchHistory(matchHistory)
+	, m_historyAverage(historyAverage)
 {
-
 }
+
 
 int32_t User::getId() const
 {
@@ -55,12 +54,10 @@ void User::setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHis
 
 void User::setHistoryAverage(const std::vector<std::pair<uint32_t, int>>& matchHistory)
 {
-	int size = this->getMatchHistory().size();
-	int sum = 0;
-	for (int i = 0; i < this->getMatchHistory().size(); i++)
-		sum += this->getMatchHistory()[i].second;
-
-
+	int size = int(this->getMatchHistory().size());
+	float sum = 0;
+	for (std::pair<uint32_t, int> match : getMatchHistory())
+		sum += match.second;
 	m_historyAverage = sum / size;
 }
 
@@ -82,7 +79,7 @@ User& user::User::operator=(const User& other)
 {
 	if (this == &other)
 	{
-		return* this;
+		return*this;
 	}
 	m_id = other.m_id;
 	m_name = other.m_name;
@@ -110,16 +107,4 @@ User& user::User::operator=(User&& other) noexcept
 	m_matchHistory = std::move(other.m_matchHistory);
 	m_historyAverage = other.m_historyAverage;
 	return *this;
-}
-
-std::ostream& user::operator<<(std::ostream& os, const User& user)
-{
-	os << "ID:" << user.getId() << "\nName:" << user.getName() << "\nMatch History:\n";
-	os << "Match ID    Match Score\n";
-	for (int i = 0; i < user.getMatchHistory().size(); i++)
-	{
-		os << "   "<<user.getMatchHistory()[i].first << "             " << user.getMatchHistory()[i].second << "\n";
-	}
-	os << "History Average:" << user.getHistoryAverage() << "\n";
-	return os;
 }

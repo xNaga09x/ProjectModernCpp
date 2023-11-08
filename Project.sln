@@ -5,8 +5,6 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project", "Project.vcxproj", "{BD418C1F-BB1A-4FD7-B78F-67F04C6E3730}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StopWatch", "..\StopWatch\StopWatch.vcxproj", "{36F792E8-EA91-4269-AAF3-3D0DB63EDA8A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +21,6 @@ Global
 		{BD418C1F-BB1A-4FD7-B78F-67F04C6E3730}.Release|x64.Build.0 = Release|x64
 		{BD418C1F-BB1A-4FD7-B78F-67F04C6E3730}.Release|x86.ActiveCfg = Release|Win32
 		{BD418C1F-BB1A-4FD7-B78F-67F04C6E3730}.Release|x86.Build.0 = Release|Win32
-		{36F792E8-EA91-4269-AAF3-3D0DB63EDA8A}.Debug|x64.ActiveCfg = Debug|x64
-		{36F792E8-EA91-4269-AAF3-3D0DB63EDA8A}.Debug|x64.Build.0 = Debug|x64
-		{36F792E8-EA91-4269-AAF3-3D0DB63EDA8A}.Debug|x86.ActiveCfg = Debug|Win32
-		{36F792E8-EA91-4269-AAF3-3D0DB63EDA8A}.Debug|x86.Build.0 = Debug|Win32
-		{36F792E8-EA91-4269-AAF3-3D0DB63EDA8A}.Release|x64.ActiveCfg = Release|x64
-		{36F792E8-EA91-4269-AAF3-3D0DB63EDA8A}.Release|x64.Build.0 = Release|x64
-		{36F792E8-EA91-4269-AAF3-3D0DB63EDA8A}.Release|x86.ActiveCfg = Release|Win32
-		{36F792E8-EA91-4269-AAF3-3D0DB63EDA8A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
