@@ -24,8 +24,8 @@ namespace user
 		bool validateName(const std::string& name);
 
 		User& operator=(const User& other);//copy assigmnent
-		User(User&& other) noexcept;//move constructor
-		User& operator=(User&& other) noexcept;//move assigment operator
+		/*User(User&& other) noexcept;*///move constructor
+		/*User& operator=(User&& other) noexcept;*///move assigment operator
 	private:
 		uint32_t m_id;
 		std::string m_name;

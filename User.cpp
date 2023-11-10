@@ -88,23 +88,23 @@ User& user::User::operator=(const User& other)
 	return *this;
 }
 
-user::User::User(User&& other) noexcept
-{
-	m_id = other.m_id;
-	m_name = std::move(other.m_name);
-	m_matchHistory = std::move(other.m_matchHistory);
-	m_historyAverage = other.m_historyAverage;
-}
-
-User& user::User::operator=(User&& other) noexcept
-{
-	if (this == &other)
-	{
-		return *this;
-	}
-	m_id = other.m_id;
-	m_name = std::move(other.m_name);
-	m_matchHistory = std::move(other.m_matchHistory);
-	m_historyAverage = other.m_historyAverage;
-	return *this;
-}
+//user::User::User(User&& other) noexcept
+//{
+//	m_id = other.m_id;
+//	m_name = std::move(other.m_name);
+//	m_matchHistory = std::move(other.m_matchHistory);
+//	m_historyAverage = other.m_historyAverage;
+//}
+//
+//User& user::User::operator=(User&& other) noexcept
+//{
+//	if (this == &other)
+//	{
+//		return *this;
+//	}
+//	m_id = other.m_id;
+//	m_name = std::move(other.m_name);
+//	m_matchHistory = std::move(other.m_matchHistory);
+//	m_historyAverage = other.m_historyAverage;
+//	return *this;
+//}

@@ -118,6 +118,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <EnableModules>true</EnableModules>
       <TranslateIncludes>true</TranslateIncludes>
+      <BuildStlModules>true</BuildStlModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +148,8 @@
     <Text Include="GuessingWords.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Game.cppm" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="user.cppm" />
     <ClCompile Include="User_test.cpp" />
