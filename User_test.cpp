@@ -7,8 +7,7 @@ import game;
 
 int main()
 {
-	using namespace user;
-	using namespace game;
+	using namespace gartic;
 	std::vector<std::pair<uint32_t, int>> vect;
 	vect.push_back(std::make_pair(1, 200));
 	vect.push_back(std::make_pair(2, 400));
@@ -17,7 +16,7 @@ int main()
 	User a = User(1, "Andrei", vect, 0);
 	a.setHistoryAverage(a.getMatchHistory());
 	std::cout<<a;
-	Game b;
+	Game b = Game();
 	b.FileRead();
 	std::cout << b.selectRandomWord(b.getWords());
 }

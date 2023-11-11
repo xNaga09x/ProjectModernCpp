@@ -29,10 +29,25 @@
     <ClCompile Include="user.cppm">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cppm">
+    <ClCompile Include="game.cppm">
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="round.cppm">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Round.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="subround.cppm">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Subround.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stopwatch_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

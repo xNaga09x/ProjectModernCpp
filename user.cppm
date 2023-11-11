@@ -3,7 +3,7 @@ import<iostream>;
 import <string>;
 import <vector>;
 
-namespace user
+namespace gartic
 {
 	export class User
 	{
@@ -24,14 +24,16 @@ namespace user
 		bool validateName(const std::string& name);
 
 		User& operator=(const User& other);//copy assigmnent
-		/*User(User&& other) noexcept;*///move constructor
-		/*User& operator=(User&& other) noexcept;*///move assigment operator
+		User(User&& other) noexcept;//move constructor
+		User(const User& other) noexcept;//copy constructor
+		User& operator=(User&& other) noexcept;//move assigment operator
 	private:
 		uint32_t m_id;
 		std::string m_name;
 		std::vector<std::pair<uint32_t, int>>m_matchHistory;
 		float m_historyAverage;
 	};
+
 	export std::ostream& operator<<(std::ostream& os, const User& user);
 	std::ostream& operator<<(std::ostream& os, const User& user)
 	{

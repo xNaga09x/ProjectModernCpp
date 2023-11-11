@@ -149,7 +149,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Game.cppm" />
+    <ClCompile Include="game.cppm" />
+    <ClCompile Include="Round.cpp" />
+    <ClCompile Include="round.cppm" />
+    <ClCompile Include="Stopwatch_test.cpp" />
+    <ClCompile Include="Subround.cpp" />
+    <ClCompile Include="subround.cppm" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="user.cppm" />
     <ClCompile Include="User_test.cpp" />

@@ -1,6 +1,6 @@
 module round;
 
-using round::Round;
+using gartic::Round;
 
 Round::Round()
 {
@@ -13,29 +13,29 @@ Round::Round(int noRounds)
 {
 }
 
-round::Round::Round(const Round& other)
+Round::Round(const Round& other)
 	: m_noRounds(other.m_noRounds)
 {
 }
 
-int round::Round::getNoRounds() const
+int Round::getNoRounds() const
 {
     return m_noRounds;
 
 }
 
-void round::Round::setNoRounds(int noRounds)
+void Round::setNoRounds(int noRounds)
 {
     m_noRounds = noRounds;
 }
 
-round::Round::Round(Round&& other) noexcept
+Round::Round(Round&& other) noexcept
 	: m_noRounds(other.m_noRounds)
 {
 	other.m_noRounds = 0;
 }
 
-Round& round::Round::operator=(Round&& other) noexcept
+Round& Round::operator=(Round&& other) noexcept
 {
     if(this != &other) {
         m_noRounds = other.m_noRounds;
@@ -44,7 +44,7 @@ Round& round::Round::operator=(Round&& other) noexcept
     return *this;
 }
 
-Round& round::Round::operator=(const Round& other)
+Round& Round::operator=(const Round& other)
 {
     if (this != &other) {
         m_noRounds = other.m_noRounds;

@@ -2,9 +2,9 @@ export module round;
 import game;
 
 
-namespace round 
+namespace gartic
 {
-	export class Round :public game::Game 
+	export class Round :public Game 
 	{
 	private:
 		int m_noRounds;

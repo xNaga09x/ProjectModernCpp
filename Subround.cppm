@@ -3,23 +3,23 @@ import game;
 import round;
 import user;
 
-namespace subround
+namespace gartic
 {
 	export class Subround {
 	private:
-		user::User m_painter;
-		std::vector<user::User>m_guessers;
+		User m_painter;
+		std::vector<User>m_guessers;
 
 	public:
 
 		Subround();
 
-		Subround(const user::User& m_painter, const std::vector<user::User>& m_guessers);
+		Subround(const User& m_painter, const std::vector<User>& m_guessers);
 
-		const user::User& getPainter() const;
-		void setPainter(const user::User& painter);
-		const std::vector<user::User>& getGuessers() const;
-		void setGuessers(const std::vector<user::User>& guessers);
+		const User& getPainter() const;
+		void setPainter(const User& painter);
+		const std::vector<User>& getGuessers() const;
+		void setGuessers(const std::vector<User>& guessers);
 
 		Subround& operator=(const Subround& other);//copy assigment
 		Subround(Subround&& other) noexcept;//move constructor

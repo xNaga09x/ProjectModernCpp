@@ -3,7 +3,8 @@ import <Windows.h>;
 import <iostream>;
 import <fstream>;
 import <random>;
-using game::Game;
+
+using gartic::Game;
 
 Game::Game()
 {
@@ -14,7 +15,7 @@ Game::~Game()
 }
 
 
-void Game::setPlayerScoreDefault(float score, user::User entity)
+void Game::setPlayerScoreDefault(float score, gartic::User entity)
 {
 	this->m_Scores.push_back({ entity.getId(), score });
 }
@@ -24,7 +25,7 @@ void Game::setScores(const std::vector<std::pair<uint32_t, float>>& scores)
 	m_Scores = scores;
 }
 
-std::vector<user::User> Game::getPlayers() const
+std::vector<gartic::User> Game::getPlayers() const
 {
 	return m_Players;
 }
@@ -61,24 +62,25 @@ void Game::FileRead()
 	file.close();
 }
 
-int game::Game::getCurrentRound(int Round)
+int Game::getCurrentRound(int Round)
 {
 	return Round;
 }
 
 
-void game::Game::GameOver(int currentRound = 0)
+void Game::GameOver(int currentRound = 0)
 {
 	while (currentRound < 4)	
 	{ 
 		if (currentRound == 4)
 		{
+			std::cout << "trebuie pus ceva cod aici ca sa compileze!";
 		} // Animatie sfarsit de Joc / GAME OVER interface .
 		else std::cout << this->getCurrentRound(currentRound);
 	}
 }
 
-Game& game::Game::operator=(const Game& other)
+Game& Game::operator=(const Game& other)
 {
 	if (this == &other)
 	{
@@ -91,7 +93,7 @@ Game& game::Game::operator=(const Game& other)
 	return *this;
 }
 
-game::Game::Game(Game&& other) noexcept
+Game::Game(Game&& other) noexcept
 {
 	m_Players = std::move(other.m_Players);
 	m_usedWords = std::move(other.m_usedWords);
@@ -99,7 +101,7 @@ game::Game::Game(Game&& other) noexcept
 	m_Scores = std::move(other.m_Scores);
 }
 
-Game& game::Game::operator=(Game&& other) noexcept
+Game& Game::operator=(Game&& other) noexcept
 {
 	if (this == &other) {
 		return *this;
