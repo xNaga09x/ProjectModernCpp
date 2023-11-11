@@ -28,6 +28,8 @@ namespace gartic
 		void FileRead();
 		int getCurrentRound(int);
 		void GameOver(int);
+		double calculateScoreGuesser(double);
+		double calculateScorePainter(double);
 
 		Game& operator=(const Game& other);//copy assigment
 		Game(Game&& other) noexcept;//move constructor

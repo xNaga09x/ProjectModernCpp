@@ -79,6 +79,19 @@ void Game::GameOver(int currentRound = 0)
 	}
 }
 
+
+
+
+double gartic::Game::calculateScoreGuesser(double time)
+{
+	return (60 - time) * 100 / 30;
+}
+
+double gartic::Game::calculateScorePainter(double averageTime)
+{
+	return (60 - averageTime) * 100 / 60;
+}
+
 Game& Game::operator=(const Game& other)
 {
 	if (this == &other)
@@ -141,8 +154,6 @@ void gartic::Game::verifyGuessed()
 	stopwatch.stop();
 	std::cout << stopwatch.elapsed_time()<<"\n";
 	std::cout << "Congrats , you guessed the word";
-
-
 
 }
 
