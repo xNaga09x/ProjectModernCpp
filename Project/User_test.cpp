@@ -1,8 +1,8 @@
+#include "StopWatch.h";
 import user;
 import game;
 import<iostream>;
 import<vector>;
-//using StopWatch;
 import game;
 
 int main()
@@ -18,5 +18,5 @@ int main()
 	std::cout<<a;
 	Game b = Game();
 	b.FileRead();
-	std::cout << b.selectRandomWord(b.getWords());
+	b.verifyGuessed();
 }

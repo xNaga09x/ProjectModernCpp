@@ -1,10 +1,9 @@
 module game;
-import <Windows.h>;
 import <iostream>;
 import <fstream>;
 import <random>;
-
 using gartic::Game;
+#include "StopWatch.h";
 
 Game::Game()
 {
@@ -120,23 +119,49 @@ void Game::sortPlayersByScore() {
 		return a.second > b.second; });
 }
 
+void gartic::Game::verifyGuessed()
+{
+	std::string introducedWord;
+	std::cout << "Guess the word:";
+	std::cin >> introducedWord;
+	std::string wordToGuess = selectRandomWord(this->m_Words);
+	addUsedWord(wordToGuess);
+
+	Stopwatch stopwatch;
+	stopwatch.start();
+
+	double elapsedTimeLimit = 60.0;
+	while (introducedWord != wordToGuess )
+	{
+		std::cout<<wordToGuess;
+		std::cin >> introducedWord;
+
+	}
+
+	stopwatch.stop();
+	std::cout << stopwatch.elapsed_time()<<"\n";
+	std::cout << "Congrats , you guessed the word";
+
+
+
+}
+
 std::string Game::selectRandomWord(const std::vector<std::string> m_Words) const
 {
 	if (m_Words.empty()) {
 		std::cerr << "m_Words vector is empty. Unable to select a random word." << std::endl;
 		return "";
 	}
-
 	std::random_device rd;
 	std::mt19937 gen(rd());
 
 	std::uniform_int_distribution<size_t> distribution(0, m_Words.size() - 1);
 	size_t randomIndex = distribution(gen);
 
+
 	return m_Words[randomIndex];
 }
 
 void Game::addUsedWord(const std::string& word) {
 	m_usedWords.push_back(word);
-
 }

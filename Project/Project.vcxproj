@@ -152,12 +152,14 @@
     <ClCompile Include="game.cppm" />
     <ClCompile Include="Round.cpp" />
     <ClCompile Include="round.cppm" />
-    <ClCompile Include="Stopwatch_test.cpp" />
     <ClCompile Include="Subround.cpp" />
     <ClCompile Include="subround.cppm" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="user.cppm" />
     <ClCompile Include="User_test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StopWatch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
