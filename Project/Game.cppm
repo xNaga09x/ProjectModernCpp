@@ -32,6 +32,8 @@ namespace gartic
 		double calculateScoreGuesser(double);
 		double calculateScorePainter(double);
 
+		std::string getGuessedWord() const;
+
 		Game& operator=(const Game& other);//copy assigment
 		Game(Game&& other) noexcept;//move constructor
 		Game& operator=(Game&& other) noexcept;//move assigment
