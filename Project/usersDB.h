@@ -25,4 +25,15 @@ inline auto createStorage(const std::string& filename)
 
 }
 using Storage = decltype(createStorage(""));
-//void populateStorage(Storage& storage);
+
+void populateStorage(Storage& storage);
+
+class AddToUser {
+public:
+	AddToUser(Storage& storage);
+
+	crow::response operator() (const crow::request& req) const;
+
+private:
+	Storage& m_dbUsers;
+};

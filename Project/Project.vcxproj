@@ -167,7 +167,7 @@
     <ClCompile Include="subround.cppm" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="user.cppm" />
-    <ClCompile Include="userDB.cpp" />
+    <ClCompile Include="usersDB.cpp" />
     <ClCompile Include="User_test.cpp" />
   </ItemGroup>
   <ItemGroup>

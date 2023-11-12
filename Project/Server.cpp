@@ -17,11 +17,13 @@ int main()
 	std::cout << "Introduceti Username-ul:";
 	std::string name;
 	std::cin >> name;
-		std::vector<std::pair<uint32_t, int>> vect;
+
+	std::vector<std::pair<uint32_t, int>> vect;
 	vect.push_back(std::make_pair(1, 200));
 	vect.push_back(std::make_pair(2, 400));
 	vect.push_back(std::make_pair(3, 250));
 	vect.push_back(std::make_pair(4, 500));
+
 	User a = User(1, name, vect, 0);
 	Game b = Game();
 		b.FileRead();
