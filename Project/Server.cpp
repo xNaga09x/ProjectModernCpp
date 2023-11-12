@@ -51,6 +51,21 @@ int main()
 			});
 		return crow::json::wvalue{ word_json };
 		});
+
+	CROW_ROUTE(app, "/users")([&db]()
+		{
+			std::vector<crow::json::wvalue> usersJson;
+			for (const auto& user : db.iterate<Users>())
+			{
+				crow::json::wvalue u
+				{
+					{"id",user.m_id},{"name",user.m_name},{"average",user.m_historyAverage}
+				};
+				usersJson.push_back(u);
+			}
+			return crow::json::wvalue{ usersJson };
+		});
+
 	app.port(18080).multithreaded().run();
 	return 0;
 }

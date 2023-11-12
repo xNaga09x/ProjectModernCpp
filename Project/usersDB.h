@@ -14,15 +14,11 @@ inline auto createStorage(const std::string& filename)
 		filename,
 		sql::make_table(
 			"Users",
-			sql::make_column("id",&User::m_id),
+			sql::make_column("id",&User::m_id,sql::primary_key().autoincrement()),
 			sql::make_column("name",&User::m_name),
 			sql::make_column("average",&User::m_historyAverage)
 			)
-
 		);
-
-
-
 }
 using Storage = decltype(createStorage(""));
 
