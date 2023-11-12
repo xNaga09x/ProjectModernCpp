@@ -167,10 +167,12 @@
     <ClCompile Include="subround.cppm" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="user.cppm" />
+    <ClCompile Include="userDB.cpp" />
     <ClCompile Include="User_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StopWatch.h" />
+    <ClInclude Include="usersDB.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
