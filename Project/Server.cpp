@@ -66,6 +66,36 @@ int main()
 			return crow::json::wvalue{ usersJson };
 		});
 
+	CROW_ROUTE(app, "/add_user")
+		.methods("POST"_method)([&db](const crow::request& req)
+			{
+				auto json = crow::json::load(req.body);
+				if (!json)
+				{
+					return crow::response(400, "Bad Request: Invalid JSON format");
+				}
+
+				// validarea si extragerea datelor utilizatorului
+				std::string name;
+				float average;
+				try
+				{
+					name = json["name"].s();
+					average = json["average"].d();
+				}
+				catch (const std::exception& e)
+				{
+					return crow::response(400, "Bad Request: Missing or invalid fields in JSON");
+				}
+
+				// adaugarea userului in BD
+				User newUser;
+				newUser.m_name = name;
+				newUser.m_historyAverage = average;
+				db.addUser(newUser);
+
+				return crow::response(201);
+			});
 	app.port(18080).multithreaded().run();
 	return 0;
 }
