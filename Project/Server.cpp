@@ -11,9 +11,21 @@ import<vector>;
 #include<filesystem>
 #include<memory>
 #include <crow.h>
+#include <sqlite_orm/sqlite_orm.h>
+namespace sql = sqlite_orm;
+
+#include "usersDB.h"
+
 int main()
 {
 	using namespace gartic;
+
+	const std::string db_file = "usersDB.sqlite";
+	Storage Usersdb = createStorage(db_file);
+	db.sync_schema();
+	auto initialUsersCount = db.count<User>();
+
+
 	std::cout << "Introduceti Username-ul:";
 	std::string name;
 	std::cin >> name;
@@ -29,14 +41,14 @@ int main()
 		b.FileRead();
 		b.verifyGuessed();
 		std::string word = b.getGuessedWord();
+
 	crow::SimpleApp app;
-	CROW_ROUTE(app, "/Guesser")([word,a]() {
+	CROW_ROUTE(app, "/Guesser")([word,&Usersdb]() {
 		std::vector<crow::json::wvalue> word_json;
 		word_json.push_back(crow::json::wvalue{
-			{"Name",a.getName()},
+			{"Name",Usersdb.name()},
 			{"Guess:", word}
 			});
-		//return "This is path.";
 		return crow::json::wvalue{ word_json };
 		});
 	app.port(18080).multithreaded().run();
