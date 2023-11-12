@@ -4,6 +4,7 @@ import <vector>;
 import <string>;
 import <algorithm>;
 
+
 namespace gartic
 {
 	export class Game 

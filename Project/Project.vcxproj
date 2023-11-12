@@ -83,6 +83,9 @@
       <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <EnableModules>true</EnableModules>
+      <BuildStlModules>true</BuildStlModules>
+      <TranslateIncludes>false</TranslateIncludes>
+      <AdditionalOptions>/D _SILENCE_ALL_CXX20_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -100,6 +103,9 @@
       <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <EnableModules>true</EnableModules>
+      <BuildStlModules>true</BuildStlModules>
+      <TranslateIncludes>false</TranslateIncludes>
+      <AdditionalOptions>/D _SILENCE_ALL_CXX20_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,8 +123,9 @@
       <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <EnableModules>true</EnableModules>
-      <TranslateIncludes>true</TranslateIncludes>
+      <TranslateIncludes>false</TranslateIncludes>
       <BuildStlModules>true</BuildStlModules>
+      <AdditionalOptions>/D _SILENCE_ALL_CXX20_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +143,9 @@
       <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <EnableModules>true</EnableModules>
+      <BuildStlModules>true</BuildStlModules>
+      <TranslateIncludes>false</TranslateIncludes>
+      <AdditionalOptions>/D _SILENCE_ALL_CXX20_DEPRECATION_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,6 +162,7 @@
     <ClCompile Include="game.cppm" />
     <ClCompile Include="Round.cpp" />
     <ClCompile Include="round.cppm" />
+    <ClCompile Include="Server.cpp" />
     <ClCompile Include="Subround.cpp" />
     <ClCompile Include="subround.cppm" />
     <ClCompile Include="User.cpp" />
