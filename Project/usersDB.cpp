@@ -11,7 +11,13 @@ void populateStorage(Storage& storage)
 	storage.insert_range(users.begin(), users.end());
 }
 
-AddToUser::AddToUser(Storage& storage)
-{
-
-}
+//AddToUser::AddToUser(Storage& storage)
+//	:m_db{storage}
+//{
+//
+//}
+//
+//crow::response AddToUser::operator()(const crow::request& req) const
+//{
+//	return crow::response(201);
+//}
