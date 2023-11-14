@@ -53,6 +53,9 @@
     <ClCompile Include="usersDB.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StopWatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StopWatch.h">
