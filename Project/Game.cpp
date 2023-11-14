@@ -69,17 +69,15 @@ int Game::getCurrentRound(int Round)
 
 void Game::GameOver(int currentRound = 0)
 {
-	while (currentRound < 4)	
-	{ 
+	while (currentRound < 4)
+	{
 		if (currentRound == 4)
 		{
-			std::cout << "trebuie pus ceva cod aici ca sa compileze!";
+			std::cout << "Jocul a luat sfarsit\n";
 		} // Animatie sfarsit de Joc / GAME OVER interface .
 		else std::cout << this->getCurrentRound(currentRound);
 	}
 }
-
-
 
 
 double gartic::Game::calculateScoreGuesser(double time)
@@ -94,7 +92,7 @@ double gartic::Game::calculateScorePainter(double averageTime)
 
 std::string gartic::Game::getGuessedWord() const
 {
-	return m_usedWords[m_usedWords.size()-1];
+	return m_usedWords[m_usedWords.size() - 1];
 }
 
 
@@ -139,30 +137,40 @@ void Game::sortPlayersByScore() {
 		return a.second > b.second; });
 }
 
-void gartic::Game::verifyGuessed()
+void gartic::Game::verifyGuessed(User& x)
 {
 	std::string introducedWord;
 	std::cout << "Guess the word:";
 	std::cin >> introducedWord;
 	std::string wordToGuess = selectRandomWord(this->m_Words);
 	addUsedWord(wordToGuess);
-
-	Stopwatch stopwatch;
+	x.
+		Stopwatch stopwatch;
 	stopwatch.start();
 
 	double elapsedTimeLimit = 60.0;
-	while (introducedWord != wordToGuess )
+	while (introducedWord != wordToGuess)
 	{
-		std::cout<<wordToGuess;
+		std::cout << wordToGuess;
 		std::cin >> introducedWord;
+		if (stopwatch.elapsed_time() >= 60)
+		{
+			std::cout << "The Time to guess has expired";
+			break;
+		}
 
 	}
 
 	stopwatch.stop();
-	std::cout << stopwatch.elapsed_time()<<"\n";
-	std::cout << "Congrats , you guessed the word";
+	std::cout << stopwatch.elapsed_time() << "\n";
+	if (stopwatch.elapsed_time() < 60)
+	{
+		x.setGuessed();    // Possible creation of multiple users(players) , may modify in future.
+		std::cout << "Congrats , you guessed the word";
+	}
 
 }
+
 
 std::string Game::selectRandomWord(const std::vector<std::string> m_Words) const
 {

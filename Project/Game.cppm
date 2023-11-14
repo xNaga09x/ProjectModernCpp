@@ -24,11 +24,12 @@ namespace gartic
 		void setScores(const std::vector<std::pair <uint32_t, float>>& scores);
 		void MediumTime();
 		void sortPlayersByScore();
-		void verifyGuessed();// AICI TREBUIE SA VERIFICI DACA A GHICIT user-ul cuvantul si s-a oprit cronometrul pentru el + adaugare scor, + calculateScore
+		void verifyGuessed(User&);
 		void addUsedWord(const std::string&);
 		void FileRead();
 		int getCurrentRound(int);
 		void GameOver(int);
+		void addscore(double); //de implementat
 		double calculateScoreGuesser(double);
 		double calculateScorePainter(double);
 
