@@ -79,16 +79,25 @@ void Game::GameOver(int currentRound = 0)
 	}
 }
 
+void gartic::Game::addscore(float score)
+{
+	std::pair<uint32_t, float> auxiliar;
+	for (auto el : m_Scores)
+		if (el.first == auxiliar.first)
+			el.second = el.second + auxiliar.second;
 
-double gartic::Game::calculateScoreGuesser(double time)
+}
+
+float gartic::Game::calculateScoreGuesser(float time)
 {
 	return (60 - time) * 100 / 30;
 }
 
-double gartic::Game::calculateScorePainter(double averageTime)
+float gartic::Game::calculateScorePainter(float averageTime)
 {
 	return (60 - averageTime) * 100 / 60;
 }
+
 
 std::string gartic::Game::getGuessedWord() const
 {
@@ -144,8 +153,7 @@ void gartic::Game::verifyGuessed(User& x)
 	std::cin >> introducedWord;
 	std::string wordToGuess = selectRandomWord(this->m_Words);
 	addUsedWord(wordToGuess);
-	x.
-		Stopwatch stopwatch;
+	Stopwatch stopwatch;
 	stopwatch.start();
 
 	double elapsedTimeLimit = 60.0;
@@ -160,15 +168,17 @@ void gartic::Game::verifyGuessed(User& x)
 		}
 
 	}
-
 	stopwatch.stop();
 	std::cout << stopwatch.elapsed_time() << "\n";
 	if (stopwatch.elapsed_time() < 60)
 	{
 		x.setGuessed();    // Possible creation of multiple users(players) , may modify in future.
 		std::cout << "Congrats , you guessed the word";
+		float score = this->calculateScoreGuesser(stopwatch.elapsed_time());
+		this->addscore(score);
+		//Must add score for painter as well but need mediumTime, will add after implementation of server
 	}
-
+	else this->addscore(-50);
 }
 
 

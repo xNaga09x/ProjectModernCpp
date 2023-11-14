@@ -29,9 +29,9 @@ namespace gartic
 		void FileRead();
 		int getCurrentRound(int);
 		void GameOver(int);
-		void addscore(double); //de implementat
-		double calculateScoreGuesser(double);
-		double calculateScorePainter(double);
+		void addscore(float score); //de implementat
+		float calculateScoreGuesser(float);
+		float calculateScorePainter(float);
 
 		std::string getGuessedWord() const;
 
