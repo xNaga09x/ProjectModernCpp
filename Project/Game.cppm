@@ -1,8 +1,9 @@
 export module game;
-import user;
+#include "user.h"
 import <vector>;
 import <string>;
 import <algorithm>;
+
 
 
 namespace gartic
@@ -39,7 +40,7 @@ namespace gartic
 		Game(Game&& other) noexcept;//move constructor
 		Game& operator=(Game&& other) noexcept;//move assigment
 	private:
-		static const int noRounds = 4;
+		const int noRounds = 4;
 		std::vector<User> m_Players;
 		std::vector<std::string> m_usedWords;
 		std::vector<std::string> m_Words;

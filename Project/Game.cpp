@@ -1,7 +1,7 @@
 module game;
 import <iostream>;
-import <fstream>;
 import <random>;
+import <fstream>;
 using gartic::Game;
 #include "StopWatch.h";
 

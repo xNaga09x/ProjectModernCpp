@@ -1,5 +1,5 @@
 #pragma once
-import <iostream>;
+	import <iostream>;
 import <chrono>;
 import <thread>;
 namespace gartic 
