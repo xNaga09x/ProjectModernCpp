@@ -16,7 +16,6 @@ namespace sql = sqlite_orm;
 //};
 namespace gartic
 {
-    std::vector<User>temp=;
     inline auto createStorage(const std::string& filename)
     {
 

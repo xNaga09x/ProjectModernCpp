@@ -12,12 +12,28 @@ void populateStorage(Storage& storage)
 }
 
 AddToUser::AddToUser(Storage& storage)
-	:m_db{storage}
+	:m_db{ storage }
 {
 
 }
 
 crow::response AddToUser::operator()(const crow::request& req) const
 {
-	return crow::response(201);
+	//extragerea datelor din cerere
+	auto json = crow::json::load(req.body);
+	if (!json)
+	{
+		return crow::response(400, "Invalid JSON in the request body");
+	}
+	//validarea si extragerea datelor utilizatorului
+	UserD newUser;
+	newUser.name = json["name"].s();
+	newUser.average = json["average"].d(); 
+
+	auto newUserId = m_db.insert(newUser);
+
+	return crow::response(201, "User added with ID: " + std::to_string(newUserId));
+
+
+}
 }

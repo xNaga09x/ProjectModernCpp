@@ -47,7 +47,7 @@ int main()
 		});
 
 
-	/*CROW_ROUTE(app, "/Guesser")([word,a]() {
+	CROW_ROUTE(app, "/Guesser")([word,a]() {
 		std::vector<crow::json::wvalue> word_json;
 		word_json.push_back(crow::json::wvalue{
 			{"Name",a.getName()},
@@ -68,38 +68,38 @@ int main()
 				});
 			}
 			return crow::json::wvalue{ users_json };
-		});*/
+		});
 
-	//CROW_ROUTE(app, "/add_user")
-	//	.methods("POST"_method)([&db](const crow::request& req)
-	//		{
-	//			auto json = crow::json::load(req.body);
-	//			if (!json)
-	//			{
-	//				return crow::response(400, "Bad Request: Invalid JSON format");
-	//			}
+	CROW_ROUTE(app, "/add_user")
+		.methods("POST"_method)([&db](const crow::request& req)
+			{
+				auto json = crow::json::load(req.body);
+				if (!json)
+				{
+					return crow::response(400, "Bad Request: Invalid JSON format");
+				}
 
-	//			// validarea si extragerea datelor utilizatorului
-	//			std::string name;
-	//			float average;
-	//			try
-	//			{
-	//				name = json["name"].s();
-	//				average = json["average"].d();
-	//			}
-	//			catch (const std::exception& e)
-	//			{
-	//				return crow::response(400, "Bad Request: Missing or invalid fields in JSON");
-	//			}
+				// validarea si extragerea datelor utilizatorului
+				std::string name;
+				float average;
+				try
+				{
+					name = json["name"].s();
+					average = json["average"].d();
+				}
+				catch (const std::exception& e)
+				{
+					return crow::response(400, "Bad Request: Missing or invalid fields in JSON");
+				}
 
-	//			// adaugarea userului in BD
-	//			User newUser;
-	//			newUser.setName(name);
-	//			newUser.setHistoryAverage( average);
-	//			db.addUser(newUser);
+				// adaugarea userului in BD
+				User newUser;
+				newUser.setName(name);
+				newUser.setHistoryAverage( average);
+				db.addUser(newUser);
 
-	//			return crow::response(201);
-	//		});
+				return crow::response(201);
+			});
 	app.port(18080).multithreaded().run();
 	return 0;
 }
