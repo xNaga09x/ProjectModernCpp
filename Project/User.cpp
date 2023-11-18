@@ -1,7 +1,6 @@
 module user;
 import <format>;
-import <regex>;
-import <vector>;
+
 using gartic::User;
 
 
@@ -124,4 +123,16 @@ User& User::operator=(User&& other) noexcept
 	m_matchHistory = std::move(other.m_matchHistory);
 	m_historyAverage = other.m_historyAverage;
 	return *this;
+}
+
+std::ostream& gartic::operator<<(std::ostream& os, const User& user)
+{
+	os << "ID:" << user.getId() << "\nName:" << user.getName() << "\nMatch History:\n";
+	os << "Match ID    Match Score\n";
+	for (std::pair<uint32_t, int> match : user.getMatchHistory())
+	{
+		os << "   " << match.first << "             " << match.second << "\n";
+	}
+	os << "History Average:" << user.getHistoryAverage() << "\n";
+	return os;
 }

@@ -2,7 +2,7 @@ export module user;
 import<iostream>;
 import <string>;
 import <vector>;
-
+import <regex>;
 namespace gartic
 {
 	export class User
@@ -40,15 +40,6 @@ namespace gartic
 
 
 	export std::ostream& operator<<(std::ostream& os, const User& user);
-	std::ostream& operator<<(std::ostream& os, const User& user)
-	{
-		os << "ID:" << user.getId() << "\nName:" << user.getName() << "\nMatch History:\n";
-		os << "Match ID    Match Score\n";
-		for (std::pair<uint32_t, int> match : user.getMatchHistory())
-		{
-			os << "   " << match.first << "             " << match.second << "\n";
-		}
-		os << "History Average:" << user.getHistoryAverage() << "\n";
-		return os;
-	}
+	
+
 }
