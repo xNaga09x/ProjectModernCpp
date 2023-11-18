@@ -1,7 +1,7 @@
 export module subround;
 import game;
 import round;
-#include "user.h";
+import user;
 
 namespace gartic
 {

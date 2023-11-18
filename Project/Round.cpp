@@ -9,12 +9,12 @@ Round::Round()
 
 
 Round::Round(int noRounds)
-	:m_noRounds(noRounds)
+    :m_noRounds(noRounds)
 {
 }
 
 Round::Round(const Round& other)
-	: m_noRounds(other.m_noRounds)
+    : m_noRounds(other.m_noRounds)
 {
 }
 
@@ -30,14 +30,14 @@ void Round::setNoRounds(int noRounds)
 }
 
 Round::Round(Round&& other) noexcept
-	: m_noRounds(other.m_noRounds)
+    : m_noRounds(other.m_noRounds)
 {
-	other.m_noRounds = 0;
+    other.m_noRounds = 0;
 }
 
 Round& Round::operator=(Round&& other) noexcept
 {
-    if(this != &other) {
+    if (this != &other) {
         m_noRounds = other.m_noRounds;
         other.m_noRounds = 0;
     }

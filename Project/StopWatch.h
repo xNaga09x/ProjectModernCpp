@@ -1,19 +1,19 @@
 #pragma once
-	import <iostream>;
+import <iostream>;
 import <chrono>;
 import <thread>;
-namespace gartic 
+namespace gartic
 {
-	class Stopwatch 
-	{
-	private:
-		std::chrono::high_resolution_clock::time_point startTime;
-		std::chrono::high_resolution_clock::time_point endTime;
+    class Stopwatch
+    {
+    private:
+        std::chrono::high_resolution_clock::time_point startTime;
+        std::chrono::high_resolution_clock::time_point endTime;
 
-	public:
-		Stopwatch() {}
-		void start();
-		void stop();
-		float elapsed_time(); // era double
-	};
+    public:
+        Stopwatch() {}
+        void start();
+        void stop();
+        float elapsed_time(); // era double
+    };
 }

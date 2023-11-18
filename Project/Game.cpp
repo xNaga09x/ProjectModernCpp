@@ -1,7 +1,7 @@
 module game;
 import <iostream>;
-import <random>;
 import <fstream>;
+import <random>;
 using gartic::Game;
 #include "StopWatch.h";
 
@@ -69,39 +69,32 @@ int Game::getCurrentRound(int Round)
 
 void Game::GameOver(int currentRound = 0)
 {
-	while (currentRound < 4)
-	{
+	while (currentRound < 4)	
+	{ 
 		if (currentRound == 4)
 		{
-			std::cout << "Jocul a luat sfarsit\n";
+			std::cout << "trebuie pus ceva cod aici ca sa compileze!";
 		} // Animatie sfarsit de Joc / GAME OVER interface .
 		else std::cout << this->getCurrentRound(currentRound);
 	}
 }
 
-void gartic::Game::addscore(float score)
-{
-	std::pair<uint32_t, float> auxiliar;
-	for (auto el : m_Scores)
-		if (el.first == auxiliar.first)
-			el.second = el.second + auxiliar.second;
 
-}
 
-float gartic::Game::calculateScoreGuesser(float time)
+
+double gartic::Game::calculateScoreGuesser(double time)
 {
 	return (60 - time) * 100 / 30;
 }
 
-float gartic::Game::calculateScorePainter(float averageTime)
+double gartic::Game::calculateScorePainter(double averageTime)
 {
 	return (60 - averageTime) * 100 / 60;
 }
 
-
 std::string gartic::Game::getGuessedWord() const
 {
-	return m_usedWords[m_usedWords.size() - 1];
+	return m_usedWords[m_usedWords.size()-1];
 }
 
 
@@ -146,41 +139,30 @@ void Game::sortPlayersByScore() {
 		return a.second > b.second; });
 }
 
-void gartic::Game::verifyGuessed(User& x)
+void gartic::Game::verifyGuessed()
 {
 	std::string introducedWord;
 	std::cout << "Guess the word:";
 	std::cin >> introducedWord;
 	std::string wordToGuess = selectRandomWord(this->m_Words);
 	addUsedWord(wordToGuess);
+
 	Stopwatch stopwatch;
 	stopwatch.start();
 
 	double elapsedTimeLimit = 60.0;
-	while (introducedWord != wordToGuess)
+	while (introducedWord != wordToGuess )
 	{
-		std::cout << wordToGuess;
+		std::cout<<wordToGuess;
 		std::cin >> introducedWord;
-		if (stopwatch.elapsed_time() >= 60)
-		{
-			std::cout << "The Time to guess has expired";
-			break;
-		}
 
 	}
+
 	stopwatch.stop();
-	std::cout << stopwatch.elapsed_time() << "\n";
-	if (stopwatch.elapsed_time() < 60)
-	{
-		x.setGuessed();    // Possible creation of multiple users(players) , may modify in future.
-		std::cout << "Congrats , you guessed the word";
-		float score = this->calculateScoreGuesser(stopwatch.elapsed_time());
-		this->addscore(score);
-		//Must add score for painter as well but need mediumTime, will add after implementation of server
-	}
-	else this->addscore(-50);
-}
+	std::cout << stopwatch.elapsed_time()<<"\n";
+	std::cout << "Congrats , you guessed the word";
 
+}
 
 std::string Game::selectRandomWord(const std::vector<std::string> m_Words) const
 {

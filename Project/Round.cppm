@@ -3,7 +3,7 @@ import game;
 
 namespace gartic
 {
-	export class Round :public Game 
+	export class Round :public Game
 	{
 	private:
 		int m_noRounds;

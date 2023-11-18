@@ -167,12 +167,12 @@
     <ClCompile Include="Subround.cpp" />
     <ClCompile Include="subround.cppm" />
     <ClCompile Include="user.cpp" />
+    <ClCompile Include="user.cppm" />
     <ClCompile Include="usersDB.cpp" />
     <ClCompile Include="User_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StopWatch.h" />
-    <ClInclude Include="user.h" />
     <ClInclude Include="usersDB.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

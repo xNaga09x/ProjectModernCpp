@@ -1,7 +1,7 @@
-#include"user.h"
-#include <format>;
-#include <regex>;
-#include <vector>;
+module user;
+import <format>;
+import <regex>;
+import <vector>;
 using gartic::User;
 
 

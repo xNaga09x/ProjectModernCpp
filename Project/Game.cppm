@@ -1,9 +1,8 @@
 export module game;
-#include "user.h"
+import user;
 import <vector>;
 import <string>;
 import <algorithm>;
-
 
 
 namespace gartic
@@ -25,14 +24,13 @@ namespace gartic
 		void setScores(const std::vector<std::pair <uint32_t, float>>& scores);
 		void MediumTime();
 		void sortPlayersByScore();
-		void verifyGuessed(User&);
+		void verifyGuessed();// AICI TREBUIE SA VERIFICI DACA A GHICIT user-ul cuvantul si s-a oprit cronometrul pentru el + adaugare scor, + calculateScore
 		void addUsedWord(const std::string&);
 		void FileRead();
 		int getCurrentRound(int);
 		void GameOver(int);
-		void addscore(float score); //de implementat
-		float calculateScoreGuesser(float);
-		float calculateScorePainter(float);
+		double calculateScoreGuesser(double);
+		double calculateScorePainter(double);
 
 		std::string getGuessedWord() const;
 
@@ -40,7 +38,7 @@ namespace gartic
 		Game(Game&& other) noexcept;//move constructor
 		Game& operator=(Game&& other) noexcept;//move assigment
 	private:
-		const int noRounds = 4;
+		static const int noRounds = 4;
 		std::vector<User> m_Players;
 		std::vector<std::string> m_usedWords;
 		std::vector<std::string> m_Words;
