@@ -18,6 +18,9 @@
     <Text Include="GuessingWords.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="templates\fancypage.html.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="User_test.cpp">

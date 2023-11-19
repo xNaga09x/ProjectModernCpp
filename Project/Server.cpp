@@ -11,7 +11,7 @@ import<vector>;
 #include<filesystem>
 #include<memory>
 #include <crow.h>
-#include "usersDB.h"
+//#include "usersDB.h"
 
 int main()
 {
@@ -33,6 +33,8 @@ int main()
 	crow::SimpleApp app;
 
 	CROW_ROUTE(app, "/")([]() {
+		//auto page = crow::mustache::load_text("fancypage.html");
+		//return page;
 		return "This is a test.";
 		});
 
