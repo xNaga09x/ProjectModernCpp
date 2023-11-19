@@ -17,6 +17,13 @@ User::User(const uint32_t& id, const std::string name, const std::vector<std::pa
 {
 }
 
+User::User(const uint32_t& id, const std::string name, const float historyAverage)
+	: m_id(id), 
+	m_name(name), 
+	m_historyAverage(historyAverage)
+{
+}
+
 
 int32_t User::getId() const
 {
@@ -60,17 +67,38 @@ void User::setName(const std::string& name)
 
 void User::setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory)
 {
-	m_matchHistory;
+	m_matchHistory = matchHistory;
 }
 
-void User::setHistoryAverage(const std::vector<std::pair<uint32_t, int>>& matchHistory)
+void gartic::User::setHistoryAverage(const float& historyAverage)
 {
-	int size = int(this->getMatchHistory().size());
+	if (historyAverage < 0.0f) {
+		calculateHistoryAverage();
+	}
+	else {
+		m_historyAverage = historyAverage;
+	}
+}
+
+void gartic::User::calculateHistoryAverage()
+{
+		int size = int(this->getMatchHistory().size());
 	float sum = 0;
 	for (std::pair<uint32_t, int> match : getMatchHistory())
 		sum += match.second;
 	m_historyAverage = sum / size;
 }
+
+
+
+//void User::setHistoryAverage(const std::vector<std::pair<uint32_t, int>>& matchHistory)
+//{
+//	int size = int(this->getMatchHistory().size());
+//	float sum = 0;
+//	for (std::pair<uint32_t, int> match : getMatchHistory())
+//		sum += match.second;
+//	m_historyAverage = sum / size;
+//}
 
 bool User::validateName(const std::string& name)
 {
@@ -84,6 +112,7 @@ bool User::validateName(const std::string& name)
 		std::cout << "The Name " << name << " is not valid!";
 		return false;
 	}
+	return true;  // Adaug? aceast? linie pentru a trata cazul în care numele este valid.
 }
 
 User& User::operator=(const User& other)
