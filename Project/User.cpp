@@ -25,7 +25,7 @@ User::User(const uint32_t& id, const std::string name, const float historyAverag
 }
 
 
-int32_t User::getId() const
+int User::getId() const
 {
 	return m_id;
 }
@@ -55,7 +55,7 @@ void gartic::User::setGuessed()
 	this->m_guessed = true;
 }
 
-void User::setId(const uint32_t& id)
+void User::setId(int id)
 {
 	m_id = id;
 }
@@ -70,7 +70,7 @@ void User::setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHis
 	m_matchHistory = matchHistory;
 }
 
-void gartic::User::setHistoryAverage(const float& historyAverage)
+void gartic::User::setHistoryAverage(float historyAverage)
 {
 	//if (historyAverage < 0.0f) {
 	//	calculateHistoryAverage();

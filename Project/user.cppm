@@ -12,18 +12,18 @@ namespace gartic
 		User(const uint32_t& id, const std::string name, const std::vector<std::pair<uint32_t, int>>& matchHistory, const float historyAverage);
 		User(const uint32_t& id, const std::string name, const float historyAverage);
 
-		int32_t getId() const;
+		int getId() const;
 		std::string getName() const;
 		std::vector<std::pair<uint32_t, int>> getMatchHistory() const;
 		float getHistoryAverage() const;
 		bool getGuessed() const;
 
 		void setGuessed();
-		void setId(const uint32_t& id);
+		void setId(int id);
 		void setName(const std::string& name);
 		void setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory);
 		void calculateHistoryAverage();
-		void setHistoryAverage(const float& historyAverage);
+		void setHistoryAverage(float historyAverage);
 		//void setHistoryAverage(const std::vector<std::pair<uint32_t, int>>& matchHistory);
 
 		bool validateName(const std::string& name);
@@ -34,7 +34,7 @@ namespace gartic
 		User& operator=(User&& other) noexcept;//move assigment operatorz
 		/*friend std::ostream& operator<<(std::ostream& os, const User& user);*/
 	private:
-		uint32_t m_id;
+		int m_id;
 		std::string m_name;
 		std::vector<std::pair<uint32_t, int>>m_matchHistory;
 		float m_historyAverage;
