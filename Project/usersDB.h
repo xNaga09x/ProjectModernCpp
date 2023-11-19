@@ -8,7 +8,6 @@
 #include <sqlite_orm/sqlite_orm.h>
 namespace sql = sqlite_orm;
 
-
 import user;
 inline auto createStorage(const std::string& filename)
 {
@@ -16,9 +15,9 @@ inline auto createStorage(const std::string& filename)
         filename,
         sql::make_table(
             "User",
-            sql::make_column("id", &gartic::User::getId, &gartic::User::setId),
-           sql::make_column("name", &gartic::User::getName, &gartic::User::setName),
-            sql::make_column("average", &gartic::User::getHistoryAverage, &gartic::User::setHistoryAverage, sql::primary_key())
+            sql::make_column("id", &gartic::User::getId, &gartic::User::setId, sql::primary_key().autoincrement()),
+            sql::make_column("name", &gartic::User::getName, &gartic::User::setName),
+            sql::make_column("average", &gartic::User::getHistoryAverage, &gartic::User::setHistoryAverage)
         )
     );
 }
