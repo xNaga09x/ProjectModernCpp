@@ -9,20 +9,25 @@
 namespace sql = sqlite_orm;
 
 import user;
-inline auto createStorage(const std::string& filename)
+
+namespace gartic
 {
-    return sql::make_storage(
-        filename,
-        sql::make_table(
-            "User",
-            sql::make_column("id", &gartic::User::getId, &gartic::User::setId, sql::primary_key().autoincrement()),
-            sql::make_column("name", &gartic::User::getName, &gartic::User::setName),
-            sql::make_column("average", &gartic::User::getHistoryAverage, &gartic::User::setHistoryAverage)
-        )
-    );
+    inline auto createStorage(const std::string& filename)
+    {
+        return sql::make_storage(
+            filename,
+            sql::make_table(
+                "User",
+                sql::make_column("id", &User::getId, &User::setId, sql::primary_key().autoincrement()),
+                sql::make_column("name", &User::getName, &User::setName),
+                sql::make_column("average", &User::getHistoryAverage, &User::setHistoryAverage)
+            )
+        );
+    }
+    using Storage = decltype(createStorage(""));
 }
-using Storage = decltype(createStorage(""));
 //void populateStorage(Storage& storage);
+
 //class AddToUser {
 //public:
 //	AddToUser(Storage& storage);

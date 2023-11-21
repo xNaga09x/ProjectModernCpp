@@ -23,7 +23,7 @@ namespace gartic
 		void setName(const std::string& name);
 		void setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory);
 		void calculateHistoryAverage();
-		void setHistoryAverage(float historyAverage);
+		void setHistoryAverage(const float& historyAverage);
 		//void setHistoryAverage(const std::vector<std::pair<uint32_t, int>>& matchHistory);
 
 		bool validateName(const std::string& name);

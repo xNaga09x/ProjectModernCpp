@@ -26,9 +26,13 @@ int main()
 	vect.push_back(std::make_pair(4, 500));
 	User a = User(1, name, vect, 0);
 	Game b = Game();
-		b.FileRead();
-		b.verifyGuessed();
-		std::string word = b.getGuessedWord();
+	b.FileRead();
+	b.verifyGuessed();
+	std::string word = b.getGuessedWord();
+
+	const std::string db_file = "products.sqlite";
+	Storage db = createStorage(db_file);
+	db.sync_schema();
 
 	crow::SimpleApp app;
 
@@ -42,7 +46,7 @@ int main()
 		return "This will be the game URL.";
 		});
 
-	CROW_ROUTE(app, "/guesser")([word,a]() {
+	CROW_ROUTE(app, "/guesser")([word, a]() {
 		std::vector<crow::json::wvalue> word_json;
 		word_json.push_back(crow::json::wvalue{
 			{"Name",a.getName()},

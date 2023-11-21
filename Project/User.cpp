@@ -70,7 +70,7 @@ void User::setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHis
 	m_matchHistory = matchHistory;
 }
 
-void gartic::User::setHistoryAverage(float historyAverage)
+void gartic::User::setHistoryAverage(const float& historyAverage)
 {
 	//if (historyAverage < 0.0f) {
 	//	calculateHistoryAverage();
