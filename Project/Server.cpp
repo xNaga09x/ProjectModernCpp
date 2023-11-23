@@ -34,6 +34,13 @@ int main()
 	Storage db = createStorage(db_file);
 	db.sync_schema();
 
+	auto initUsersCount = db.count<User>();
+	if (initUsersCount == 0)
+		populateStorage(db);
+
+	auto usersCount = db.count<User>();
+	std::cout << "\nusersCount = " << usersCount << '\n';
+
 	crow::SimpleApp app;
 
 	CROW_ROUTE(app, "/")([]() {
@@ -52,13 +59,23 @@ int main()
 			{"Name",a.getName()},
 			{"Guess:", word}
 			});
-		//return "This is path.";
 		return crow::json::wvalue{ word_json };
 		});
 
-	/*CROW_ROUTE(app, "/users")([&db]() {
-		return "This will be the users database.";
-		});*/
+	CROW_ROUTE(app, "/users")([&db]() {
+		std::vector<crow::json::wvalue> users_json;
+
+		for (const auto& user : db.iterate<User>())
+		{
+			users_json.push_back(crow::json::wvalue{
+				{"id", user.getId()},
+				{"name", user.getName()},
+				{"average", user.getHistoryAverage()}
+				});
+			//std::string product_json = db.dump(user);			
+		}
+		return crow::json::wvalue{ users_json };
+		});
 
 	app.port(18080).multithreaded().run();
 	return 0;
