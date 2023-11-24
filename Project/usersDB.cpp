@@ -1,4 +1,5 @@
 #include "usersDB.h"
+
 void populateStorage(Storage& storage)
 {
 	std::vector<gartic::User> users{

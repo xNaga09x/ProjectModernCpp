@@ -25,6 +25,7 @@ int main()
 	b.verifyGuessed();
 	std::string word = b.getGuessedWord();
 
+
 	const std::string db_file = "products.sqlite";
 	Storage db = createStorage(db_file);
 	db.sync_schema();
@@ -39,13 +40,18 @@ int main()
 	crow::SimpleApp app;
 
 	CROW_ROUTE(app, "/")([]() {
-		//auto page = crow::mustache::load_text("fancypage.html");
-		//return page;
-		return "This is a test.";
+		return "<html>"
+			"<body>"
+			"<p>This is the main lobby</p>"
+			"<p>Go to the Game section: <a href=\"/game\">Game</a></p>"
+			"<p>Go to the Users section: <a href=\"/users\">users</a></p>"
+			"<p>Go to the Guesser's section: <a href=\"/guesser\">WordToGuess</a></p>"
+			"</body>"
+			"</html>";
 		});
 
 	CROW_ROUTE(app, "/game")([]() {
-		return "This will be the game URL.";
+		return "This is the Game section";
 		});
 
 	CROW_ROUTE(app, "/guesser")([word, a]() {
@@ -117,11 +123,9 @@ int main()
 	//Incercare addUser V2
 	CROW_ROUTE(app, "/adduser/<int>")([&db](const crow::request& req, int userId) {
 		gartic::User newUser;
+		std::string name_chr=req.url_params.get("name");  
 		newUser.setId(userId);
-		std::cout << "Introduceti nume:";
-		std::string name;
-		std::cin >> name; // Problema este ca se deschide consola pt introducere nume -> se implementeaza in client 
-		newUser.setName(name);
+		newUser.setName(name_chr);
 		db.insert(newUser);
 
 		return crow::response(200);
