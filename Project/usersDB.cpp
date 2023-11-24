@@ -2,10 +2,10 @@
 void populateStorage(Storage& storage)
 {
 	std::vector<gartic::User> users{
-	   gartic::User{ 1, "Pavel", 5.f },
-	   gartic::User{ 2, "Petru", 0.2f },  //Punem -1 pt ca atunci cand inseram nu stim cate elemente avem in BD
-	   gartic::User{ 3, "Sergiu", 2.f },
-	   gartic::User{ 4, "Iulian", 8.f }
+	   gartic::User{ 1, "Pavel" },
+	   gartic::User{ 2, "Petru" }, 
+	   gartic::User{ 3, "Sergiu" },
+	   gartic::User{ 4, "Iulian" }
 	};
 	storage.sync_schema();
 	storage.insert_range(users.begin(), users.end());

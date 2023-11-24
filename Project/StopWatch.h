@@ -14,6 +14,7 @@ namespace gartic
         Stopwatch() {}
         void start();
         void stop();
-        float elapsed_time(); // era double
+        float elapsed_time();
     };
 }
+// DLL momentan stopwatch .

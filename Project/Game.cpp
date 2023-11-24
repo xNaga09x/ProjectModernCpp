@@ -23,22 +23,22 @@ void Game::setScores(const std::vector<std::pair<uint32_t, float>>& scores)
 	m_Scores = scores;
 }
 
-std::vector<gartic::User> Game::GetPlayers() const
+const std::vector<gartic::User>& Game::GetPlayers() const
 {
 	return m_Players;
 }
 
-std::vector<std::string> Game::getUsedWords() const
+const std::vector<std::string>& Game::GetUsedWords() const
 {
 	return m_usedWords;
 }
 
-std::vector<std::string> Game::getWords() const
+const std::vector<std::string>& Game::GetWords() const
 {
 	return m_Words;
 }
 
-std::vector<std::pair <uint32_t, float>> Game::getScores() const
+const std::vector<std::pair <uint32_t, float>>& Game::GetScores() const
 {
 	return m_Scores;
 }

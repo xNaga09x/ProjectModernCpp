@@ -156,7 +156,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="GuessingWords.txt" />
-    <Text Include="templates\fancypage.html.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
@@ -170,7 +169,6 @@
     <ClCompile Include="user.cpp" />
     <ClCompile Include="user.cppm" />
     <ClCompile Include="usersDB.cpp" />
-    <ClCompile Include="User_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StopWatch.h" />

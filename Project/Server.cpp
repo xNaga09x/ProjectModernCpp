@@ -19,12 +19,7 @@ int main()
 	std::cout << "Introduceti Username-ul:";
 	std::string name;
 	std::cin >> name;
-	std::vector<std::pair<uint32_t, int>> vect;
-	vect.push_back(std::make_pair(1, 200));
-	vect.push_back(std::make_pair(2, 400));
-	vect.push_back(std::make_pair(3, 250));
-	vect.push_back(std::make_pair(4, 500));
-	User a = User(1, name, vect, 0);
+	User a = User(1, name);
 	Game b = Game();
 	b.FileRead();
 	b.verifyGuessed();
@@ -71,7 +66,6 @@ int main()
 			users_json.push_back(crow::json::wvalue{
 				{"id", user.getId()},
 				{"name", user.getName()},
-				{"average", user.getHistoryAverage()}
 				});
 			//std::string product_json = db.dump(user);			
 		}
@@ -127,10 +121,7 @@ int main()
 		std::cout << "Introduceti nume:";
 		std::string name;
 		std::cin >> name; // Problema este ca se deschide consola pt introducere nume -> se implementeaza in client 
-		float avg;
-		std::cin >> avg;
 		newUser.setName(name);
-		newUser.setHistoryAverage(avg);
 		db.insert(newUser);
 
 		return crow::response(200);

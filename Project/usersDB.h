@@ -10,8 +10,7 @@ inline auto createStorage(const std::string& filename)
         sql::make_table(
             "User",
             sql::make_column("id", &gartic::User::getId, &gartic::User::setId, sql::primary_key().autoincrement()),
-            sql::make_column("name", &gartic::User::getName, &gartic::User::setName),
-            sql::make_column("average", &gartic::User::getHistoryAverage, &gartic::User::setHistoryAverage)
+            sql::make_column("name", &gartic::User::getName, &gartic::User::setName)
         )
     );
 }

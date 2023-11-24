@@ -8,22 +8,28 @@ User::User()
 {
 }
 
-User::User(const uint32_t& id, const std::string& name, const std::vector<std::pair<uint32_t, int>>& matchHistory, const float historyAverage)
-	: m_id(id)
-	, m_name(name)
-	, m_matchHistory(matchHistory)
-	, m_historyAverage(historyAverage)
+//User::User(const uint32_t& id, const std::string& name, const std::vector<std::pair<uint32_t, int>>& matchHistory, const float historyAverage)
+//	: m_id(id)
+//	, m_name(name)
+//	, m_matchHistory(matchHistory)
+//	, m_historyAverage(historyAverage)
+//
+//{
+//}
 
+//User::User(const uint32_t& id, const std::string& name, const float historyAverage)
+//	: m_id(id), 
+//	m_name(name), 
+//	m_historyAverage(historyAverage)
+//{
+//}
+
+
+gartic::User::User(const uint32_t& id = -1, const std::string& name="") :
+	m_id(id),
+	m_name(name)
 {
 }
-
-User::User(const uint32_t& id, const std::string& name, const float historyAverage)
-	: m_id(id), 
-	m_name(name), 
-	m_historyAverage(historyAverage)
-{
-}
-
 
 int User::getId() const
 {
@@ -35,15 +41,15 @@ std::string User::getName() const
 	return m_name;
 }
 
-std::vector<std::pair<uint32_t, int>> User::getMatchHistory() const
-{
-	return m_matchHistory;
-}
+//std::vector<std::pair<uint32_t, int>> User::getMatchHistory() const
+//{
+//	return m_matchHistory;
+//}
 
-float User::getHistoryAverage() const
-{
-	return m_historyAverage;
-}
+//float User::getHistoryAverage() const
+//{
+//	return m_historyAverage;
+//}
 
 bool gartic::User::getGuessed() const
 {
@@ -65,30 +71,30 @@ void User::setName(const std::string& name)
 	m_name = name;
 }
 
-void User::setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory)
-{
-	m_matchHistory = matchHistory;
-}
+//void User::setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory)
+//{
+//	m_matchHistory = matchHistory;
+//}
 
-void gartic::User::setHistoryAverage(const float& historyAverage)
-{
-	//if (historyAverage < 0.0f) {
-	//	calculateHistoryAverage();
-	//}
-	//else {
-	//	m_historyAverage = historyAverage;
-	//}
-	m_historyAverage = historyAverage;
-}
+//void gartic::User::setHistoryAverage(const float& historyAverage)
+//{
+//	if (historyAverage < 0.0f) {
+//		calculateHistoryAverage();
+//	}
+//	else {
+//		m_historyAverage = historyAverage;
+//	}
+//	m_historyAverage = historyAverage;
+//}
 
-void gartic::User::calculateHistoryAverage()
-{
-		int size = int(this->getMatchHistory().size());
-	float sum = 0;
-	for (std::pair<uint32_t, int> match : getMatchHistory())
-		sum += match.second;
-	m_historyAverage = sum / size;
-}
+//void gartic::User::calculateHistoryAverage()
+//{
+//		int size = int(this->getMatchHistory().size());
+//	float sum = 0;
+//	for (std::pair<uint32_t, int> match : getMatchHistory())
+//		sum += match.second;
+//	m_historyAverage = sum / size;
+//}
 
 
 
@@ -124,8 +130,8 @@ User& User::operator=(const User& other)
 	}
 	m_id = other.m_id;
 	m_name = other.m_name;
-	m_matchHistory = other.m_matchHistory;
-	m_historyAverage = other.m_historyAverage;
+	/*m_matchHistory = other.m_matchHistory;
+	m_historyAverage = other.m_historyAverage;*/
 	return *this;
 }
 
@@ -133,8 +139,8 @@ User::User(User&& other) noexcept
 {
 	m_id = other.m_id;
 	m_name = std::move(other.m_name);
-	m_matchHistory = std::move(other.m_matchHistory);
-	m_historyAverage = other.m_historyAverage;
+	/*m_matchHistory = std::move(other.m_matchHistory);
+	m_historyAverage = other.m_historyAverage;*/
 }
 
 User::User(const User& other) noexcept
@@ -150,19 +156,11 @@ User& User::operator=(User&& other) noexcept
 	}
 	m_id = other.m_id;
 	m_name = std::move(other.m_name);
-	m_matchHistory = std::move(other.m_matchHistory);
-	m_historyAverage = other.m_historyAverage;
 	return *this;
 }
 
 std::ostream& gartic::operator<<(std::ostream& os, const User& user)
 {
-	os << "ID:" << user.getId() << "\nName:" << user.getName() << "\nMatch History:\n";
-	os << "Match ID    Match Score\n";
-	for (std::pair<uint32_t, int> match : user.getMatchHistory())
-	{
-		os << "   " << match.first << "             " << match.second << "\n";
-	}
-	os << "History Average:" << user.getHistoryAverage() << "\n";
+	os << "ID:" << user.getId() << "\nName:" << user.getName() << "\n";
 	return os;
 }
