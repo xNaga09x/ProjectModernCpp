@@ -121,20 +121,20 @@ int main()
 	//	});
 
 	//Incercare addUser V2
-	//CROW_ROUTE(app, "/adduser/<int>")([&db](const crow::request& req, int userId) {
-	//	gartic::User newUser;
-	//	newUser.setId(userId);
-	//	std::cout << "Introduceti nume:";
-	//	std::String name;
-	//	std::cin >> name;
-	//	float average;
-	//	std::cin >> avg;
-	//	newUser.setName(name);
-	//	newUser.setHistoryAverage(avg);
-	//	db.insert(newUser);
+	CROW_ROUTE(app, "/adduser/<int>")([&db](const crow::request& req, int userId) {
+		gartic::User newUser;
+		newUser.setId(userId);
+		std::cout << "Introduceti nume:";
+		std::string name;
+		std::cin >> name; // Problema este ca se deschide consola pt introducere nume -> se implementeaza in client 
+		float avg;
+		std::cin >> avg;
+		newUser.setName(name);
+		newUser.setHistoryAverage(avg);
+		db.insert(newUser);
 
-	//	return crow::response(200);
-	//	});
+		return crow::response(200);
+		});
 
 	//auto& addToUserPut = CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::PUT); // https://stackoverflow.com/a/630475/12388382
 	//addToUserPut(AddToUserHandler(db));

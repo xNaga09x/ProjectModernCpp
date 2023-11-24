@@ -8,7 +8,7 @@ User::User()
 {
 }
 
-User::User(const uint32_t& id, const std::string name, const std::vector<std::pair<uint32_t, int>>& matchHistory, const float historyAverage)
+User::User(const uint32_t& id, const std::string& name, const std::vector<std::pair<uint32_t, int>>& matchHistory, const float historyAverage)
 	: m_id(id)
 	, m_name(name)
 	, m_matchHistory(matchHistory)
@@ -17,7 +17,7 @@ User::User(const uint32_t& id, const std::string name, const std::vector<std::pa
 {
 }
 
-User::User(const uint32_t& id, const std::string name, const float historyAverage)
+User::User(const uint32_t& id, const std::string& name, const float historyAverage)
 	: m_id(id), 
 	m_name(name), 
 	m_historyAverage(historyAverage)

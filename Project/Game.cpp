@@ -23,7 +23,7 @@ void Game::setScores(const std::vector<std::pair<uint32_t, float>>& scores)
 	m_Scores = scores;
 }
 
-std::vector<gartic::User> Game::getPlayers() const
+std::vector<gartic::User> Game::GetPlayers() const
 {
 	return m_Players;
 }

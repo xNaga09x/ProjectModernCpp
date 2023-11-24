@@ -16,10 +16,9 @@ namespace gartic
 		Game();
 		~Game();
 
-
-		std::vector<User> getPlayers() const;
+		std::vector<User> GetPlayers() const;
 		std::vector<std::string> getUsedWords() const;
-		std::vector<std::string> getWords() const;
+		std::vector<std::string> getWords() const; //const & pt vectori .
 		std::vector<std::pair <uint32_t, float>> getScores() const;
 
 		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
