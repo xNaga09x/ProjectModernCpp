@@ -90,10 +90,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="Login_Interface.qrc" />
+    <QtUic Include="Guesser_Interface.ui" />
     <QtUic Include="Login_Interface.ui" />
     <QtMoc Include="Login_Interface.h" />
+    <ClCompile Include="Guesser_Interface.cpp" />
     <ClCompile Include="Login_Interface.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Guesser_Interface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
