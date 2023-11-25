@@ -18,13 +18,13 @@ Round::Round(const Round& other)
 {
 }
 
-int Round::getNoRounds() const
+int Round::GetNoRounds() const
 {
     return m_noRounds;
 
 }
 
-void Round::setNoRounds(int noRounds)
+void Round::SetNoRounds(int noRounds)
 {
     m_noRounds = noRounds;
 }

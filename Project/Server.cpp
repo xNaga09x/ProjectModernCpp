@@ -23,7 +23,7 @@ int main()
 	Game b = Game();
 	b.FileRead();
 	b.verifyGuessed();
-	std::string word = b.getGuessedWord();
+	std::string word = b.GetGuessedWord();
 
 
 	const std::string db_file = "products.sqlite";

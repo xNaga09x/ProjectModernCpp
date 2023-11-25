@@ -16,10 +16,10 @@ namespace gartic
 
 		Subround(const User& m_painter, const std::vector<User>& m_guessers);
 
-		const User& getPainter() const;
-		void setPainter(const User& painter);
-		const std::vector<User>& getGuessers() const;
-		void setGuessers(const std::vector<User>& guessers);
+		const User& GetPainter() const;
+		void SetPainter(const User& painter);
+		const std::vector<User>& GetGuessers() const;
+		void SetGuessers(const std::vector<User>& guessers);
 
 		Subround& operator=(const Subround& other);//copy assigment
 		Subround(Subround&& other) noexcept;//move constructor

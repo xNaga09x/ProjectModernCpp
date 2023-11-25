@@ -15,8 +15,8 @@ namespace gartic
 		Round(int m_noRounds);
 		Round(const Round& other);
 
-		int getNoRounds() const;
-		void setNoRounds(int noRounds);
+		int GetNoRounds() const;
+		void SetNoRounds(int noRounds);
 
 		Round(Round&& other) noexcept;
 		Round& operator=(Round&& other) noexcept;

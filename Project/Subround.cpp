@@ -12,22 +12,22 @@ Subround::Subround(const gartic::User& painter, const std::vector<gartic::User>&
 {
 }
 
-const gartic::User& Subround::getPainter() const
+const gartic::User& Subround::GetPainter() const
 {
 	return m_painter;
 }
 
-void Subround::setPainter(const gartic::User& painter)
+void Subround::SetPainter(const gartic::User& painter)
 {
 	m_painter = painter;
 }
 
-const std::vector<gartic::User>& Subround::getGuessers() const
+const std::vector<gartic::User>& Subround::GetGuessers() const
 {
 	return m_guessers;
 }
 
-void Subround::setGuessers(const std::vector<gartic::User>& guessers)
+void Subround::SetGuessers(const std::vector<gartic::User>& guessers)
 {
 	m_guessers = guessers;
 }

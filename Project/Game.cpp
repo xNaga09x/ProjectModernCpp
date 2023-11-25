@@ -91,7 +91,7 @@ double gartic::Game::CalculateScorePainter(double averageTime)
 	return (60 - averageTime) * 100 / 60;
 }
 
-std::string gartic::Game::getGuessedWord() const
+std::string gartic::Game::GetGuessedWord() const
 {
 	return m_usedWords[m_usedWords.size()-1];
 }
