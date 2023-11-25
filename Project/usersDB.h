@@ -9,8 +9,8 @@ inline auto createStorage(const std::string& filename)
         filename,
         sql::make_table(
             "User",
-            sql::make_column("id", &gartic::User::getId, &gartic::User::setId, sql::primary_key().autoincrement()),
-            sql::make_column("name", &gartic::User::getName, &gartic::User::setName)
+            sql::make_column("id", &gartic::User::GetId, &gartic::User::SetId, sql::primary_key().autoincrement()),
+            sql::make_column("name", &gartic::User::GetName, &gartic::User::SetName)
         )
     );
 }

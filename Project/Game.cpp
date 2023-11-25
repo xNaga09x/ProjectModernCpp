@@ -15,7 +15,7 @@ Game::~Game()
 
 void Game::SetPlayerScoreDefault(float score, gartic::User entity)
 {
-	this->m_Scores.push_back({ entity.getId(), score });
+	this->m_Scores.push_back({ entity.GetId(), score });
 }
 
 void Game::SetScores(const std::vector<std::pair<uint32_t, float>>& scores)

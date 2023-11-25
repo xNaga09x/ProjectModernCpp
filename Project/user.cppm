@@ -13,21 +13,21 @@ namespace gartic
 		User(const uint32_t& id, const std::string& name, const float historyAverage);*/
 		User(const uint32_t& id, const std::string& name);
 
-		int getId() const;
-		std::string getName() const;
+		int GetId() const;
+		std::string GetName() const;
 		/*std::vector<std::pair<uint32_t, int>> getMatchHistory() const;
 		float getHistoryAverage() const; */
-		bool getGuessed() const;
+		bool GetGuessed() const;
 
-		void setGuessed();
-		void setId(int id);
-		void setName(const std::string& name);
+		void SetGuessed();
+		void SetId(int id);
+		void SetName(const std::string& name);
 		/*void setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory);
 		void calculateHistoryAverage();
 		void setHistoryAverage(const float& historyAverage);*/
 		//void setHistoryAverage(const std::vector<std::pair<uint32_t, int>>& matchHistory);
 
-		bool validateName(const std::string& name);
+		bool ValidateName(const std::string& name);
 
 		User& operator=(const User& other);//copy assigmnent
 		User(User&& other) noexcept;//move constructor

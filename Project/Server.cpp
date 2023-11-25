@@ -57,7 +57,7 @@ int main()
 	CROW_ROUTE(app, "/guesser")([word, a]() {
 		std::vector<crow::json::wvalue> word_json;
 		word_json.push_back(crow::json::wvalue{
-			{"Name",a.getName()},
+			{"Name",a.GetName()},
 			{"Guess:", word}
 			});
 		return crow::json::wvalue{ word_json };
@@ -70,8 +70,8 @@ int main()
 		for (const auto& user : db.iterate<User>())
 		{
 			users_json.push_back(crow::json::wvalue{
-				{"id", user.getId()},
-				{"name", user.getName()},
+				{"id", user.GetId()},
+				{"name", user.GetName()},
 				});
 			//std::string product_json = db.dump(user);			
 		}
@@ -124,8 +124,8 @@ int main()
 	CROW_ROUTE(app, "/adduser/<int>")([&db](const crow::request& req, int userId) {
 		gartic::User newUser;
 		std::string name_chr=req.url_params.get("name");  
-		newUser.setId(userId);
-		newUser.setName(name_chr);
+		newUser.SetId(userId);
+		newUser.SetName(name_chr);
 		db.insert(newUser);
 
 		return crow::response(200);

@@ -31,12 +31,12 @@ gartic::User::User(const uint32_t& id = -1, const std::string& name="") :
 {
 }
 
-int User::getId() const
+int User::GetId() const
 {
 	return m_id;
 }
 
-std::string User::getName() const
+std::string User::GetName() const
 {
 	return m_name;
 }
@@ -51,22 +51,22 @@ std::string User::getName() const
 //	return m_historyAverage;
 //}
 
-bool gartic::User::getGuessed() const
+bool gartic::User::GetGuessed() const
 {
 	return this->m_guessed;
 }
 
-void gartic::User::setGuessed()
+void gartic::User::SetGuessed()
 {
 	this->m_guessed = true;
 }
 
-void User::setId(int id)
+void User::SetId(int id)
 {
 	m_id = id;
 }
 
-void User::setName(const std::string& name)
+void User::SetName(const std::string& name)
 {
 	m_name = name;
 }
@@ -107,7 +107,7 @@ void User::setName(const std::string& name)
 //	m_historyAverage = sum / size;
 //}
 
-bool User::validateName(const std::string& name)
+bool User::ValidateName(const std::string& name)
 {
 	std::regex pattern("^(?=.*[a-zA-Z])(?=.*[0-9]).+$");
 	if (std::regex_match(name, pattern))
@@ -161,6 +161,6 @@ User& User::operator=(User&& other) noexcept
 
 std::ostream& gartic::operator<<(std::ostream& os, const User& user)
 {
-	os << "ID:" << user.getId() << "\nName:" << user.getName() << "\n";
+	os << "ID:" << user.GetId() << "\nName:" << user.GetName() << "\n";
 	return os;
 }
