@@ -13,12 +13,12 @@ Game::~Game()
 }
 
 
-void Game::setPlayerScoreDefault(float score, gartic::User entity)
+void Game::SetPlayerScoreDefault(float score, gartic::User entity)
 {
 	this->m_Scores.push_back({ entity.getId(), score });
 }
 
-void Game::setScores(const std::vector<std::pair<uint32_t, float>>& scores)
+void Game::SetScores(const std::vector<std::pair<uint32_t, float>>& scores)
 {
 	m_Scores = scores;
 }
@@ -60,7 +60,7 @@ void Game::FileRead()
 	file.close();
 }
 
-int Game::getCurrentRound(int Round)
+int Game::GetCurrentRound(int Round)
 {
 	return Round;
 }
@@ -74,19 +74,19 @@ void Game::GameOver(int currentRound = 0)
 		{
 			std::cout << "trebuie pus ceva cod aici ca sa compileze!";
 		} // Animatie sfarsit de Joc / GAME OVER interface .
-		else std::cout << this->getCurrentRound(currentRound);
+		else std::cout << this->GetCurrentRound(currentRound);
 	}
 }
 
 
 
 
-double gartic::Game::calculateScoreGuesser(double time)
+double gartic::Game::CalculateScoreGuesser(double time)
 {
 	return (60 - time) * 100 / 30;
 }
 
-double gartic::Game::calculateScorePainter(double averageTime)
+double gartic::Game::CalculateScorePainter(double averageTime)
 {
 	return (60 - averageTime) * 100 / 60;
 }
@@ -133,7 +133,7 @@ Game& Game::operator=(Game&& other) noexcept
 }
 
 
-void Game::sortPlayersByScore() {
+void Game::SortPlayersByScore() {
 	std::sort(m_Scores.begin(), m_Scores.end(), [](const auto& a, const auto& b) {
 		return a.second > b.second; });
 }
@@ -144,7 +144,7 @@ void gartic::Game::verifyGuessed()
 	std::cout << "Guess the word:";
 	std::cin >> introducedWord;
 	std::string wordToGuess = selectRandomWord(this->m_Words);
-	addUsedWord(wordToGuess);
+	AddUsedWord(wordToGuess);
 
 	Stopwatch stopwatch;
 	stopwatch.start();
@@ -179,6 +179,6 @@ std::string Game::selectRandomWord(const std::vector<std::string> m_Words) const
 	return m_Words[randomIndex];
 }
 
-void Game::addUsedWord(const std::string& word) {
+void Game::AddUsedWord(const std::string& word) {
 	m_usedWords.push_back(word);
 }

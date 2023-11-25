@@ -22,17 +22,17 @@ namespace gartic
 		const std::vector<std::pair <uint32_t, float>>& GetScores() const;
 
 		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
-		void setPlayerScoreDefault(float, User);
-		void setScores(const std::vector<std::pair <uint32_t, float>>& scores);
+		void SetPlayerScoreDefault(float, User);
+		void SetScores(const std::vector<std::pair <uint32_t, float>>& scores);
 		void MediumTime();
-		void sortPlayersByScore();
+		void SortPlayersByScore();
 		void verifyGuessed();// AICI TREBUIE SA VERIFICI DACA A GHICIT user-ul cuvantul si s-a oprit cronometrul pentru el + adaugare scor, + calculateScore
-		void addUsedWord(const std::string&);
+		void AddUsedWord(const std::string&);
 		void FileRead();
-		int getCurrentRound(int);
+		int GetCurrentRound(int);
 		void GameOver(int);
-		double calculateScoreGuesser(double);
-		double calculateScorePainter(double);
+		double CalculateScoreGuesser(double);
+		double CalculateScorePainter(double);
 
 		std::string getGuessedWord() const;
 
