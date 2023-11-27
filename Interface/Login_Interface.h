@@ -1,10 +1,11 @@
 #pragma once
 
-#include <QtWidgets/QMainWindow>
 #include "ui_Login_Interface.h"
+#include <QMessageBox>
+#include <QPalette>
 #include <QPixmap>
-#include<QPalette>
-#include<QMessageBox>
+#include <QtWidgets/QMainWindow>
+
 class Login_Interface : public QMainWindow
 {
     Q_OBJECT

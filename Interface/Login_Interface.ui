@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>532</width>
+    <width>531</width>
     <height>388</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <string>Login_Interface</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/Login_Interface/C:/Users/petru/Desktop/50-Beautiful-and-Minimalist-Presentation-Backgrounds-042.jpg);</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="label">
@@ -112,7 +112,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>532</width>
+     <width>531</width>
      <height>22</height>
     </rect>
    </property>
