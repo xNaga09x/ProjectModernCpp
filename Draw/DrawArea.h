@@ -35,7 +35,7 @@ protected:
     void resizeEvent(QResizeEvent* event) override;     // verif. ca QImaginea pe care desenam sa fie minim de dimensiunea widgetului
 
 private:
-    Ui::DrawAreaClass ui;
+    //Ui::DrawAreaClass ui;
 
     void drawLineTo(const QPoint& endPoint);                // excuta actiunea efectiva de desenare
     void resizeImage(QImage* image, const QSize& newSize);  // schimba marimile imaginii

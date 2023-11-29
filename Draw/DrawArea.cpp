@@ -1,9 +1,9 @@
 #include "DrawArea.h"
 
 DrawArea::DrawArea(QWidget *parent)
-	: QMainWindow(parent)
+    
 {
-	ui.setupUi(this);
+	//ui.setupUi(this);
 	setAttribute(Qt::WA_StaticContents); //setam atributul StaticContents pentru a fixa continutul widgetului in coltul din stanga sus
 										 //se fol. pentru a optimiza redimensionarile
 }
