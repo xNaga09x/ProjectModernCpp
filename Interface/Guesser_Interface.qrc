@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/Guesser_Interface">
+    <file>Background_Image.jpg</file>
+  </qresource>
+</RCC>

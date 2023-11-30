@@ -1,9 +1,9 @@
 #include "Guesser_Interface.h"
 
 Guesser_Interface::Guesser_Interface(QWidget *parent)
-	: QMainWindow(parent)
+    : QMainWindow(parent)
 {
-	ui.setupUi(this);
+    ui.setupUi(this);
 }
 
 Guesser_Interface::~Guesser_Interface()
