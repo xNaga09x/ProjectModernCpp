@@ -19,6 +19,7 @@ namespace gartic
 		const std::vector<User>& GetPlayers() const;
 		const std::vector<std::string>& GetUsedWords() const;
 		const std::vector<std::string>& GetWords() const;
+		const std::vector<std::string>& GetTips() const;
 		const std::vector<std::pair <uint32_t, float>>& GetScores() const;
 
 		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
@@ -45,5 +46,6 @@ namespace gartic
 		std::vector<std::string> m_usedWords;
 		std::vector<std::string> m_Words;
 		std::vector<std::pair <uint32_t, float>> m_Scores;//playerID, scor
+		std::vector<std::string> m_Tips;
 	};
 }

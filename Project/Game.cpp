@@ -38,6 +38,11 @@ const std::vector<std::string>& Game::GetWords() const
 	return m_Words;
 }
 
+const std::vector<std::string>& gartic::Game::GetTips() const
+{
+	return m_Tips;
+}
+
 const std::vector<std::pair <uint32_t, float>>& Game::GetScores() const
 {
 	return m_Scores;
@@ -58,6 +63,12 @@ void Game::FileRead()
 		m_Words.push_back(word);
 	}
 	file.close();
+	std::ifstream file2("TipsWords.txt");
+	while (!file2.eof())
+	{
+		std::getline(file2, word);
+		m_Tips.push_back(word);
+	}
 }
 
 int Game::GetCurrentRound(int Round)
