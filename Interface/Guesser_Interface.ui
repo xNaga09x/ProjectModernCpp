@@ -41,7 +41,7 @@
      <string>Gartic</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="Loggin">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -51,10 +51,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>Login</string>
+     <string>Loggin</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="Register">
     <property name="geometry">
      <rect>
       <x>210</x>
@@ -78,7 +78,7 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="Username">
        <property name="font">
         <font>
          <pointsize>15</pointsize>

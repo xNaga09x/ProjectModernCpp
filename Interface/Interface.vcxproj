@@ -97,10 +97,15 @@
     <QtUic Include="Guesser_Interface.ui" />
     <QtMoc Include="Guesser_Interface.h" />
     <ClCompile Include="Guesser_Interface.cpp" />
+    <ClCompile Include="Loggin_Interface.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="Loggin_Interface.ui" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Background_Image.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Loggin_Interface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
