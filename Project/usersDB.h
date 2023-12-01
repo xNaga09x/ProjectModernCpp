@@ -21,7 +21,7 @@ class AddToUser {
 public:
 	AddToUser(Storage& storage);
 
-	//crow::response operator() (const crow::request& req) const;
+	crow::response operator() (const crow::request& req) const;
 
 private:
 	Storage& m_db;

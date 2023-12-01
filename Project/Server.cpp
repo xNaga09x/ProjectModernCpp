@@ -38,6 +38,7 @@ int main()
 	std::cout << "\nusersCount = " << usersCount << '\n';
 
 	crow::SimpleApp app;
+	
 
 	CROW_ROUTE(app, "/")([]() {
 		return "<html>"
@@ -80,8 +81,6 @@ int main()
 
 	//Incercare addUser V1
 
-	//std::string name = "NumeUtilizator";
-	//float average = 3.5;
 
 	//// Construiește JSON-ul
 	//std::string json_data = R"({"name": ")" + name + R"(", "average": )" + std::to_string(average) + "}";
@@ -122,17 +121,18 @@ int main()
 
 	//Incercare addUser V2
 	CROW_ROUTE(app, "/adduser/<int>")([&db](const crow::request& req, int userId) {
-		gartic::User newUser;
-		std::string name_chr=req.url_params.get("name");  
-		newUser.SetId(userId);
-		newUser.SetName(name_chr);
-		db.insert(newUser);
-
-		return crow::response(200);
+	gartic::User newUser;
+	std::string name_chr=req.url_params.get("name");  
+	newUser.SetId(userId);
+	newUser.SetName(name_chr);
+	db.insert(newUser);
+	return crow::response(200);
 		});
+	
+	auto& addToUserPut = CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::PUT); // https://stackoverflow.com/a/630475/12388382
+	addToUserPut(AddToUser(db));
 
-	//auto& addToUserPut = CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::PUT); // https://stackoverflow.com/a/630475/12388382
-	//addToUserPut(AddToUserHandler(db));
+
 
 	app.port(18080).multithreaded().run();
 	return 0;
