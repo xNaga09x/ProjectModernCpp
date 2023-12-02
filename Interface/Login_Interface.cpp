@@ -1,21 +1,21 @@
-#include "Guesser_Interface.h"
+#include "Login_Interface.h"
 
-Guesser_Interface::Guesser_Interface(QWidget *parent)
+Login_Interface::Login_Interface(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
     Lobby = nullptr;
 }
 
-Guesser_Interface::~Guesser_Interface()
+Login_Interface::~Login_Interface()
 {}
-void Guesser_Interface::on_Loggin_clicked()
+void Login_Interface::on_Loggin_clicked()
 {
     this->close();
     Lobby = new Lobby_Interface(this);
     Lobby->show();
 }
-void Guesser_Interface::on_Register_clicked()
+void Login_Interface::on_Register_clicked()
 {
     this->close();
     Lobby = new Lobby_Interface(this);
