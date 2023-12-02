@@ -92,29 +92,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Guess_Game_Interface.cpp" />
     <ClCompile Include="Lobby_Interface.cpp" />
-    <ClCompile Include="Register_Interface.cpp" />
-    <QtRcc Include="Guesser_Interface.qrc" />
-    <QtUic Include="Guesser_Interface.ui" />
-    <QtMoc Include="Guesser_Interface.h" />
-    <ClCompile Include="Guesser_Interface.cpp" />
-    <ClCompile Include="Loggin_Interface.cpp" />
+    <QtRcc Include="Login_Interface.qrc" />
+    <QtUic Include="Guess_Game_Interface.ui" />
+    <QtUic Include="Login_Interface.ui" />
+    <QtMoc Include="Login_Interface.h" />
+    <ClCompile Include="Login_Interface.cpp" />
     <ClCompile Include="main.cpp" />
     <QtUic Include="Lobby_Interface.ui" />
-    <QtUic Include="Loggin_Interface.ui" />
-    <QtUic Include="Register_Interface.ui" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Background_Image.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Loggin_Interface.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="Register_Interface.h" />
-  </ItemGroup>
-  <ItemGroup>
     <QtMoc Include="Lobby_Interface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Guess_Game_Interface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

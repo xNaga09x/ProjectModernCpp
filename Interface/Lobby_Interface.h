@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include "ui_Lobby_Interface.h"
+#include "Guess_Game_Interface.h"
 
 class Lobby_Interface : public QMainWindow
 {
@@ -15,4 +16,5 @@ public slots:
 	void on_start_game_clicked();
 private:
 	Ui::Lobby_InterfaceClass ui;
+	Guess_Game_Interface* guesser;
 };

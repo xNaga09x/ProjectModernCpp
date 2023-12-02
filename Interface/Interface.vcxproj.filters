@@ -23,16 +23,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="Guesser_Interface.qrc">
+    <QtRcc Include="Login_Interface.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="Guesser_Interface.ui">
+    <QtUic Include="Login_Interface.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="Guesser_Interface.h">
+    <QtMoc Include="Login_Interface.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="Guesser_Interface.cpp">
+    <ClCompile Include="Login_Interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,13 +40,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Loggin_Interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Register_Interface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Lobby_Interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Guess_Game_Interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,24 +53,18 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Loggin_Interface.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Register_Interface.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="Lobby_Interface.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Guess_Game_Interface.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Loggin_Interface.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="Register_Interface.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtUic Include="Lobby_Interface.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Guess_Game_Interface.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
