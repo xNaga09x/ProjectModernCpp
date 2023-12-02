@@ -37,9 +37,8 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>Qt 6.5.3</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
-    <QtBuildConfig>debug</QtBuildConfig>
+    <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>Qt 6.5.3</QtInstall>
@@ -93,6 +92,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Lobby_Interface.cpp" />
     <ClCompile Include="Register_Interface.cpp" />
     <QtRcc Include="Guesser_Interface.qrc" />
     <QtUic Include="Guesser_Interface.ui" />
@@ -100,6 +100,7 @@
     <ClCompile Include="Guesser_Interface.cpp" />
     <ClCompile Include="Loggin_Interface.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="Lobby_Interface.ui" />
     <QtUic Include="Loggin_Interface.ui" />
     <QtUic Include="Register_Interface.ui" />
   </ItemGroup>
@@ -111,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Register_Interface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Lobby_Interface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

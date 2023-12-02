@@ -46,6 +46,9 @@
     <ClCompile Include="Register_Interface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Lobby_Interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Background_Image.jpg">
@@ -59,12 +62,18 @@
     <QtMoc Include="Register_Interface.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Lobby_Interface.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Loggin_Interface.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Register_Interface.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Lobby_Interface.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

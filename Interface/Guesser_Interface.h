@@ -4,6 +4,7 @@
 #include "ui_Guesser_Interface.h"
 #include"Loggin_Interface.h"
 #include"Register_Interface.h"
+#include "Lobby_Interface.h"
 class Guesser_Interface : public QMainWindow
 {
     Q_OBJECT
@@ -16,6 +17,5 @@ public slots:
     void on_Register_clicked();
 private:
     Ui::Guesser_InterfaceClass ui;
-    Loggin_Interface* Log;
-    Register_Interface* Reg;
+    Lobby_Interface* Lobby;
 };

@@ -4,8 +4,7 @@ Guesser_Interface::Guesser_Interface(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    Log = nullptr;
-    Reg = nullptr;
+    Lobby = nullptr;
 }
 
 Guesser_Interface::~Guesser_Interface()
@@ -13,12 +12,12 @@ Guesser_Interface::~Guesser_Interface()
 void Guesser_Interface::on_Loggin_clicked()
 {
     this->close();
-    Log = new Loggin_Interface(this);
-    Log->show();
+    Lobby = new Lobby_Interface(this);
+    Lobby->show();
 }
 void Guesser_Interface::on_Register_clicked()
 {
     this->close();
-    Reg = new Register_Interface(this);
-    Reg->show();
+    Lobby = new Lobby_Interface(this);
+    Lobby->show();
 }
