@@ -11,6 +11,8 @@ public:
 	Lobby_Interface(QWidget *parent = nullptr);
 	~Lobby_Interface();
 
+public slots:
+	void on_start_game_clicked();
 private:
 	Ui::Lobby_InterfaceClass ui;
 };
