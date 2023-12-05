@@ -101,6 +101,26 @@ int main()
 	//CROW_ROUTE(app, "/addUser").methods("POST"_method)([&db](const crow::request& req) 
 	//{
 	//	// Parsare și procesare cerere POST
+	CROW_ROUTE(app, "/adduser").methods("POST"_method)([&db](const crow::request& req, crow::response& res) 
+		{
+			
+			if (req.body=="")
+			{
+				res.code = 400;
+				res.write("Body empty");
+				return;
+			}
+
+		auto name = req.body;
+
+		gartic::User newUser;
+		newUser.SetName(name); 
+		db.insert(newUser);
+
+		res.code = 200; // OK
+		res.write("User added successfully");
+			});
+
 	//	auto json = crow::json::load(req.body);
 	//	if (!json)
 	//	{
@@ -119,18 +139,22 @@ int main()
 	//	return crow::response(201); // Răspuns pentru succes
 	//	});
 
-	//Incercare addUser V2
-	CROW_ROUTE(app, "/adduser/<int>")([&db](const crow::request& req, int userId) {
-	gartic::User newUser;
-	std::string name_chr=req.url_params.get("name");  
-	newUser.SetId(userId);
-	newUser.SetName(name_chr);
-	db.insert(newUser);
-	return crow::response(200);
-		});
 	
-	auto& addToUserPut = CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::PUT); // https://stackoverflow.com/a/630475/12388382
-	addToUserPut(AddToUser(db));
+
+
+	//Incercare addUser V2
+	//CROW_ROUTE(app, "/adduser/<int>")([&db](const crow::request& req, int userId) { 
+	//gartic::User newUser; 
+	//std::string name_chr=req.url_params.get("name");   
+	//
+	//newUser.SetId(userId); 
+	//newUser.SetName(name_chr); 
+	//db.insert(newUser); 
+	//return crow::response(200); 
+	//	});
+	//
+	//auto& addToUserPut = CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::PUT); // https://stackoverflow.com/a/630475/12388382 
+	//addToUserPut(AddToUser(db));
 
 
 
