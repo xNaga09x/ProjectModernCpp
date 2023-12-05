@@ -16,7 +16,9 @@ std::string Login_Interface::getName() const
 }
 
 void Login_Interface::on_Loggin_clicked()
-{
+{ 
+    //posibil de verificat daca apasa pe butonul de register/login sa se vada daca exista acel user , daca nu sa se verifice cand se da register
+    //daca exista in database , daca nu , se creeaza in database . Daca nu verifica nimeni , suntem safe.
     this->name =  ui.lineEdit->text().toStdString();
     std::string json_data = this->name;
 
