@@ -9,8 +9,22 @@ Login_Interface::Login_Interface(QWidget *parent)
 
 Login_Interface::~Login_Interface()
 {}
+
+std::string Login_Interface::getName() const
+{
+    return this->name;
+}
+
 void Login_Interface::on_Loggin_clicked()
 {
+    this->name =  ui.lineEdit->text().toStdString();
+    std::string json_data = this->name;
+
+    auto response = cpr::Post(
+        cpr::Url{ "http://localhost:18080/adduser" },
+        cpr::Body(json_data)
+    );
+    
     this->close();
     Lobby = new Lobby_Interface(this);
     Lobby->show();

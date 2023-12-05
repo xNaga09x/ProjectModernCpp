@@ -11,6 +11,8 @@ public:
 	Guess_Game_Interface(QWidget *parent = nullptr);
 	~Guess_Game_Interface();
 
+
+
 private:
 	Ui::Guess_Game_InterfaceClass ui;
 };

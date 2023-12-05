@@ -10,9 +10,9 @@ int main()
 {
 	std::string json_data;
 	std::cin >> json_data;
+	/*Login_Interface logininterface;
+	std::string name = logininterface.getName();*/
 
-	//auto my_json = ::json::object{ { "name",m_registerWindow->GetUsername()} };
-	// Use CPR to send a POST request to the server
 	auto response = cpr::Post(
 		cpr::Url{ "http://localhost:18080/adduser" },
 		cpr::Body(json_data)
