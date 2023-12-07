@@ -5,7 +5,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     //In constructor cream o zona de desenare in widgetul nostru
     setCentralWidget(drawArea);
-    //setMenuWidget(colorWindow);
     
     createActions();
     createMenus();
@@ -16,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     QDockWidget* dockWidget = new QDockWidget(tr("Additional Window"), this);
     dockWidget->setWidget(colorWindow);
     dockWidget->setTitleBarWidget(new QWidget());  // Ascunde bara de titlu
-    dockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures);  // Dezactiveaza butoanele de inchidere etc.
+    //dockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures);  // Dezactiveaza butoanele de inchidere etc.
 
     addDockWidget(Qt::BottomDockWidgetArea, dockWidget);
     
