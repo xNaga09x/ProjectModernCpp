@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>860</width>
-    <height>503</height>
+    <width>875</width>
+    <height>533</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <widget class="QTextEdit" name="chatDisplay">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>30</y>
-      <width>191</width>
+      <x>640</x>
+      <y>40</y>
+      <width>211</width>
       <height>301</height>
      </rect>
     </property>
@@ -27,20 +27,20 @@
    <widget class="QLineEdit" name="messageInput">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>330</y>
-      <width>113</width>
-      <height>21</height>
+      <x>720</x>
+      <y>340</y>
+      <width>131</width>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="sendButton">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>330</y>
-      <width>75</width>
-      <height>24</height>
+      <x>640</x>
+      <y>340</y>
+      <width>81</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -52,8 +52,8 @@
      <rect>
       <x>50</x>
       <y>40</y>
-      <width>601</width>
-      <height>311</height>
+      <width>591</width>
+      <height>331</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -64,7 +64,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>860</width>
+     <width>875</width>
      <height>22</height>
     </rect>
    </property>

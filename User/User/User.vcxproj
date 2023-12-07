@@ -110,6 +110,9 @@
   <ItemGroup>
     <QtMoc Include="Guess_Game_Interface.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Background_Image.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />
