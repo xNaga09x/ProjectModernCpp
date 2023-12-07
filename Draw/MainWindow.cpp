@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), drawArea(new DrawArea(this))
+    : QMainWindow(parent), drawArea(new DrawArea(this)), colorWindow(new ColorWindow(this))
 {
     //In constructor cream o zona de desenare in widgetul nostru
     setCentralWidget(drawArea);
@@ -12,10 +12,15 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle(tr("Gartic"));
     resize(500, 500);
     //ui.setupUi(this);
+    colorWindow->setWindowTitle(tr("Additional Window"));
+    colorWindow->resize(300, 200);
+    colorWindow->show();
 }
 
 MainWindow::~MainWindow()
-{}
+{
+    delete colorWindow;
+}
 
 void MainWindow::closeEvent(QCloseEvent* event)
 {

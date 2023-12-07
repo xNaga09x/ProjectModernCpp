@@ -43,9 +43,15 @@
     <ClCompile Include="DrawArea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ColorWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="DrawArea.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ColorWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

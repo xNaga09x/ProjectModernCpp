@@ -9,6 +9,7 @@
 #include <qmessagebox.h>
 #include <qimagewriter.h>
 #include "DrawArea.h"
+#include "ColorWindow.h"
 
 class MainWindow : public QMainWindow
 {
@@ -36,6 +37,7 @@ private:
     bool saveFile(const QByteArray& fileFormat);    //permitem salvarea desenului
 
     DrawArea* drawArea;
+    ColorWindow* colorWindow;
 
     QMenu* saveAsMenu;
     QMenu* fileMenu;
