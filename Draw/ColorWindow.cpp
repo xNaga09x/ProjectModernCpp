@@ -3,7 +3,7 @@
 ColorWindow::ColorWindow(QWidget* parent)
 {
     setWindowFlags(Qt::FramelessWindowHint);
-    setFixedSize(500, 100);
+    setFixedSize(300, 200);
 
     mainLayout = new QVBoxLayout(this);
     colorGridLayout = new QGridLayout();

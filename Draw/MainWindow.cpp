@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     createMenus();
 
     setWindowTitle(tr("Gartic"));
-    resize(500, 500);
+    resize(1200, 700);
 
     QDockWidget* dockWidget = new QDockWidget(tr("Additional Window"), this);
     dockWidget->setWidget(colorWindow);

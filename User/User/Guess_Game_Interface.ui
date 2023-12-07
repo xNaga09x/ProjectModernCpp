@@ -23,6 +23,9 @@
       <height>301</height>
      </rect>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLineEdit" name="messageInput">
     <property name="geometry">
@@ -50,7 +53,7 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>30</x>
       <y>40</y>
       <width>591</width>
       <height>331</height>
