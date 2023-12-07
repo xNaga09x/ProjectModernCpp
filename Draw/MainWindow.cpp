@@ -1,20 +1,28 @@
-#include "MainWindow.h"
+﻿#include "MainWindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), drawArea(new DrawArea(this)), colorWindow(new ColorWindow(this))
 {
     //In constructor cream o zona de desenare in widgetul nostru
     setCentralWidget(drawArea);
-
+    //setMenuWidget(colorWindow);
+    
     createActions();
     createMenus();
 
     setWindowTitle(tr("Gartic"));
     resize(500, 500);
-    //ui.setupUi(this);
-    colorWindow->setWindowTitle(tr("Additional Window"));
-    colorWindow->resize(300, 200);
-    colorWindow->show();
+
+    QDockWidget* dockWidget = new QDockWidget(tr("Additional Window"), this);
+    dockWidget->setWidget(colorWindow);
+    dockWidget->setTitleBarWidget(new QWidget());  // Ascunde bara de titlu
+    dockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures);  // Dezactiveaza butoanele de inchidere etc.
+
+    addDockWidget(Qt::BottomDockWidgetArea, dockWidget);
+    
+   /* QPoint mainWindowTopLeft = mapToGlobal(QPoint(0, 0));
+    colorWindow->move(mainWindowTopLeft.x()+ colorWindow->width()+18, mainWindowTopLeft.y());
+    colorWindow->show();*/
 }
 
 MainWindow::~MainWindow()

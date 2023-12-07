@@ -1,7 +1,8 @@
 #pragma once
 #include <QWidget>
+#include <QMainWindow>
 
-class ColorWindow: public QWidget
+class ColorWindow: public QMainWindow
 {
     Q_OBJECT
 

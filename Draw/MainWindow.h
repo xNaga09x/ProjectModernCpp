@@ -8,6 +8,7 @@
 #include <qinputdialog.h>
 #include <qmessagebox.h>
 #include <qimagewriter.h>
+#include <qdockwidget.h>
 #include "DrawArea.h"
 #include "ColorWindow.h"
 
