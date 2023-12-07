@@ -17,7 +17,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{82A3CEC7-A1ED-4934-B47F-BFE1175A5564}</ProjectGuid>
+    <ProjectGuid>{0388F220-E44B-4051-BCE4-9A0A7AFEF997}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
@@ -37,11 +37,12 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>6.6.1_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>Qt 6.5.3</QtInstall>
+    <QtInstall>6.6.1_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
@@ -61,11 +62,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <AllProjectBMIsArePublic>false</AllProjectBMIsArePublic>
+    <AllProjectBMIsArePublic>true</AllProjectBMIsArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <AllProjectBMIsArePublic>false</AllProjectBMIsArePublic>
+    <AllProjectBMIsArePublic>true</AllProjectBMIsArePublic>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -92,18 +93,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <QtRcc Include="User.qrc" />
+    <QtUic Include="Guess_Game_Interface.ui" />
+    <QtUic Include="Lobby_Interface.ui" />
+    <QtUic Include="User.ui" />
+    <QtMoc Include="User.h" />
     <ClCompile Include="Guess_Game_Interface.cpp" />
     <ClCompile Include="Lobby_Interface.cpp" />
-    <QtRcc Include="Login_Interface.qrc" />
-    <QtUic Include="Guess_Game_Interface.ui" />
-    <QtUic Include="Login_Interface.ui" />
-    <QtMoc Include="Login_Interface.h" />
-    <ClCompile Include="Login_Interface.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="User.cpp" />
     <ClCompile Include="main.cpp" />
-    <QtUic Include="Lobby_Interface.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Background_Image.jpg" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Lobby_Interface.h" />
