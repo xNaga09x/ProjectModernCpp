@@ -30,9 +30,7 @@ private:
 	Ui::Lobby_InterfaceClass ui;
 	Guess_Game_Interface* guesser;
 	
-	QListView* playerList;
 
-	//QListView playerList;
 };
 
 

@@ -7,6 +7,18 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
+
+#include <cpr/cpr.h>
+#include <crow.h>
+#include <fstream>
+
+
+#include <QApplication>
+#include <QListView>
+#include <QStandardItemModel>
+#include <QStandardItem>
+
+
 class Guess_Game_Interface : public QMainWindow
 {
 	Q_OBJECT
@@ -17,7 +29,7 @@ public:
 
 private slots:
 	void sendMessage();
-
+	void getPLayers();
 
 private:
 	Ui::Guess_Game_InterfaceClass ui;
