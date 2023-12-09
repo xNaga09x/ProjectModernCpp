@@ -98,13 +98,22 @@ void DrawArea::paintEvent(QPaintEvent* event)
 
 void DrawArea::resizeEvent(QResizeEvent* event)
 {
-    //Redimensionam imaginea
+    // Redimensiona?i imaginea numai dac? widget-ul devine mai mare decât dimensiunea imaginii
     if (width() > image.width() || height() > image.height()) {
-        int newWidth = qMax(width() - 128, image.width());
-        int newHeight = qMax(height() - 128, image.height());
+        int newWidth = qMax(width() - 400, image.width());
+        int newHeight = qMax(height() -150, image.height());
         resizeImage(&image, QSize(newWidth, newHeight));
+
+        // Calcula?i pozi?ia central? în widget
+        int x = (width() - image.width()) / 2;
+        int y = (height() - image.height()) / 2;
+
+        // Actualiza?i pozi?ia zonei de desenare
+        setGeometry(x, y, image.width(), image.height());
+
         update();
     }
+
     QWidget::resizeEvent(event);
 }
 

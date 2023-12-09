@@ -5,12 +5,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     //In constructor cream o zona de desenare in widgetul nostru
     setCentralWidget(drawArea);
-    
+    // Utilizați setupUi pentru a inițializa interfața de utilizator a DrawArea
+    drawAreaUi.setupUi(drawArea);
     createActions();
     createMenus();
 
     setWindowTitle(tr("Gartic"));
-    resize(1200, 700);
+    QWidget::setFixedSize(1200, 700);
+   // resize(1200, 700);
 
     QDockWidget* dockWidget = new QDockWidget(tr("Additional Window"), this);
     dockWidget->setWidget(colorWindow);
@@ -18,10 +20,29 @@ MainWindow::MainWindow(QWidget *parent)
     //dockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures);  // Dezactiveaza butoanele de inchidere etc.
 
     addDockWidget(Qt::BottomDockWidgetArea, dockWidget);
+   // QLayout::setSizeConstraint(QLayout::SetFixedSize);
     
    /* QPoint mainWindowTopLeft = mapToGlobal(QPoint(0, 0));
     colorWindow->move(mainWindowTopLeft.x()+ colorWindow->width()+18, mainWindowTopLeft.y());
     colorWindow->show();*/
+
+    //// Adăugați fereastra colorWindow ca QDockWidget
+    //QDockWidget* dockWidget = new QDockWidget(tr("Additional Window"), this);
+    //dockWidget->setWidget(colorWindow);
+    //dockWidget->setTitleBarWidget(new QWidget());  // Ascunde bara de titlu
+
+    //// Setarea caracteristicilor pentru QDockWidget (opțional)
+    //dockWidget->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
+    //// Adăugați QDockWidget în partea de jos
+    //addDockWidget(Qt::BottomDockWidgetArea, dockWidget);
+
+    //// Setarea geometriei pentru a fixa QDockWidget în partea de jos
+    //dockWidget->setGeometry(QRect(0, this->height() - 350, this->width(), 150));
+    //dockWidget->move(100, 100);
+    //setCentralWidget(dockWidget);
+    //// Caracteristici pentru QDockWidget (opțional)
+    //dockWidget->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
+
 }
 
 MainWindow::~MainWindow()

@@ -9,6 +9,7 @@
 #include <qmessagebox.h>
 #include <qimagewriter.h>
 #include <qdockwidget.h>
+#include<QLayout>
 #include "DrawArea.h"
 #include "ColorWindow.h"
 
@@ -36,6 +37,7 @@ private:
     void createMenus();
     bool maybeSave();   //verifica daca sunt modificari nesalvate
     bool saveFile(const QByteArray& fileFormat);    //permitem salvarea desenului
+    Ui::DrawAreaClass drawAreaUi;  // Asigura?i-v? c? aceast? linie este prezent?
 
     DrawArea* drawArea;
     ColorWindow* colorWindow;
