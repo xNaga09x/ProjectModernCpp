@@ -32,16 +32,15 @@
      <string>Start Game</string>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="QListView" name="playerList">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>50</y>
-      <width>441</width>
-      <height>371</height>
+      <x>30</x>
+      <y>60</y>
+      <width>191</width>
+      <height>351</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

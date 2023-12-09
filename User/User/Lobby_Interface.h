@@ -4,6 +4,10 @@
 #include "ui_Lobby_Interface.h"
 #include "Guess_Game_Interface.h"
 
+#include <cpr/cpr.h>
+#include <crow.h>
+#include <fstream>
+
 class Lobby_Interface : public QMainWindow
 {
 	Q_OBJECT
@@ -17,4 +21,10 @@ public slots:
 private:
 	Ui::Lobby_InterfaceClass ui;
 	Guess_Game_Interface* guesser;
+
+
+	void getPLayers();
 };
+
+
+
