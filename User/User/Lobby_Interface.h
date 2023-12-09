@@ -8,6 +8,13 @@
 #include <crow.h>
 #include <fstream>
 
+
+#include <QApplication>
+#include <QListView>
+#include <QStandardItemModel>
+#include <QStandardItem>
+
+
 class Lobby_Interface : public QMainWindow
 {
 	Q_OBJECT
@@ -18,12 +25,14 @@ public:
 
 public slots:
 	void on_start_game_clicked();
+	void getPLayers();
 private:
 	Ui::Lobby_InterfaceClass ui;
 	Guess_Game_Interface* guesser;
+	
+	QListView* playerList;
 
-
-	void getPLayers();
+	//QListView playerList;
 };
 
 
