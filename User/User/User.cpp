@@ -17,7 +17,6 @@ std::string User::getName() const
 
 void User::on_Loggin_clicked()
 {
-
 	this->name = ui.lineEdit->text().toStdString();
 	auto usersResponse = cpr::Get(cpr::Url{ "http://localhost:18080/users" });
 	std::string json_data = this->name;

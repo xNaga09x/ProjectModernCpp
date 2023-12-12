@@ -10,6 +10,8 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	// Connect signals and slots
 	connect(ui.sendButton, SIGNAL(clicked()), this, SLOT(sendMessage()));
 
+
+
 }
 
 Guess_Game_Interface::~Guess_Game_Interface()
@@ -42,11 +44,11 @@ void Guess_Game_Interface::getPLayers()
 void Guess_Game_Interface::sendMessage()
 {
 	QString message = ui.messageInput->text();
+
 	if (!message.isEmpty())
 	{
 		ui.chatDisplay->append("You: " + message);
-
 		ui.messageInput->clear();
+		cpr::Response sendMessageResponse = cpr::Post(cpr::Url{ "http://localhost:18080/chat" }, cpr::Body{ message.toStdString()});
 	}
 }
-// De retinut ca mesajele trebuie trimise catre server ca sa fie luate inapoi de catre toti ceilalti jucatori .

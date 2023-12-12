@@ -7,7 +7,7 @@ import user;
 import game;
 import<iostream>;
 import<vector>;
-
+#include<deque>
 #include<filesystem>
 #include<memory>
 #include <crow.h>
@@ -37,8 +37,10 @@ int main()
 	auto usersCount = db.count<User>();
 	std::cout << "\nusersCount = " << usersCount << '\n';
 
+	std::deque<std::string> chatMessages;
+
 	crow::SimpleApp app;
-	
+
 
 	CROW_ROUTE(app, "/")([]() {
 		return "<html>"
@@ -46,6 +48,7 @@ int main()
 			"<p>This is the main lobby</p>"
 			"<p>Go to the Game section: <a href=\"/game\">Game</a></p>"
 			"<p>Go to the Users section: <a href=\"/users\">users</a></p>"
+			"<p>Go to the chat section: <a href=\"/chat\">chat</a></p>"
 			"<p>Go to the Guesser's section: <a href=\"/guesser\">WordToGuess</a></p>"
 			"</body>"
 			"</html>";
@@ -64,20 +67,73 @@ int main()
 		return crow::json::wvalue{ word_json };
 		});
 
-	CROW_ROUTE(app, "/users")([&db]() 
-	{
-		std::vector<crow::json::wvalue> users_json;
-
-		for (const auto& user : db.iterate<User>())
+	CROW_ROUTE(app, "/users")([&db]()
 		{
-			users_json.push_back(crow::json::wvalue{
-				{"id", user.GetId()},
-				{"name", user.GetName()},
-				});
-			//std::string product_json = db.dump(user);			
+			std::vector<crow::json::wvalue> users_json;
+
+			for (const auto& user : db.iterate<User>())
+			{
+				users_json.push_back(crow::json::wvalue{
+					{"id", user.GetId()},
+					{"name", user.GetName()},
+					});
+			}
+			return crow::json::wvalue{ users_json };
+		});
+
+	CROW_ROUTE(app, "/adduser").methods("POST"_method)([&db](const crow::request& req, crow::response& res)
+		{
+
+			if (req.body == "")
+			{
+				res.code = 400;
+				res.write("Body empty");
+				return;
+			}
+
+			auto name = req.body;
+
+			gartic::User newUser;
+			newUser.SetName(name);
+			db.insert(newUser);
+
+			res.code = 200; // OK
+			res.write("User added successfully");
+		});
+
+	CROW_ROUTE(app, "/chat").methods("POST"_method)([&chatMessages](const crow::request& req, crow::response& res) {
+		if (req.body.empty()) {
+			res.code = 400;
+			res.write("Message body is empty");
+			return;
 		}
-		return crow::json::wvalue{ users_json };
-	});
+
+		// Extract the message from the request body
+		std::string message = req.body;
+
+		// Store the message in the chatMessages deque
+		chatMessages.push_back(message);
+
+		res.code = 200;
+		res.write("Message sent successfully");
+		return;
+		});
+
+	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
+		crow::json::wvalue jsonMessages;
+		std::string a;
+		for (auto x : chatMessages)
+		{
+			a = a + x;
+		}
+		jsonMessages["messages"] = a;
+		return jsonMessages;
+		});
+
+	app.port(18080).multithreaded().run();
+	return 0;
+}
+
 
 	//Incercare addUser V1
 
@@ -101,25 +157,20 @@ int main()
 	//CROW_ROUTE(app, "/addUser").methods("POST"_method)([&db](const crow::request& req) 
 	//{
 	//	// Parsare și procesare cerere POST
-	CROW_ROUTE(app, "/adduser").methods("POST"_method)([&db](const crow::request& req, crow::response& res) 
-		{
-			
-			if (req.body=="")
-			{
-				res.code = 400;
-				res.write("Body empty");
-				return;
-			}
 
-		auto name = req.body;
 
-		gartic::User newUser;
-		newUser.SetName(name); 
-		db.insert(newUser);
 
-		res.code = 200; // OK
-		res.write("User added successfully");
-			});
+
+
+
+
+
+
+
+
+
+
+
 
 	//	auto json = crow::json::load(req.body);
 	//	if (!json)
@@ -155,9 +206,3 @@ int main()
 	//
 	//auto& addToUserPut = CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::PUT); // https://stackoverflow.com/a/630475/12388382 
 	//addToUserPut(AddToUser(db));
-
-
-
-	app.port(18080).multithreaded().run();
-	return 0;
-}
