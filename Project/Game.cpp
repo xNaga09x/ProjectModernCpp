@@ -15,10 +15,10 @@ Game::~Game()
 
 void Game::SetPlayerScoreDefault(float score, gartic::User entity)
 {
-	this->m_Scores.push_back({ entity.GetId(), score });
+	m_Scores.insert({ score, entity.GetId() });
 }
 
-void Game::SetScores(const std::vector<std::pair<int, float>>& scores)
+void Game::SetScores(const std::map<float, int>& scores)
 {
 	m_Scores = scores;
 }
@@ -43,7 +43,7 @@ const std::vector<std::string>& gartic::Game::GetTips() const
 	return m_Tips;
 }
 
-const std::vector<std::pair <int, float>>& Game::GetScores() const
+const std::map<float, int>& Game::GetScores() const
 {
 	return m_Scores;
 }
@@ -107,8 +107,6 @@ double gartic::Game::CalculateScorePainter(double averageTime)
 //	return m_guessedWord;
 //}
 
-
-
 Game& Game::operator=(const Game& other)
 {
 	if (this == &other)
@@ -144,10 +142,10 @@ Game& Game::operator=(Game&& other) noexcept
 }
 
 
-void Game::SortPlayersByScore() {
-	std::sort(m_Scores.begin(), m_Scores.end(), [](const auto& a, const auto& b) {
-		return a.second > b.second; });
-}
+//void Game::SortPlayersByScore() {
+//	std::sort(m_Scores.begin(), m_Scores.end(), [](const auto& a, const auto& b) {
+//		return a.second > b.second; });
+//}
 
 void gartic::Game::verifyGuessed()
 {

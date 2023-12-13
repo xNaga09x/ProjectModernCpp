@@ -7,7 +7,7 @@ import <iostream>;
 import <fstream>;
 import <random>;
 import <unordered_set>;
-
+import <map>;
 
 namespace gartic
 {
@@ -21,13 +21,13 @@ namespace gartic
 		const std::unordered_set<std::string>& GetUsedWords() const;
 		const std::vector<std::string>& GetWords() const;
 		const std::vector<std::string>& GetTips() const;
-		const std::vector<std::pair <int, float>>& GetScores() const;
+		const std::map<float, int>& GetScores() const;
 
 		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
 		void SetPlayerScoreDefault(float, User);
-		void SetScores(const std::vector<std::pair <int, float>>& scores);
+		void SetScores(const std::map<float, int>& scores);
 		void MediumTime();
-		void SortPlayersByScore();
+		/*void SortPlayersByScore();*/
 		void verifyGuessed();// AICI TREBUIE SA VERIFICI DACA A GHICIT user-ul cuvantul si s-a oprit cronometrul pentru el + adaugare scor, + calculateScore
 		void AddUsedWord(const std::string&);
 		void FileRead();
@@ -46,7 +46,7 @@ namespace gartic
 		std::vector<User> m_Players;
 		std::unordered_set<std::string> m_usedWords;
 		std::vector<std::string> m_Words;
-		std::vector<std::pair <int, float>> m_Scores;//playerID, scor
+		std::map<float, int> m_Scores;// scor , playerId
 		std::vector<std::string> m_Tips;
 		//std::string m_guessedWord;
 	};
