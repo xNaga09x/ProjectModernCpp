@@ -50,12 +50,10 @@ void User::on_Register_clicked()
 		QMessageBox::warning(this, "Error", "The name already exists and is taken. Please choose another name.");
 	}
 	else {
+		auto response = cpr::Put(cpr::Url{ "http://localhost:18080/adduser" }, cpr::Parameters{ { "name", name} });
+	
 		this->close();
 		Lobby = new Lobby_Interface(this);
 		Lobby->show();
-		auto response = cpr::Post(
-			cpr::Url{ "http://localhost:18080/adduser" },
-			cpr::Body(json_data)
-		);
 	}
 }

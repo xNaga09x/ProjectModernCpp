@@ -81,27 +81,39 @@ int main()
 			return crow::json::wvalue{ users_json };
 		});
 
-	CROW_ROUTE(app, "/adduser").methods("POST"_method)([&db](const crow::request& req, crow::response& res)
+	//CROW_ROUTE(app, "/adduser").methods("POST"_method)([&db](const crow::request& req, crow::response& res)
+	//	{
+
+	//		if (req.body == "")
+	//		{
+	//			res.code = 400;
+	//			res.write("Body empty");
+	//			return;
+	//		}
+
+	//		auto name = req.body;
+
+	//		gartic::User newUser;
+	//		newUser.SetName(name);
+	//		db.insert(newUser);
+
+	//		res.code = 200; // OK
+	//		res.write("User added successfully");
+	//	});
+	CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::Put)([&db](const crow::request& req)
 		{
-
-			if (req.body == "")
-			{
-				res.code = 400;
-				res.write("Body empty");
-				return;
-			}
-
-			auto name = req.body;
+			std::string name{ req.url_params.get("name") };
 
 			gartic::User newUser;
 			newUser.SetName(name);
 			db.insert(newUser);
 
-			res.code = 200; // OK
-			res.write("User added successfully");
+			return crow::response(200);
 		});
 
 	CROW_ROUTE(app, "/chat").methods("POST"_method)([&chatMessages](const crow::request& req, crow::response& res) {
+		std::vector<crow::json::wvalue> chat_json;
+
 		if (req.body.empty()) {
 			res.code = 400;
 			res.write("Message body is empty");
@@ -116,7 +128,6 @@ int main()
 
 		res.code = 200;
 		res.write("Message sent successfully");
-		return;
 		});
 
 	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {

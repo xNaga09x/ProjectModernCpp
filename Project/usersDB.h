@@ -3,6 +3,7 @@
 namespace sql = sqlite_orm;
 
 import user;
+
 inline auto createStorage(const std::string& filename)
 {
     return sql::make_storage(
