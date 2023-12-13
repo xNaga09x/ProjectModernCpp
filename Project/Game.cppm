@@ -6,6 +6,7 @@ import <algorithm>;
 import <iostream>;
 import <fstream>;
 import <random>;
+import <unordered_set>;
 
 
 namespace gartic
@@ -17,14 +18,14 @@ namespace gartic
 		~Game();
 
 		const std::vector<User>& GetPlayers() const;
-		const std::vector<std::string>& GetUsedWords() const;
+		const std::unordered_set<std::string>& GetUsedWords() const;
 		const std::vector<std::string>& GetWords() const;
 		const std::vector<std::string>& GetTips() const;
-		const std::vector<std::pair <uint32_t, float>>& GetScores() const;
+		const std::vector<std::pair <int, float>>& GetScores() const;
 
 		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
 		void SetPlayerScoreDefault(float, User);
-		void SetScores(const std::vector<std::pair <uint32_t, float>>& scores);
+		void SetScores(const std::vector<std::pair <int, float>>& scores);
 		void MediumTime();
 		void SortPlayersByScore();
 		void verifyGuessed();// AICI TREBUIE SA VERIFICI DACA A GHICIT user-ul cuvantul si s-a oprit cronometrul pentru el + adaugare scor, + calculateScore
@@ -35,7 +36,7 @@ namespace gartic
 		double CalculateScoreGuesser(double);
 		double CalculateScorePainter(double);
 
-		std::string GetGuessedWord() const;
+		//std::string GetGuessedWord() const;
 
 		Game& operator=(const Game& other);//copy assigment
 		Game(Game&& other) noexcept;//move constructor
@@ -43,9 +44,10 @@ namespace gartic
 	private:
 		static const int noRounds = 4;
 		std::vector<User> m_Players;
-		std::vector<std::string> m_usedWords;
+		std::unordered_set<std::string> m_usedWords;
 		std::vector<std::string> m_Words;
-		std::vector<std::pair <uint32_t, float>> m_Scores;//playerID, scor
+		std::vector<std::pair <int, float>> m_Scores;//playerID, scor
 		std::vector<std::string> m_Tips;
+		//std::string m_guessedWord;
 	};
 }

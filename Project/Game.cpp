@@ -18,7 +18,7 @@ void Game::SetPlayerScoreDefault(float score, gartic::User entity)
 	this->m_Scores.push_back({ entity.GetId(), score });
 }
 
-void Game::SetScores(const std::vector<std::pair<uint32_t, float>>& scores)
+void Game::SetScores(const std::vector<std::pair<int, float>>& scores)
 {
 	m_Scores = scores;
 }
@@ -28,7 +28,7 @@ const std::vector<gartic::User>& Game::GetPlayers() const
 	return m_Players;
 }
 
-const std::vector<std::string>& Game::GetUsedWords() const
+const std::unordered_set<std::string>& Game::GetUsedWords() const
 {
 	return m_usedWords;
 }
@@ -43,7 +43,7 @@ const std::vector<std::string>& gartic::Game::GetTips() const
 	return m_Tips;
 }
 
-const std::vector<std::pair <uint32_t, float>>& Game::GetScores() const
+const std::vector<std::pair <int, float>>& Game::GetScores() const
 {
 	return m_Scores;
 }
@@ -102,10 +102,10 @@ double gartic::Game::CalculateScorePainter(double averageTime)
 	return (60 - averageTime) * 100 / 60;
 }
 
-std::string gartic::Game::GetGuessedWord() const
-{
-	return m_usedWords[m_usedWords.size()-1];
-}
+//std::string gartic::Game::GetGuessedWord() const
+//{
+//	return m_guessedWord;
+//}
 
 
 
@@ -191,5 +191,5 @@ std::string Game::selectRandomWord(const std::vector<std::string> m_Words) const
 }
 
 void Game::AddUsedWord(const std::string& word) {
-	m_usedWords.push_back(word);
+	m_usedWords.emplace(word);
 }

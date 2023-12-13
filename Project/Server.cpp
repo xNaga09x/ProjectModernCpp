@@ -16,14 +16,14 @@ import<vector>;
 int main()
 {
 	using namespace gartic;
-	std::cout << "Introduceti Username-ul:";
-	std::string name;
-	std::cin >> name;
-	User a = User(1, name);
-	Game b = Game();
-	b.FileRead();
-	b.verifyGuessed();
-	std::string word = b.GetGuessedWord();
+	//std::cout << "Introduceti Username-ul:";
+	//std::string name;
+	//std::cin >> name;
+	//User a = User(1, name);
+	//Game b = Game();
+	//b.FileRead();
+	//b.verifyGuessed();
+	//std::string word = b.GetGuessedWord();
 
 
 	const std::string db_file = "products.sqlite";
@@ -58,14 +58,14 @@ int main()
 		return "This is the Game section";
 		});
 
-	CROW_ROUTE(app, "/guesser")([word, a]() {
-		std::vector<crow::json::wvalue> word_json;
-		word_json.push_back(crow::json::wvalue{
-			{"Name",a.GetName()},
-			{"Guess:", word}
-			});
-		return crow::json::wvalue{ word_json };
-		});
+	//CROW_ROUTE(app, "/guesser")([word, a]() {
+	//	std::vector<crow::json::wvalue> word_json;
+	//	word_json.push_back(crow::json::wvalue{
+	//		{"Name",a.GetName()},
+	//		{"Guess:", word}
+	//		});
+	//	return crow::json::wvalue{ word_json };
+	//	});
 
 	CROW_ROUTE(app, "/users")([&db]()
 		{
