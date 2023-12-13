@@ -58,14 +58,6 @@ int main()
 		return "This is the Game section";
 		});
 
-	//CROW_ROUTE(app, "/guesser")([word, a]() {
-	//	std::vector<crow::json::wvalue> word_json;
-	//	word_json.push_back(crow::json::wvalue{
-	//		{"Name",a.GetName()},
-	//		{"Guess:", word}
-	//		});
-	//	return crow::json::wvalue{ word_json };
-	//	});
 
 	CROW_ROUTE(app, "/users")([&db]()
 		{
@@ -81,25 +73,6 @@ int main()
 			return crow::json::wvalue{ users_json };
 		});
 
-	//CROW_ROUTE(app, "/adduser").methods("POST"_method)([&db](const crow::request& req, crow::response& res)
-	//	{
-
-	//		if (req.body == "")
-	//		{
-	//			res.code = 400;
-	//			res.write("Body empty");
-	//			return;
-	//		}
-
-	//		auto name = req.body;
-
-	//		gartic::User newUser;
-	//		newUser.SetName(name);
-	//		db.insert(newUser);
-
-	//		res.code = 200; // OK
-	//		res.write("User added successfully");
-	//	});
 	CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::Put)([&db](const crow::request& req)
 		{
 			std::string name{ req.url_params.get("name") };
@@ -111,34 +84,29 @@ int main()
 			return crow::response(200);
 		});
 
-	CROW_ROUTE(app, "/chat").methods("POST"_method)([&chatMessages](const crow::request& req, crow::response& res) {
-		std::vector<crow::json::wvalue> chat_json;
-
-		if (req.body.empty()) {
-			res.code = 400;
-			res.write("Message body is empty");
-			return;
-		}
+	CROW_ROUTE(app, "/chat").methods(crow::HTTPMethod::Put)([&chatMessages](const crow::request& req) {
+		
 
 		// Extract the message from the request body
-		std::string message = req.body;
+		std::string message{ req.url_params.get("You") };
 
 		// Store the message in the chatMessages deque
 		chatMessages.push_back(message);
 
-		res.code = 200;
-		res.write("Message sent successfully");
+		return crow::response(200);
 		});
 
 	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
-		crow::json::wvalue jsonMessages;
+		std::vector<crow::json::wvalue> jsonMessages;
 		std::string a;
 		for (auto x : chatMessages)
 		{
-			a = a + x;
+			jsonMessages.push_back(crow::json::wvalue{
+					{"message", x},
+				
+				});
 		}
-		jsonMessages["messages"] = a;
-		return jsonMessages;
+		return crow::json::wvalue{ jsonMessages };
 		});
 
 	app.port(18080).multithreaded().run();
@@ -171,10 +139,37 @@ int main()
 
 
 
+	//CROW_ROUTE(app, "/adduser").methods("POST"_method)([&db](const crow::request& req, crow::response& res)
+	//	{
+
+	//		if (req.body == "")
+	//		{
+	//			res.code = 400;
+	//			res.write("Body empty");
+	//			return;
+	//		}
+
+	//		auto name = req.body;
+
+	//		gartic::User newUser;
+	//		newUser.SetName(name);
+	//		db.insert(newUser);
+
+	//		res.code = 200; // OK
+	//		res.write("User added successfully");
+	//	});
 
 
 
 
+	//CROW_ROUTE(app, "/guesser")([word, a]() {
+	//	std::vector<crow::json::wvalue> word_json;
+	//	word_json.push_back(crow::json::wvalue{
+	//		{"Name",a.GetName()},
+	//		{"Guess:", word}
+	//		});
+	//	return crow::json::wvalue{ word_json };
+	//	});
 
 
 

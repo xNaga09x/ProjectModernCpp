@@ -11,7 +11,6 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	connect(ui.sendButton, SIGNAL(clicked()), this, SLOT(sendMessage()));
 
 
-
 }
 
 Guess_Game_Interface::~Guess_Game_Interface()
@@ -49,6 +48,6 @@ void Guess_Game_Interface::sendMessage()
 	{
 		ui.chatDisplay->append("You: " + message);
 		ui.messageInput->clear();
-		cpr::Response sendMessageResponse = cpr::Post(cpr::Url{ "http://localhost:18080/chat" }, cpr::Body{ message.toStdString()});
+		cpr::Response sendMessageResponse = cpr::Put(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ { "You",message.toStdString()}});
 	}
 }
