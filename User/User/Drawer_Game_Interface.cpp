@@ -202,3 +202,26 @@ void Drawer_Game_Interface::resizeImage(QImage* image, const QSize& newSize)
 	painter.drawImage(QPoint(0, 0), *image);
 	*image = newImage;
 }
+
+void Drawer_Game_Interface::redButtonClicked()
+{
+
+	setPenColor(Qt::red);
+}
+
+void Drawer_Game_Interface::blueButtonClicked()
+{
+	setPenColor(Qt::blue);
+
+}
+
+void Drawer_Game_Interface::yellowButtonClicked()
+{
+	setPenColor(Qt::yellow);
+
+}
+void Drawer_Game_Interface::blackButtonClicked()
+{
+	setPenColor(Qt::black);
+
+}

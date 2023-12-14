@@ -55,6 +55,19 @@
      <bool>false</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="drawButton">
+    <property name="geometry">
+     <rect>
+      <x>494</x>
+      <y>380</y>
+      <width>121</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>showDrawInterface</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

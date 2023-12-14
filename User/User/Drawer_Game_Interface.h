@@ -24,6 +24,14 @@ public:
 public slots:
     void clearImage();  //sterge imaginea curenta
     void print();       //afisarea imaginii curente
+
+    void redButtonClicked();
+    void blueButtonClicked();
+    void yellowButtonClicked();
+    void blackButtonClicked();
+
+
+
 protected:
     void mousePressEvent(QMouseEvent* event) override;  //
     void mouseMoveEvent(QMouseEvent* event) override;   // aceste 3 functii au rolul de a implementa desenul

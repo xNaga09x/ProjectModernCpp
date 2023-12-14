@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include "ui_Lobby_Interface.h"
 #include "Guess_Game_Interface.h"
+#include "Drawer_Game_Interface.h"
 
 #include <cpr/cpr.h>
 #include <crow.h>
@@ -25,11 +26,13 @@ public:
 
 public slots:
 	void on_start_game_clicked();
+	void on_drawButton_clicked();
+
 	void getPLayers();
 private:
 	Ui::Lobby_InterfaceClass ui;
 	Guess_Game_Interface* guesser;
-	
+	Drawer_Game_Interface* draw;
 
 };
 

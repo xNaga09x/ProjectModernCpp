@@ -5,11 +5,19 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 {
 	ui.setupUi(this);
 	guesser = nullptr;
+	draw = nullptr;
 	getPLayers();
 }
 
 Lobby_Interface::~Lobby_Interface()
 {}
+
+void Lobby_Interface::on_drawButton_clicked()
+{
+	this->close();
+	draw = new Drawer_Game_Interface(this);
+	draw->show();
+}
 
 void Lobby_Interface::getPLayers()
 {
