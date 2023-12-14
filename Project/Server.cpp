@@ -54,6 +54,28 @@ int main()
 			"</html>";
 		});
 
+	CROW_ROUTE(app, "/draw").methods(crow::HTTPMethod::Put)([&Drawing](const crow::request& req) {
+
+		// Extract the message from the request body
+		std::array<int> draw{ req.url_params.get() };
+
+		gartic::Draw newDraw;
+		newDraw.SetDraw(draw);
+
+		return crow::response(200);
+		});
+
+	CROW_ROUTE(app, "/get_draw").methods("GET"_method)([&Drawing]() {
+		std::array<crow::json::wvalue> jsonDraw;
+		for (auto x : Drawing)
+		{
+			jsonDraw.push_back(crow::json::wvalue{
+					x
+				});
+		}
+		return crow::json::wvalue{ jsonDraw };
+		});
+
 	CROW_ROUTE(app, "/game")([]() {
 		return "This is the Game section";
 		});
