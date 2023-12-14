@@ -37,7 +37,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.6.0_msvc2019_64</QtInstall>
+    <QtInstall>6.6.1_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
@@ -94,10 +94,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="User.qrc" />
+    <QtUic Include="Drawer_Game_Interface.ui" />
     <QtUic Include="Guess_Game_Interface.ui" />
     <QtUic Include="Lobby_Interface.ui" />
     <QtUic Include="User.ui" />
     <QtMoc Include="User.h" />
+    <ClCompile Include="Drawer_Game_Interface.cpp" />
     <ClCompile Include="Guess_Game_Interface.cpp" />
     <ClCompile Include="Lobby_Interface.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -115,6 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Text.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Drawer_Game_Interface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

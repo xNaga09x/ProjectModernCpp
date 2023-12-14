@@ -1,0 +1,22 @@
+<UI version="4.0" >
+ <class>Drawer_Game_InterfaceClass</class>
+ <widget class="QMainWindow" name="Drawer_Game_InterfaceClass" >
+  <property name="objectName" >
+   <string notr="true">Drawer_Game_InterfaceClass</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+	<x>0</x>
+	<y>0</y>
+	<width>600</width>
+	<height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Drawer_Game_Interface</string>
+  </property>  <widget class="QMenuBar" name="menuBar" />  <widget class="QToolBar" name="mainToolBar" />  <widget class="QWidget" name="centralWidget" />  <widget class="QStatusBar" name="statusBar" />
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <connections/>
+</UI>

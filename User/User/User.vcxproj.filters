@@ -49,6 +49,9 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Drawer_Game_Interface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Lobby_Interface.h">
@@ -57,12 +60,18 @@
     <QtMoc Include="Guess_Game_Interface.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Drawer_Game_Interface.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Lobby_Interface.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Guess_Game_Interface.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Drawer_Game_Interface.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
