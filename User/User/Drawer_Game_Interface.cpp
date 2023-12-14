@@ -1,5 +1,6 @@
 #include "Drawer_Game_Interface.h"
 
+
 Drawer_Game_Interface::Drawer_Game_Interface(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -121,6 +122,15 @@ bool Drawer_Game_Interface::isPointInsideAllowedRegion(const QPoint& point)
 
 void Drawer_Game_Interface::paintEvent(QPaintEvent* event)
 {
+	connect(ui.redButton, &QPushButton::clicked, this, &Drawer_Game_Interface::redButtonClicked);
+	connect(ui.blueButton, &QPushButton::clicked, this, &Drawer_Game_Interface::blueButtonClicked);
+	connect(ui.yellowButton, &QPushButton::clicked, this, &Drawer_Game_Interface::yellowButtonClicked);
+	connect(ui.blackButton, &QPushButton::clicked, this, &Drawer_Game_Interface::blackButtonClicked);
+	connect(ui.cyanButton, &QPushButton::clicked, this, &Drawer_Game_Interface::cyanButtonClicked);
+	connect(ui.greenButton, &QPushButton::clicked, this, &Drawer_Game_Interface::greenButtonClicked);
+	connect(ui.limeButton, &QPushButton::clicked, this, &Drawer_Game_Interface::limeButtonClicked);
+	connect(ui.pinkButton, &QPushButton::clicked, this, &Drawer_Game_Interface::pinkButtonClicked);
+
 	// Crea?i un obiect QPainter pentru zona de desenare
 	QPainter painter(this);
 
@@ -223,5 +233,33 @@ void Drawer_Game_Interface::yellowButtonClicked()
 void Drawer_Game_Interface::blackButtonClicked()
 {
 	setPenColor(Qt::black);
+}
+
+
+
+void Drawer_Game_Interface::cyanButtonClicked()
+{
+	setPenColor(Qt::cyan);
 
 }
+
+void Drawer_Game_Interface::greenButtonClicked()
+{
+
+	setPenColor(Qt::darkGreen);
+}
+
+void Drawer_Game_Interface::limeButtonClicked()
+{
+	setPenColor(Qt::green);
+}
+
+
+
+void Drawer_Game_Interface::pinkButtonClicked()
+{
+	setPenColor(Qt::magenta);
+
+
+}
+

@@ -6,6 +6,7 @@
 #include <qpainter.h>
 #include<QScreen>
 #include<qrect.h>
+
 class Drawer_Game_Interface : public QMainWindow
 {
 	Q_OBJECT
@@ -29,6 +30,10 @@ public slots:
     void blueButtonClicked();
     void yellowButtonClicked();
     void blackButtonClicked();
+    void cyanButtonClicked();
+    void greenButtonClicked();
+    void limeButtonClicked();
+    void pinkButtonClicked();
 
 
 
@@ -48,7 +53,8 @@ private:
     bool modified = false;
     bool scribbling = false;        // este true daca se tine apasat click in zona de desenare
     int myPenWidth = 1;
-    QColor myPenColor = Qt::blue;
+    QColor myPenColor = Qt::black;
     QImage image;                   // contine imaginea desenata
     QPoint lastPoint;               // tine minte ultima pozitie a unei actiuni a mouse-ului
+
 };
