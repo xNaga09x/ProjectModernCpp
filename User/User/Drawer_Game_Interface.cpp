@@ -9,6 +9,77 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget *parent)
 Drawer_Game_Interface::~Drawer_Game_Interface()
 {}
 
+bool Drawer_Game_Interface::openImage(const QString & fileName)
+{
+	//aici primim o imagine din fisier si verificam sa fie minim pe marimile widget-ului
+	QImage loadedImage;
+	if (!loadedImage.load(fileName))
+		return false;
+
+	QSize newSize = loadedImage.size().expandedTo(size());
+	resizeImage(&loadedImage, newSize);//redimensionare
+	image = loadedImage;
+	modified = false;
+	update();//update
+	return true;
+}
+
+bool Drawer_Game_Interface::saveImage(const QString& fileName, const char* fileFormat)
+{
+	///Creaza un obiect de tip QImage si salveaza ce este vizibil din imaginea importata si o salveaza
+	//Daca totul este ok, setam modified ca si false
+	QImage visibleImage = image;
+	resizeImage(&visibleImage, size());
+
+	if (visibleImage.save(fileName, fileFormat))
+	{
+		modified = false;
+		return true;
+	}
+	return false;
+}
+
+void Drawer_Game_Interface::setPenColor(const QColor& newColor)
+{
+	//seteaza culoarea
+	myPenColor = newColor;
+}
+
+void Drawer_Game_Interface::setPenWidth(int newWidth)
+{
+	//seteaza grosimea
+	myPenWidth = newWidth;
+}
+
+void Drawer_Game_Interface::clearImage()
+{
+	//setam toata imaginea cu alb(255,255,255) pentru a sterge desenul curent
+	image.fill(qRgb(255, 255, 255));
+	modified = true;
+	update();
+}
+
+void Drawer_Game_Interface::print()
+{
+	//Cream un obiect QPrinter HR pt output
+	//In QDialog specificam dimensiunile dorite
+	//Daca este acceptata dimensiunea incepem desenarea
+#if defined(QT_PRINTSUPPORT_LIB) && QT_CONFIG(printdialog)
+	QPrinter printer(QPrinter::HighResolution);
+
+	QPrintDialog printDialog(&printer, this);
+	if (printDialog.exec() == QDialog::Accepted) {
+		QPainter painter(&printer);
+		QRect rect = painter.viewport();
+		QSize size = image.size();
+		size.scale(rect.size(), Qt::KeepAspectRatio);
+		painter.setViewport(rect.x(), rect.y(), size.width(), size.height());
+		painter.setWindow(image.rect());
+		painter.drawImage(0, 0, image);
+	}
+#endif // QT_CONFIG(printdialog)
+}
+
 void Drawer_Game_Interface::mousePressEvent(QMouseEvent * event)
 {
 	if (event->button() == Qt::LeftButton)

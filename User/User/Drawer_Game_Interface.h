@@ -13,6 +13,17 @@ class Drawer_Game_Interface : public QMainWindow
 public:
 	Drawer_Game_Interface(QWidget *parent = nullptr);
 	~Drawer_Game_Interface();
+    bool openImage(const QString& fileName);                         //incarca o imagine din fisier, poate fi modificata
+    bool saveImage(const QString& fileName, const char* fileFormat); //salveaza imaginea curenta intr-un fisier
+    void setPenColor(const QColor& newColor);
+    void setPenWidth(int newWidth);
+
+    bool isModified() const { return modified; }    // verifica daca s-a modificat ceva fata de starea anterioara
+    QColor penColor() const { return myPenColor; }  // tine minte culoarea selectata
+    int penWidth() const { return myPenWidth; }     // tine minte grosimea selectata
+public slots:
+    void clearImage();  //sterge imaginea curenta
+    void print();       //afisarea imaginii curente
 protected:
     void mousePressEvent(QMouseEvent* event) override;  //
     void mouseMoveEvent(QMouseEvent* event) override;   // aceste 3 functii au rolul de a implementa desenul
