@@ -54,27 +54,27 @@ int main()
 			"</html>";
 		});
 
-	CROW_ROUTE(app, "/draw").methods(crow::HTTPMethod::Put)([&Drawing](const crow::request& req) {
+	//CROW_ROUTE(app, "/draw").methods(crow::HTTPMethod::Put)([&Drawing](const crow::request& req) {
 
-		// Extract the message from the request body
-		std::array<int> draw{ req.url_params.get() };
+	//	// Extract the message from the request body
+	//	std::array<int> draw{ req.url_params.get() };
 
-		gartic::Draw newDraw;
-		newDraw.SetDraw(draw);
+	//	gartic::Draw newDraw;
+	//	newDraw.SetDraw(draw);
 
-		return crow::response(200);
-		});
+	//	return crow::response(200);
+	//	});
 
-	CROW_ROUTE(app, "/get_draw").methods("GET"_method)([&Drawing]() {
-		std::array<crow::json::wvalue> jsonDraw;
-		for (auto x : Drawing)
-		{
-			jsonDraw.push_back(crow::json::wvalue{
-					x
-				});
-		}
-		return crow::json::wvalue{ jsonDraw };
-		});
+	//CROW_ROUTE(app, "/get_draw").methods("GET"_method)([&Drawing]() {
+	//	std::array<crow::json::wvalue> jsonDraw;
+	//	for (auto x : Drawing)
+	//	{
+	//		jsonDraw.push_back(crow::json::wvalue{
+	//				x
+	//			});
+	//	}
+	//	return crow::json::wvalue{ jsonDraw };
+	//	});
 
 	CROW_ROUTE(app, "/game")([]() {
 		return "This is the Game section";
@@ -134,103 +134,3 @@ int main()
 	app.port(18080).multithreaded().run();
 	return 0;
 }
-
-
-	//Incercare addUser V1
-
-
-	//// Construiește JSON-ul
-	//std::string json_data = R"({"name": ")" + name + R"(", "average": )" + std::to_string(average) + "}";
-
-	//// Trimite cererea POST către server
-	//cpr::Response r = cpr::Post(cpr::Url{ "http://localhost:18080/addUser" },
-	//	cpr::Header{ {"Content-Type", "application/json"} },
-	//	cpr::Body{ json_data });
-
-	//// Verifică dacă cererea a fost realizată cu succes
-	//if (r.status_code == 201) {
-	//	std::cout << "User adăugat cu succes!\n";
-	//}
-	//else {
-	//	std::cerr << "Eroare la adăugarea utilizatorului. Cod de stare: " << r.status_code << "\n";
-	//}
-
-	//CROW_ROUTE(app, "/addUser").methods("POST"_method)([&db](const crow::request& req) 
-	//{
-	//	// Parsare și procesare cerere POST
-
-
-
-	//CROW_ROUTE(app, "/adduser").methods("POST"_method)([&db](const crow::request& req, crow::response& res)
-	//	{
-
-	//		if (req.body == "")
-	//		{
-	//			res.code = 400;
-	//			res.write("Body empty");
-	//			return;
-	//		}
-
-	//		auto name = req.body;
-
-	//		gartic::User newUser;
-	//		newUser.SetName(name);
-	//		db.insert(newUser);
-
-	//		res.code = 200; // OK
-	//		res.write("User added successfully");
-	//	});
-
-
-
-
-	//CROW_ROUTE(app, "/guesser")([word, a]() {
-	//	std::vector<crow::json::wvalue> word_json;
-	//	word_json.push_back(crow::json::wvalue{
-	//		{"Name",a.GetName()},
-	//		{"Guess:", word}
-	//		});
-	//	return crow::json::wvalue{ word_json };
-	//	});
-
-
-
-
-
-
-
-
-	//	auto json = crow::json::load(req.body);
-	//	if (!json)
-	//	{
-	//		return crow::response(400, "Invalid JSON");
-	//	}
-
-	//	// Extrage informațiile despre utilizator din JSON
-	//	//int id= json["id"].s();
-	//	std::string name = json["name"].s();
-	//	float average = json["average"].d();
-
-	//	// Creează un obiect User și adaugă-l în baza de date
-	//	gartic::User newUser(0, name, average); // Id-ul va fi setat automat de baza de date
-	//	db.insert(newUser);
-
-	//	return crow::response(201); // Răspuns pentru succes
-	//	});
-
-	
-
-
-	//Incercare addUser V2
-	//CROW_ROUTE(app, "/adduser/<int>")([&db](const crow::request& req, int userId) { 
-	//gartic::User newUser; 
-	//std::string name_chr=req.url_params.get("name");   
-	//
-	//newUser.SetId(userId); 
-	//newUser.SetName(name_chr); 
-	//db.insert(newUser); 
-	//return crow::response(200); 
-	//	});
-	//
-	//auto& addToUserPut = CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::PUT); // https://stackoverflow.com/a/630475/12388382 
-	//addToUserPut(AddToUser(db));
