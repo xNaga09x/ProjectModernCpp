@@ -13,7 +13,13 @@ class Drawer_Game_Interface : public QMainWindow
 public:
 	Drawer_Game_Interface(QWidget *parent = nullptr);
 	~Drawer_Game_Interface();
-
+protected:
+    void mousePressEvent(QMouseEvent* event) override;  //
+    void mouseMoveEvent(QMouseEvent* event) override;   // aceste 3 functii au rolul de a implementa desenul
+    void mouseReleaseEvent(QMouseEvent* event) override;//
+    bool isPointInsideAllowedRegion(const QPoint& point);
+    void paintEvent(QPaintEvent* event) override;       // pt. updatarea desenului
+    void resizeEvent(QResizeEvent* event) override;     // verif. ca QImaginea pe care desenam sa fie minim de dimensiunea widgetului
 private:
 	Ui::Drawer_Game_InterfaceClass ui;
     Ui::Drawer_Game_InterfaceClass drawdrawAreaUi;  // Adaugati aceasta linie
