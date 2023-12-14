@@ -37,7 +37,7 @@ public slots:
     void purpleButtonClicked();
     void brownButtonClicked();
     void orangeButtonClicked();
-
+    void clearButtonClicked();
 
 
 protected:

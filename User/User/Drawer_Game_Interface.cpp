@@ -134,6 +134,7 @@ void Drawer_Game_Interface::paintEvent(QPaintEvent* event)
 	connect(ui.brownButton, &QPushButton::clicked, this, &Drawer_Game_Interface::brownButtonClicked);
 	connect(ui.orangeButton, &QPushButton::clicked, this, &Drawer_Game_Interface::orangeButtonClicked);
 
+	connect(ui.clearButton, &QPushButton::clicked, this, &Drawer_Game_Interface::clearButtonClicked);
 
 	connect(ui.widthSlider, &QSlider::valueChanged, this, &Drawer_Game_Interface::setPenWidth);
 	ui.widthSlider->setRange(1, 10); // Seteaz? intervalul grosimii penului
@@ -287,6 +288,15 @@ void Drawer_Game_Interface::orangeButtonClicked()
 {
 	
 	setPenColor(QColor(255, 165, 0));
+}
+
+void Drawer_Game_Interface::clearButtonClicked()
+{
+	//setam toata imaginea cu alb(255,255,255) pentru a sterge desenul curent
+	image.fill(qRgb(255, 255, 255));
+	modified = true;
+	update();
+
 }
 
 
