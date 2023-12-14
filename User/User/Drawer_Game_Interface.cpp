@@ -130,6 +130,14 @@ void Drawer_Game_Interface::paintEvent(QPaintEvent* event)
 	connect(ui.greenButton, &QPushButton::clicked, this, &Drawer_Game_Interface::greenButtonClicked);
 	connect(ui.limeButton, &QPushButton::clicked, this, &Drawer_Game_Interface::limeButtonClicked);
 	connect(ui.pinkButton, &QPushButton::clicked, this, &Drawer_Game_Interface::pinkButtonClicked);
+	connect(ui.purpleButton, &QPushButton::clicked, this, &Drawer_Game_Interface::purpleButtonClicked);
+	connect(ui.brownButton, &QPushButton::clicked, this, &Drawer_Game_Interface::brownButtonClicked);
+	connect(ui.orangeButton, &QPushButton::clicked, this, &Drawer_Game_Interface::orangeButtonClicked);
+
+
+	connect(ui.widthSlider, &QSlider::valueChanged, this, &Drawer_Game_Interface::setPenWidth);
+	ui.widthSlider->setRange(1, 10); // Seteaz? intervalul grosimii penului
+
 
 	// Crea?i un obiect QPainter pentru zona de desenare
 	QPainter painter(this);
@@ -262,4 +270,23 @@ void Drawer_Game_Interface::pinkButtonClicked()
 
 
 }
+
+void Drawer_Game_Interface::purpleButtonClicked()
+{
+	setPenColor(QColor(148, 0, 211)); // RGB values for pink color
+
+}
+
+void Drawer_Game_Interface::brownButtonClicked()
+{
+	setPenColor(QColor(165, 42, 42)); // RGB values for pink color
+
+}
+
+void Drawer_Game_Interface::orangeButtonClicked()
+{
+	
+	setPenColor(QColor(255, 165, 0));
+}
+
 

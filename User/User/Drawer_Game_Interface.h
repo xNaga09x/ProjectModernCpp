@@ -34,6 +34,9 @@ public slots:
     void greenButtonClicked();
     void limeButtonClicked();
     void pinkButtonClicked();
+    void purpleButtonClicked();
+    void brownButtonClicked();
+    void orangeButtonClicked();
 
 
 
