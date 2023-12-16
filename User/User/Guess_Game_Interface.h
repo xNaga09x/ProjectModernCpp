@@ -7,16 +7,17 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 
-
+#include <qurl.h>
 #include <cpr/cpr.h>
 #include <crow.h>
 #include <fstream>
 
-
+#include <QTimer>
 #include <QApplication>
 #include <QListView>
 #include <QStandardItemModel>
 #include <QStandardItem>
+
 
 
 class Guess_Game_Interface : public QMainWindow
@@ -31,10 +32,14 @@ public:
 
 private slots:
 	void sendMessage();
+	void updatePlayerList();
 	void getPLayers();
+	void getChatAndDelete();
+	void DeleteChatMessage(const std::string& contentToDelete); 
 
 private:
 	Ui::Guess_Game_InterfaceClass ui;
 	std::string name;
+	QTimer* updateTimer; 
 
 };

@@ -12,6 +12,8 @@ import<vector>;
 #include<memory>
 #include <crow.h>
 #include "usersDB.h"
+#include <algorithm>
+#include <crow/websocket.h>
 
 int main()
 {
@@ -40,6 +42,7 @@ int main()
 	std::deque<std::string> chatMessages;
 
 	crow::SimpleApp app;
+	std::vector<crow::websocket::connection> activeConnections;
 
 
 	CROW_ROUTE(app, "/")([]() {
@@ -106,6 +109,28 @@ int main()
 			return crow::response(200);
 		});
 
+
+	//CROW_ROUTE(app, "/chat").websocket().bind([&](crow::websocket::response& res, crow::websocket::request& req) {
+	//	CROW_LOG_INFO << "Chat WebSocket connection established";
+	//	activeConnections.push_back(std::move(res.connection));
+
+	//	req.onclose = [&](crow::websocket::close_code, const std::string&) {
+	//		auto it = std::find(activeConnections.begin(), activeConnections.end(), req.connection);
+	//		if (it != activeConnections.end()) {
+	//			activeConnections.erase(it);
+	//			CROW_LOG_INFO << "Chat WebSocket connection closed";
+	//		}
+	//		};
+
+	//	req.onmessage = [&](const std::string& message) {
+	//		// Store the message in the chatMessages deque or vector
+	//		// Distribute the message to all connected clients
+	//		for (auto& conn : activeConnections) {
+	//			conn.send_message(message);
+	//		}
+	//		};
+	//	});
+
 	CROW_ROUTE(app, "/chat").methods(crow::HTTPMethod::Put)([&chatMessages](const crow::request& req) {
 		
 
@@ -116,6 +141,25 @@ int main()
 		chatMessages.push_back(message);
 
 		return crow::response(200);
+		});
+
+
+	CROW_ROUTE(app, "/chat").methods(crow::HTTPMethod::Delete)([&chatMessages](const crow::request& req) {
+		std::string messageToDelete = req.url_params.get("Message");
+
+		// Încercați să găsiți mesajul în vectorul chatMessages
+		auto it = std::find_if(chatMessages.begin(), chatMessages.end(), [&](const std::string& message) {
+			return message == messageToDelete;
+			});
+
+		if (it != chatMessages.end()) {
+			// Ștergeți mesajul găsit
+			chatMessages.erase(it);
+			return crow::response(200);
+		}
+		else {
+			return crow::response(404); // Mesajul nu a fost găsit (Not Found)
+		}
 		});
 
 	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {

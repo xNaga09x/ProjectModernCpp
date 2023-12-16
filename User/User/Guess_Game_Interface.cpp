@@ -6,11 +6,13 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	ui.setupUi(this);
 	setWindowTitle("Main Game");
 
-	getPLayers();
+	updateTimer = new QTimer(this); 
+	getPLayers(); 
 	// Connect signals and slots
-	connect(ui.sendButton, SIGNAL(clicked()), this, SLOT(sendMessage()));
+	connect(updateTimer, SIGNAL(timeout()), this, SLOT(updatePlayerList()));
+	connect(ui.sendButton, SIGNAL(clicked()), this, SLOT(sendMessage())); 
 
-
+	updateTimer->start(10000);
 }
 
 Guess_Game_Interface::~Guess_Game_Interface()
@@ -26,6 +28,11 @@ std::string Guess_Game_Interface::getName()
 	return this->name;
 }
 
+void Guess_Game_Interface::updatePlayerList()
+{
+	this->getPLayers();
+}
+
 void Guess_Game_Interface::getPLayers()
 {
 
@@ -39,7 +46,7 @@ void Guess_Game_Interface::getPLayers()
 	for (const auto& user : users)
 	{
 		QStandardItem* item1 = new QStandardItem(QString::fromStdString(user["name"].s()));
-
+		item1->setFlags(item1->flags() ^ Qt::ItemIsEditable);
 		model->appendRow(item1);
 
 	}
@@ -49,6 +56,23 @@ void Guess_Game_Interface::getPLayers()
 
 }
 
+void Guess_Game_Interface::getChatAndDelete()
+{
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_chat" });
+	auto chat = crow::json::load(response.text);
+
+	// Itera?i prin mesaje ?i face?i cereri DELETE pentru fiecare
+	for (const auto& message : chat)
+	{
+		std::string content = message["content"].s(); 
+		DeleteChatMessage(content);
+	}
+}
+
+void Guess_Game_Interface::DeleteChatMessage(const std::string& contentToDelete)
+{
+	cpr::Response deleteResponse = cpr::Delete(cpr::Url{ "http://localhost:18080/chat" },cpr::Parameters{ {"Message", contentToDelete} });
+}
 
 void Guess_Game_Interface::sendMessage()
 {
@@ -57,6 +81,6 @@ void Guess_Game_Interface::sendMessage()
 	{
 		ui.chatDisplay->append("You: " + message);
 		ui.messageInput->clear();
-		cpr::Response sendMessageResponse = cpr::Put(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ { "Message" , this->getName() + ": " + message.toStdString(),}});
+		cpr::Response sendMessageResponse = cpr::Put(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ { "Message" , this->getName() + ": " + message.toStdString(),}}); 
 	}
 }
