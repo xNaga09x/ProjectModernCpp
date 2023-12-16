@@ -110,7 +110,7 @@ int main()
 		
 
 		// Extract the message from the request body
-		std::string message{ req.url_params.get("You") };
+		std::string message{ req.url_params.get("Message")};
 
 		// Store the message in the chatMessages deque
 		chatMessages.push_back(message);

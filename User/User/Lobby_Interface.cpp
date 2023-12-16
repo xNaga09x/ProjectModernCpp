@@ -12,6 +12,16 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 Lobby_Interface::~Lobby_Interface()
 {}
 
+void Lobby_Interface::setName(std::string name)
+{
+	this->name = name;
+}
+
+std::string Lobby_Interface::getName()
+{
+	return this->name;
+}
+
 void Lobby_Interface::on_drawButton_clicked()
 {
 	this->close();
@@ -44,7 +54,8 @@ void Lobby_Interface::getPLayers()
 
 void Lobby_Interface::on_start_game_clicked()
 {
-	this->close();
 	guesser = new Guess_Game_Interface(this);
+	guesser->setName(this->getName());
+	this->close();
 	guesser->show();
 }

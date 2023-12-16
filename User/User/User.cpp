@@ -30,8 +30,9 @@ void User::on_Loggin_clicked()
 		QMessageBox::warning(this, "Error", "The name has been either not registered or typed uncorrectly");
 	}
 	else {
-	this->close();
 	Lobby = new Lobby_Interface(this);
+	Lobby->setName(this->getName());
+	this->close();
 	Lobby->show();
 	}
 }

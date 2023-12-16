@@ -23,6 +23,8 @@ class Lobby_Interface : public QMainWindow
 public:
 	Lobby_Interface(QWidget* parent = nullptr);
 	~Lobby_Interface();
+	void setName(std::string name);
+	std::string getName();
 
 public slots:
 	void on_start_game_clicked();
@@ -33,6 +35,7 @@ private:
 	Ui::Lobby_InterfaceClass ui;
 	Guess_Game_Interface* guesser;
 	Drawer_Game_Interface* draw;
+	std::string name;
 
 };
 

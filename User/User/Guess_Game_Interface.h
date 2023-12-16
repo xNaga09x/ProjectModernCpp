@@ -26,6 +26,8 @@ class Guess_Game_Interface : public QMainWindow
 public:
 	Guess_Game_Interface(QWidget* parent = nullptr);
 	~Guess_Game_Interface();
+	void setName(std::string name);
+	std::string getName();
 
 private slots:
 	void sendMessage();
@@ -33,5 +35,6 @@ private slots:
 
 private:
 	Ui::Guess_Game_InterfaceClass ui;
+	std::string name;
 
 };

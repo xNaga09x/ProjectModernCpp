@@ -16,6 +16,16 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 Guess_Game_Interface::~Guess_Game_Interface()
 {}
 
+void Guess_Game_Interface::setName(std::string name)
+{
+	this->name = name;
+}
+
+std::string Guess_Game_Interface::getName()
+{
+	return this->name;
+}
+
 void Guess_Game_Interface::getPLayers()
 {
 
@@ -43,11 +53,10 @@ void Guess_Game_Interface::getPLayers()
 void Guess_Game_Interface::sendMessage()
 {
 	QString message = ui.messageInput->text();
-
 	if (!message.isEmpty())
 	{
 		ui.chatDisplay->append("You: " + message);
 		ui.messageInput->clear();
-		cpr::Response sendMessageResponse = cpr::Put(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ { "You",message.toStdString()}});
+		cpr::Response sendMessageResponse = cpr::Put(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ { "Message" , this->getName() + ": " + message.toStdString(),}});
 	}
 }
