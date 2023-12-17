@@ -37,6 +37,8 @@ private slots:
 	void getChatAndDelete();
 	void DeleteChatMessage(const std::string& contentToDelete); 
 
+	void updateChat();
+
 private:
 	Ui::Guess_Game_InterfaceClass ui;
 	std::string name;

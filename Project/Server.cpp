@@ -39,7 +39,7 @@ int main()
 	auto usersCount = db.count<User>();
 	std::cout << "\nusersCount = " << usersCount << '\n';
 
-	std::deque<std::string> chatMessages;
+	std::vector<crow::json::wvalue> chatMessages;
 
 	crow::SimpleApp app;
 	std::vector<crow::websocket::connection> activeConnections;
@@ -136,44 +136,61 @@ int main()
 
 		// Extract the message from the request body
 		std::string message{ req.url_params.get("Message")};
+		std::string name{ req.url_params.get("Username") };
 
 		// Store the message in the chatMessages deque
-		chatMessages.push_back(message);
+		chatMessages.push_back(crow::json::wvalue{
+			{"Message",message},
+			{"Username",name}
+			});
 
 		return crow::response(200);
 		});
 
 
-	CROW_ROUTE(app, "/chat").methods(crow::HTTPMethod::Delete)([&chatMessages](const crow::request& req) {
-		std::string messageToDelete = req.url_params.get("Message");
+	//CROW_ROUTE(app, "/chat").methods(crow::HTTPMethod::Delete)([&chatMessages](const crow::request& req) {
+	//	std::string messageToDelete = req.url_params.get("Message");
 
-		// Încercați să găsiți mesajul în vectorul chatMessages
-		auto it = std::find_if(chatMessages.begin(), chatMessages.end(), [&](const std::string& message) {
-			return message == messageToDelete;
-			});
+	//	// Încercați să găsiți mesajul în vectorul chatMessages
+	//	auto it = std::find_if(chatMessages.begin(), chatMessages.end(), [&](const std::string& message) {
+	//		return message == messageToDelete;
+	//		});
 
-		if (it != chatMessages.end()) {
-			// Ștergeți mesajul găsit
-			chatMessages.erase(it);
-			return crow::response(200);
-		}
-		else {
-			return crow::response(404); // Mesajul nu a fost găsit (Not Found)
-		}
-		});
+	//	if (it != chatMessages.end()) {
+	//		// Ștergeți mesajul găsit
+	//		chatMessages.erase(it);
+	//		return crow::response(200);
+	//	}
+	//	else {
+	//		return crow::response(404); // Mesajul nu a fost găsit (Not Found)
+	//	}
+	//	});
 
 	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
 		std::vector<crow::json::wvalue> jsonMessages;
 		std::string a;
 		for (auto x : chatMessages)
 		{
-			jsonMessages.push_back(crow::json::wvalue{
-					{"message", x},
-				
-				});
+			jsonMessages.push_back(crow::json::wvalue{ {x} });
 		}
 		return crow::json::wvalue{ jsonMessages };
 		});
+
+	//CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
+	//	std::vector<crow::json::wvalue> jsonMessages;
+
+	//	// Iterați prin chatMessages și adăugați fiecare mesaj sub forma unui obiect JSON în vector
+	//	for (const auto& chatMessage : chatMessages) {
+	//		jsonMessages.push_back(crow::json::wvalue{
+	//			{"Message", chatMessage["Message"]},
+	//			{"Username", chatMessage["Username"]}
+	//			});
+	//	}
+
+	//	return crow::json::wvalue{
+	//		{"messages", jsonMessages}
+	//	};
+	//	});
 
 	app.port(18080).multithreaded().run();
 	return 0;
