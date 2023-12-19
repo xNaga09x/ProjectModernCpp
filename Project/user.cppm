@@ -18,8 +18,10 @@ namespace gartic
 		/*std::vector<std::pair<uint32_t, int>> getMatchHistory() const;
 		float getHistoryAverage() const; */
 		bool GetGuessed() const;
+		bool GetDrawing() const;
 
 		void SetGuessed();
+		void SetDrawingState(bool state);
 		void SetId(int id);
 		void SetName(const std::string& name);
 		/*void setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory);
@@ -40,6 +42,7 @@ namespace gartic
 		//std::vector<std::pair<uint32_t, int>>m_matchHistory;
 		//float m_historyAverage;  // se pune in db
 		bool m_guessed = false;
+		bool m_isDrawing = false;
 	};
 
 

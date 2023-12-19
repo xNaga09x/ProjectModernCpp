@@ -56,9 +56,19 @@ bool gartic::User::GetGuessed() const
 	return this->m_guessed;
 }
 
+bool gartic::User::GetDrawing() const
+{
+	return this->m_isDrawing;
+}
+
 void gartic::User::SetGuessed()
 {
 	this->m_guessed = true;
+}
+
+void gartic::User::SetDrawingState(bool state)
+{
+	this->m_isDrawing = state;
 }
 
 void User::SetId(int id)

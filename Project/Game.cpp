@@ -23,6 +23,16 @@ void Game::SetScores(const std::map<float, int>& scores)
 	m_Scores = scores;
 }
 
+//void gartic::Game::SetGuessers(const std::unordered_set<User>& users) const
+//{
+//	m_guessingPlayers = users;
+//}
+//
+//void gartic::Game::SetDrawer(const User& user) const
+//{
+//	m_drawingPlayer = user;
+//}
+
 const std::vector<gartic::User>& Game::GetPlayers() const
 {
 	return m_Players;
@@ -47,6 +57,16 @@ const std::map<float, int>& Game::GetScores() const
 {
 	return m_Scores;
 }
+
+//const std::vector<User>& gartic::Game::GetGuessers() const
+//{
+//	return m_guessingPlayers;
+//}
+//
+//const User& gartic::Game::GetDrawer() const
+//{
+//	return m_drawingPlayer;
+//}
 
 void Game::MediumTime()
 {

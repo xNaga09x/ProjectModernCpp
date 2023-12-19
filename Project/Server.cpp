@@ -18,15 +18,6 @@ import<vector>;
 int main()
 {
 	using namespace gartic;
-	//std::cout << "Introduceti Username-ul:";
-	//std::string name;
-	//std::cin >> name;
-	//User a = User(1, name);
-	//Game b = Game();
-	//b.FileRead();
-	//b.verifyGuessed();
-	//std::string word = b.GetGuessedWord();
-
 
 	const std::string db_file = "products.sqlite";
 	Storage db = createStorage(db_file);
