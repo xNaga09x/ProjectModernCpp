@@ -22,13 +22,13 @@ namespace gartic
 		const std::vector<std::string>& GetWords() const;
 		const std::vector<std::string>& GetTips() const;
 		const std::map<float, int>& GetScores() const;
-		//const std::vector<User>& GetGuessers() const;
-		//const User& GetDrawer() const;
+		/*const std::vector<User>& GetGuessers() const;*/
+		/*User GetDrawer() const;*/
 
 		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
 		void SetPlayerScoreDefault(float, User);
 		void SetScores(const std::map<float, int>& scores);
-		/*void SetGuessers(const std::unordered_set<User>& users) const;
+		/*void SetGuessers(const std::vector<User>& users) const;
 		void SetDrawer(const User& user) const;*/
 
 		void MediumTime();
