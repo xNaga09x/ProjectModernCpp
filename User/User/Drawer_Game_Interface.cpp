@@ -304,6 +304,19 @@ void Drawer_Game_Interface::DeleteChatMessage(const std::string& contentToDelete
 	cpr::Response deleteResponse = cpr::Delete(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ {"Message", contentToDelete} });
 }
 
+void Drawer_Game_Interface::getChatAndDelete()
+{
+		cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_chat" });
+		auto chat = crow::json::load(response.text);
+
+		// Itera?i prin mesaje ?i face?i cereri DELETE pentru fiecare
+		for (const auto& message : chat)
+		{
+			std::string content = message["content"].s();
+			DeleteChatMessage(content);
+		}
+}
+
 
 
 

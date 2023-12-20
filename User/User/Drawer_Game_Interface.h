@@ -52,6 +52,7 @@ protected:
     void paintEvent(QPaintEvent* event) override;       // pt. updatarea desenului
     void resizeEvent(QResizeEvent* event) override;     // verif. ca QImaginea pe care desenam sa fie minim de dimensiunea widgetului
     void DeleteChatMessage(const std::string& contentToDelete);
+    void getChatAndDelete();
 
 private:
 	Ui::Drawer_Game_InterfaceClass ui;

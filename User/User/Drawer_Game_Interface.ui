@@ -296,8 +296,8 @@
    <widget class="QTextEdit" name="chatDisplay">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>40</y>
+      <x>840</x>
+      <y>100</y>
       <width>211</width>
       <height>331</height>
      </rect>
