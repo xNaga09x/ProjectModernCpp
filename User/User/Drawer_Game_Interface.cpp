@@ -299,4 +299,12 @@ void Drawer_Game_Interface::clearButtonClicked()
 
 }
 
+void Drawer_Game_Interface::DeleteChatMessage(const std::string& contentToDelete)
+{
+	cpr::Response deleteResponse = cpr::Delete(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ {"Message", contentToDelete} });
+}
+
+
+
+
 

@@ -7,6 +7,10 @@
 #include<QScreen>
 #include<qrect.h>
 
+#include <qurl.h>
+#include <cpr/cpr.h>
+#include <crow.h>
+
 class Drawer_Game_Interface : public QMainWindow
 {
 	Q_OBJECT
@@ -47,6 +51,8 @@ protected:
     bool isPointInsideAllowedRegion(const QPoint& point);
     void paintEvent(QPaintEvent* event) override;       // pt. updatarea desenului
     void resizeEvent(QResizeEvent* event) override;     // verif. ca QImaginea pe care desenam sa fie minim de dimensiunea widgetului
+    void DeleteChatMessage(const std::string& contentToDelete);
+
 private:
 	Ui::Drawer_Game_InterfaceClass ui;
     Ui::Drawer_Game_InterfaceClass drawdrawAreaUi;  // Adaugati aceasta linie
