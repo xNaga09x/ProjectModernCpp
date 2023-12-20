@@ -8,7 +8,9 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget *parent)
 
 	updateTimer = new QTimer(this);
 	updateTimer->start(10000);
-
+	getPLayers();
+	// Connect signals and slots
+	connect(updateTimer, SIGNAL(timeout()), this, SLOT(updatePlayerList()));
 	QTimer* chatUpdateTimer = new QTimer(this);
 	connect(chatUpdateTimer, SIGNAL(timeout()), this, SLOT(updateChat()));
 	chatUpdateTimer->start(100);
@@ -326,10 +328,27 @@ void Drawer_Game_Interface::getChatAndDelete()
 
 void Drawer_Game_Interface::updatePlayerList()
 {
+	this->getPLayers();
 }
 
 void Drawer_Game_Interface::getPLayers()
 {
+	QStandardItemModel* model = new QStandardItemModel();
+	QStandardItem* item1 = new QStandardItem("Player 1");
+
+	std::ofstream f("Text.txt");
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/users" });
+	std::cout << "Users:\n";
+	auto users = crow::json::load(response.text);
+	for (const auto& user : users)
+	{
+		QStandardItem* item1 = new QStandardItem(QString::fromStdString(user["name"].s()));
+		item1->setFlags(item1->flags() ^ Qt::ItemIsEditable);
+		model->appendRow(item1);
+
+	}
+
+	ui.playerList->setModel(model);
 }
 
 void Drawer_Game_Interface::updateChat()
