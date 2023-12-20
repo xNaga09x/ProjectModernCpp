@@ -155,13 +155,13 @@ void Drawer_Game_Interface::paintEvent(QPaintEvent* event)
 
 	// Defini?i regiunea permis? (rama alb?)
 	int margin = 100;
-	QRect allowedRegion(margin, margin, width() - 300, height() - 300);
+	QRect allowedRegion(margin+100, margin, width() - 420, height() - 300);
 
 	// Desena?i culoarea pentru regiunea permis? (fundalul alb)
 	painter.fillRect(allowedRegion, Qt::white);
 
 	// Excluziunea regiunii în care nu dori?i s? desena?i (culoarea albastr?)
-	QRect exclusionRegion(100, 100, width() - 300, height() - 300);
+	QRect exclusionRegion(200, 100, width() - 420, height() - 300);
 	painter.fillRect(exclusionRegion, Qt::blue);
 
 	// Desena?i imaginea în afara regiunii excluse (în restul zonei albe)
@@ -189,7 +189,7 @@ void Drawer_Game_Interface::resizeEvent(QResizeEvent* event)
 		int y = (height() - image.height()) / 2;
 
 		// Actualiza?i pozi?ia zonei de desenare
-		setGeometry(x + 30, y + 30, image.width(), image.height());
+		setGeometry(x + 70, y + 70, image.width()-10, image.height());
 
 		update();
 	}
@@ -322,6 +322,14 @@ void Drawer_Game_Interface::getChatAndDelete()
 			std::string content = message["content"].s();
 			DeleteChatMessage(content);
 		}
+}
+
+void Drawer_Game_Interface::updatePlayerList()
+{
+}
+
+void Drawer_Game_Interface::getPLayers()
+{
 }
 
 void Drawer_Game_Interface::updateChat()

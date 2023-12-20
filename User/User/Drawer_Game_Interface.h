@@ -52,6 +52,8 @@ public slots:
     void updateChat();
     void DeleteChatMessage(const std::string& contentToDelete);
     void getChatAndDelete();
+    void updatePlayerList();
+    void getPLayers();
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;  //

@@ -58,8 +58,5 @@ void Lobby_Interface::on_start_game_clicked()
 	guesser->setName(this->getName());
 	this->close();
 	guesser->show();
-
-	draw = new Drawer_Game_Interface(this);
-	draw->show();
 	
 }

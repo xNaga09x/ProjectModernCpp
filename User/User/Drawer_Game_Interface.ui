@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1060</width>
-    <height>629</height>
+    <width>1219</width>
+    <height>646</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -296,14 +296,24 @@
    <widget class="QTextEdit" name="chatDisplayDraw">
     <property name="geometry">
      <rect>
-      <x>840</x>
-      <y>100</y>
-      <width>211</width>
-      <height>331</height>
+      <x>1000</x>
+      <y>80</y>
+      <width>201</width>
+      <height>351</height>
      </rect>
     </property>
     <property name="readOnly">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QListView" name="playerList">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>80</y>
+      <width>161</width>
+      <height>351</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -312,7 +322,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1060</width>
+     <width>1219</width>
      <height>22</height>
     </rect>
    </property>
