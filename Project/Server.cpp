@@ -34,7 +34,7 @@ int main()
 
 	crow::SimpleApp app;
 	std::vector<crow::websocket::connection> activeConnections;
-
+	Game gameInstance; // Assuming you create a Game instance here
 
 	CROW_ROUTE(app, "/")([]() {
 		return "<html>"
@@ -43,6 +43,7 @@ int main()
 			"<p>Go to the Game section: <a href=\"/game\">Game</a></p>"
 			"<p>Go to the Users section: <a href=\"/users\">users</a></p>"
 			"<p>Go to the chat section: <a href=\"/chat\">chat</a></p>"
+			"<p>Go to the Drawer's section: <a href=\"/drawer\">WordToDraw</a></p>"
 			"<p>Go to the Guesser's section: <a href=\"/guesser\">WordToGuess</a></p>"
 			"</body>"
 			"</html>";
@@ -182,6 +183,16 @@ int main()
 	//		{"messages", jsonMessages}
 	//	};
 	//	});
+	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&gameInstance]() {
+		std::string randomWord = gameInstance.selectRandomWord(gameInstance.GetWords());
+
+		// Create a JSON response containing the random word
+		crow::json::wvalue jsonResponse;
+		jsonResponse["word"] = randomWord;
+
+		// Return the JSON response
+		return jsonResponse;
+		});
 
 	app.port(18080).multithreaded().run();
 	return 0;

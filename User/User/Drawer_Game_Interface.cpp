@@ -144,6 +144,7 @@ void Drawer_Game_Interface::paintEvent(QPaintEvent* event)
 	connect(ui.orangeButton, &QPushButton::clicked, this, &Drawer_Game_Interface::orangeButtonClicked);
 
 	connect(ui.clearButton, &QPushButton::clicked, this, &Drawer_Game_Interface::clearButtonClicked);
+	connect(ui.eraserButton, &QPushButton::clicked, this, &Drawer_Game_Interface::eraserButtonClicked);
 
 	connect(ui.widthSlider, &QSlider::valueChanged, this, &Drawer_Game_Interface::setPenWidth);
 	ui.widthSlider->setRange(1, 10); // Seteaz? intervalul grosimii penului
@@ -306,6 +307,11 @@ void Drawer_Game_Interface::clearButtonClicked()
 	modified = true;
 	update();
 
+}
+
+void Drawer_Game_Interface::eraserButtonClicked()
+{
+	setPenColor(QColor(255, 255, 255));
 }
 
 void Drawer_Game_Interface::DeleteChatMessage(const std::string& contentToDelete)

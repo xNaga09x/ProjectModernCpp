@@ -49,6 +49,7 @@ public slots:
     void brownButtonClicked();
     void orangeButtonClicked();
     void clearButtonClicked();
+    void eraserButtonClicked();
     void updateChat();
     void DeleteChatMessage(const std::string& contentToDelete);
     void getChatAndDelete();
