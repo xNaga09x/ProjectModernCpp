@@ -5,6 +5,13 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
+	updateTimer = new QTimer(this);
+	updateTimer->start(10000);
+
+	QTimer* chatUpdateTimer = new QTimer(this);
+	connect(chatUpdateTimer, SIGNAL(timeout()), this, SLOT(updateChat()));
+	chatUpdateTimer->start(100);
 }
 
 Drawer_Game_Interface::~Drawer_Game_Interface()
@@ -315,6 +322,26 @@ void Drawer_Game_Interface::getChatAndDelete()
 			std::string content = message["content"].s();
 			DeleteChatMessage(content);
 		}
+}
+
+void Drawer_Game_Interface::updateChat()
+{
+	auto responseMessages = cpr::Get(cpr::Url{ "http://localhost:18080/get_chat" });
+	auto responseRows = crow::json::load(responseMessages.text);
+	ui.chatDisplayDraw->clear();
+	for (const auto& responseRow : responseRows)
+	{
+		std::string message;
+		std::string mess = std::string(responseRow["Message"]);
+		message = message + std::string(responseRow["Username"]);
+		message += ": ";
+		message += mess;
+		QString qstrMessage;
+
+		for (auto c : message)
+			qstrMessage.push_back(c);
+		ui.chatDisplayDraw->append(qstrMessage);
+	}
 }
 
 

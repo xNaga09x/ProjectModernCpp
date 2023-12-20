@@ -293,7 +293,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QTextEdit" name="chatDisplay">
+   <widget class="QTextEdit" name="chatDisplayDraw">
     <property name="geometry">
      <rect>
       <x>840</x>

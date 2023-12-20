@@ -11,6 +11,13 @@
 #include <cpr/cpr.h>
 #include <crow.h>
 
+#include <QTimer>
+#include <QApplication>
+#include <QListView>
+#include <QStandardItemModel>
+#include <QStandardItem>
+
+
 class Drawer_Game_Interface : public QMainWindow
 {
 	Q_OBJECT
@@ -42,7 +49,9 @@ public slots:
     void brownButtonClicked();
     void orangeButtonClicked();
     void clearButtonClicked();
-
+    void updateChat();
+    void DeleteChatMessage(const std::string& contentToDelete);
+    void getChatAndDelete();
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;  //
@@ -51,8 +60,11 @@ protected:
     bool isPointInsideAllowedRegion(const QPoint& point);
     void paintEvent(QPaintEvent* event) override;       // pt. updatarea desenului
     void resizeEvent(QResizeEvent* event) override;     // verif. ca QImaginea pe care desenam sa fie minim de dimensiunea widgetului
-    void DeleteChatMessage(const std::string& contentToDelete);
-    void getChatAndDelete();
+    
+    
+   
+   
+
 
 private:
 	Ui::Drawer_Game_InterfaceClass ui;
@@ -66,5 +78,7 @@ private:
     QColor myPenColor = Qt::black;
     QImage image;                   // contine imaginea desenata
     QPoint lastPoint;               // tine minte ultima pozitie a unei actiuni a mouse-ului
+    
+    QTimer* updateTimer;
 
 };
