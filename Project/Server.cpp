@@ -17,10 +17,16 @@ import<vector>;
 
 int main()
 {
-	using namespace gartic;
+	/*-----------------------------------------Instantiation-----------------------------------------------*/
 
+	using namespace gartic;
 	const std::string db_file = "products.sqlite";
 	Storage db = createStorage(db_file);
+	std::vector<crow::json::wvalue> chatMessages;
+	std::vector<crow::websocket::connection> activeConnections;
+	crow::SimpleApp app;
+	Game gameInstance;
+
 	db.sync_schema();
 
 	auto initUsersCount = db.count<User>();
@@ -28,13 +34,8 @@ int main()
 		populateStorage(db);
 
 	auto usersCount = db.count<User>();
-	std::cout << "\nusersCount = " << usersCount << '\n';
 
-	std::vector<crow::json::wvalue> chatMessages;
-
-	crow::SimpleApp app;
-	std::vector<crow::websocket::connection> activeConnections;
-	Game gameInstance; // Assuming you create a Game instance here
+	/*-----------------------------------------ROUTING-----------------------------------------------*/
 
 	CROW_ROUTE(app, "/")([]() {
 		return "<html>"
@@ -49,32 +50,9 @@ int main()
 			"</html>";
 		});
 
-	//CROW_ROUTE(app, "/draw").methods(crow::HTTPMethod::Put)([&Drawing](const crow::request& req) {
-
-	//	// Extract the message from the request body
-	//	std::array<int> draw{ req.url_params.get() };
-
-	//	gartic::Draw newDraw;
-	//	newDraw.SetDraw(draw);
-
-	//	return crow::response(200);
-	//	});
-
-	//CROW_ROUTE(app, "/get_draw").methods("GET"_method)([&Drawing]() {
-	//	std::array<crow::json::wvalue> jsonDraw;
-	//	for (auto x : Drawing)
-	//	{
-	//		jsonDraw.push_back(crow::json::wvalue{
-	//				x
-	//			});
-	//	}
-	//	return crow::json::wvalue{ jsonDraw };
-	//	});
-
 	CROW_ROUTE(app, "/game")([]() {
 		return "This is the Game section";
 		});
-
 
 	CROW_ROUTE(app, "/users")([&db]()
 		{
@@ -101,28 +79,6 @@ int main()
 			return crow::response(200);
 		});
 
-
-	//CROW_ROUTE(app, "/chat").websocket().bind([&](crow::websocket::response& res, crow::websocket::request& req) {
-	//	CROW_LOG_INFO << "Chat WebSocket connection established";
-	//	activeConnections.push_back(std::move(res.connection));
-
-	//	req.onclose = [&](crow::websocket::close_code, const std::string&) {
-	//		auto it = std::find(activeConnections.begin(), activeConnections.end(), req.connection);
-	//		if (it != activeConnections.end()) {
-	//			activeConnections.erase(it);
-	//			CROW_LOG_INFO << "Chat WebSocket connection closed";
-	//		}
-	//		};
-
-	//	req.onmessage = [&](const std::string& message) {
-	//		// Store the message in the chatMessages deque or vector
-	//		// Distribute the message to all connected clients
-	//		for (auto& conn : activeConnections) {
-	//			conn.send_message(message);
-	//		}
-	//		};
-	//	});
-
 	CROW_ROUTE(app, "/chat").methods(crow::HTTPMethod::Put)([&chatMessages](const crow::request& req) {
 		
 
@@ -139,25 +95,6 @@ int main()
 		return crow::response(200);
 		});
 
-
-	//CROW_ROUTE(app, "/chat").methods(crow::HTTPMethod::Delete)([&chatMessages](const crow::request& req) {
-	//	std::string messageToDelete = req.url_params.get("Message");
-
-	//	// Încercați să găsiți mesajul în vectorul chatMessages
-	//	auto it = std::find_if(chatMessages.begin(), chatMessages.end(), [&](const std::string& message) {
-	//		return message == messageToDelete;
-	//		});
-
-	//	if (it != chatMessages.end()) {
-	//		// Ștergeți mesajul găsit
-	//		chatMessages.erase(it);
-	//		return crow::response(200);
-	//	}
-	//	else {
-	//		return crow::response(404); // Mesajul nu a fost găsit (Not Found)
-	//	}
-	//	});
-
 	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
 		std::vector<crow::json::wvalue> jsonMessages;
 		std::string a;
@@ -168,9 +105,22 @@ int main()
 		return crow::json::wvalue{ jsonMessages };
 		});
 
+	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&gameInstance]() {
+		std::string randomWord = gameInstance.selectRandomWord(gameInstance.GetWords());
+
+		
+		crow::json::wvalue jsonResponse;
+		jsonResponse["word"] = randomWord;
+
+		return jsonResponse;
+		});
+
+	app.port(18080).multithreaded().run();
+
+	return 0;
+}
 	//CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
 	//	std::vector<crow::json::wvalue> jsonMessages;
-
 	//	// Iterați prin chatMessages și adăugați fiecare mesaj sub forma unui obiect JSON în vector
 	//	for (const auto& chatMessage : chatMessages) {
 	//		jsonMessages.push_back(crow::json::wvalue{
@@ -178,22 +128,26 @@ int main()
 	//			{"Username", chatMessage["Username"]}
 	//			});
 	//	}
-
 	//	return crow::json::wvalue{
 	//		{"messages", jsonMessages}
 	//	};
 	//	});
-	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&gameInstance]() {
-		std::string randomWord = gameInstance.selectRandomWord(gameInstance.GetWords());
 
-		// Create a JSON response containing the random word
-		crow::json::wvalue jsonResponse;
-		jsonResponse["word"] = randomWord;
+	//CROW_ROUTE(app, "/get_draw").methods("GET"_method)([&Drawing]() {
+	//	std::array<crow::json::wvalue> jsonDraw;
+	//	for (auto x : Drawing)
+	//	{
+	//		jsonDraw.push_back(crow::json::wvalue{
+	//				x
+	//			});
+	//	}
+	//	return crow::json::wvalue{ jsonDraw };
+	//	});
 
-		// Return the JSON response
-		return jsonResponse;
-		});
-
-	app.port(18080).multithreaded().run();
-	return 0;
-}
+	//CROW_ROUTE(app, "/draw").methods(crow::HTTPMethod::Put)([&Drawing](const crow::request& req) {
+	//	// Extract the message from the request body
+	//	std::array<int> draw{ req.url_params.get() };
+	//	gartic::Draw newDraw;
+	//	newDraw.SetDraw(draw);
+	//	return crow::response(200);
+	//	});

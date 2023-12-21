@@ -30,7 +30,7 @@ namespace gartic
 		void SetDrawer(const User& user);
 
 		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
-		void verifyGuessed();// AICI TREBUIE SA VERIFICI DACA A GHICIT user-ul cuvantul si s-a oprit cronometrul pentru el + adaugare scor, + calculateScore
+		void verifyGuessed();
 		void AddUsedWord(const std::string&);
 		void FileRead();
 		void GameOver(int);
