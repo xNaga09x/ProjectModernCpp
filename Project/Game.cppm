@@ -22,21 +22,17 @@ namespace gartic
 		const std::vector<std::string>& GetWords() const;
 		const std::vector<std::string>& GetTips() const;
 		const std::map<float, int>& GetScores() const;
-		/*const std::vector<User>& GetGuessers() const;*/
-		/*User GetDrawer() const;*/
+		const User& GetDrawer() const;
+		const int& GetCurrentRound(int);
 
-		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
 		void SetPlayerScoreDefault(float, User);
 		void SetScores(const std::map<float, int>& scores);
-		/*void SetGuessers(const std::vector<User>& users) const;
-		void SetDrawer(const User& user) const;*/
+		void SetDrawer(const User& user);
 
-		void MediumTime();
-		/*void SortPlayersByScore();*/
+		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
 		void verifyGuessed();// AICI TREBUIE SA VERIFICI DACA A GHICIT user-ul cuvantul si s-a oprit cronometrul pentru el + adaugare scor, + calculateScore
 		void AddUsedWord(const std::string&);
 		void FileRead();
-		int GetCurrentRound(int);
 		void GameOver(int);
 		double CalculateScoreGuesser(double);
 		double CalculateScorePainter(double);
@@ -53,7 +49,6 @@ namespace gartic
 		std::vector<std::string> m_Words;
 		std::map<float, int> m_Scores;// scor , playerId
 		std::vector<std::string> m_Tips;
-		std::vector<User> m_guessingPlayers;
 		User m_drawingPlayer;
 		//std::string m_guessedWord;
 	};

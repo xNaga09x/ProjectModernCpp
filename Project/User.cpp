@@ -25,7 +25,7 @@ User::User()
 //}
 
 
-gartic::User::User(const uint32_t& id = -1, const std::string& name="") :
+User::User(const uint32_t& id = -1, const std::string& name="") :
 	m_id(id),
 	m_name(name)
 {
@@ -51,22 +51,22 @@ std::string User::GetName() const
 //	return m_historyAverage;
 //}
 
-bool gartic::User::GetGuessed() const
+bool User::GetGuessed() const
 {
 	return this->m_guessed;
 }
 
-bool gartic::User::GetDrawing() const
+bool User::GetDrawing() const
 {
 	return this->m_isDrawing;
 }
 
-void gartic::User::SetGuessed()
+void User::SetGuessed()
 {
 	this->m_guessed = true;
 }
 
-void gartic::User::SetDrawingState(bool state)
+void User::SetDrawingState(bool state)
 {
 	this->m_isDrawing = state;
 }

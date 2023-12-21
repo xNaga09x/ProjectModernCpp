@@ -3,10 +3,6 @@
 void populateStorage(Storage& storage)
 {
 	std::vector<gartic::User> users{
-	   gartic::User{ 1, "Pavel" },
-	   gartic::User{ 2, "Petru" },
-	   gartic::User{ 3, "Sergiu" },
-	   gartic::User{ 4, "Iulian" }
 	};
 	storage.sync_schema();
 	storage.insert_range(users.begin(), users.end());

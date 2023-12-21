@@ -35,12 +35,9 @@ namespace gartic
 		User(User&& other) noexcept;//move constructor
 		User(const User& other) noexcept;//copy constructor
 		User& operator=(User&& other) noexcept;//move assigment operatorz
-		/*friend std::ostream& operator<<(std::ostream& os, const User& user);*/
 	private:
 		int m_id;
 		std::string m_name;
-		//std::vector<std::pair<uint32_t, int>>m_matchHistory;
-		//float m_historyAverage;  // se pune in db
 		bool m_guessed = false;
 		bool m_isDrawing = false;
 	};

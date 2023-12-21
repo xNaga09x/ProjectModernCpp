@@ -1,7 +1,7 @@
 module game;
 import <format>; 
-
 using gartic::Game;
+using namespace gartic;
 #include "StopWatch.h";
 
 Game::Game()
@@ -12,8 +12,7 @@ Game::~Game()
 {
 }
 
-
-void Game::SetPlayerScoreDefault(float score, gartic::User entity)
+void Game::SetPlayerScoreDefault(float score, User entity)
 {
 	m_Scores.insert({ score, entity.GetId() });
 }
@@ -23,17 +22,12 @@ void Game::SetScores(const std::map<float, int>& scores)
 	m_Scores = scores;
 }
 
-//void gartic::Game::SetGuessers(const std::vector<User>& users) const
-//{
-//	m_guessingPlayers = users;
-//}
-//
-//void gartic::Game::SetDrawer(const User& user) const
-//{
-//	m_drawingPlayer = user;
-//}
+void Game::SetDrawer(const User& user)
+{
+	m_drawingPlayer = user;
+}
 
-const std::vector<gartic::User>& Game::GetPlayers() const
+const std::vector<User>& Game::GetPlayers() const
 {
 	return m_Players;
 }
@@ -48,7 +42,7 @@ const std::vector<std::string>& Game::GetWords() const
 	return m_Words;
 }
 
-const std::vector<std::string>& gartic::Game::GetTips() const
+const std::vector<std::string>& Game::GetTips() const
 {
 	return m_Tips;
 }
@@ -58,19 +52,9 @@ const std::map<float, int>& Game::GetScores() const
 	return m_Scores;
 }
 
-//const std::vector<User>& gartic::Game::GetGuessers() const
-//{
-//	return m_guessingPlayers;
-//}
-
-//User gartic::Game::GetDrawer() const
-//{
-//	return m_drawingPlayer;
-//}
-
-void Game::MediumTime()
+const User& Game::GetDrawer() const
 {
-
+	return m_drawingPlayer;
 }
 
 void Game::FileRead()
@@ -91,11 +75,10 @@ void Game::FileRead()
 	}
 }
 
-int Game::GetCurrentRound(int Round)
+const int& Game::GetCurrentRound(int Round)
 {
 	return Round;
 }
-
 
 void Game::GameOver(int currentRound = 0)
 {
@@ -108,9 +91,6 @@ void Game::GameOver(int currentRound = 0)
 		else std::cout << this->GetCurrentRound(currentRound);
 	}
 }
-
-
-
 
 double gartic::Game::CalculateScoreGuesser(double time)
 {
@@ -161,13 +141,7 @@ Game& Game::operator=(Game&& other) noexcept
 
 }
 
-
-//void Game::SortPlayersByScore() {
-//	std::sort(m_Scores.begin(), m_Scores.end(), [](const auto& a, const auto& b) {
-//		return a.second > b.second; });
-//}
-
-void gartic::Game::verifyGuessed()
+void Game::verifyGuessed()
 {
 	std::string introducedWord;
 	std::cout << "Guess the word:";
