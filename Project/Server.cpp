@@ -15,6 +15,7 @@ import<vector>;
 #include <algorithm>
 #include <crow/websocket.h>
 
+
 int main()
 {
 	/*-----------------------------------------Instantiation-----------------------------------------------*/
@@ -95,7 +96,20 @@ int main()
 		return crow::response(200);
 		});
 
-	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
+	CROW_ROUTE(app, "/upload").methods("POST"_method)([](const crow::request& req)
+			{
+				// Decodifică imaginea Base64 primită în corpul cererii HTTP
+				std::string base64Image = req.body;
+				// Decodează Base64 și obține imaginea
+				QImage receivedImage;
+				receivedImage.loadFromData(QByteArray::fromBase64(QByteArray::fromStdString(base64Image)));
+
+				// Aici poți face ce dorești cu imaginea pe server (salvare într-un fișier, trimitere mai departe, etc.)
+
+				return crow::response("Image received successfully");
+			});
+
+	/*CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
 		std::vector<crow::json::wvalue> jsonMessages;
 		std::string a;
 		for (auto x : chatMessages)
@@ -103,7 +117,7 @@ int main()
 			jsonMessages.push_back(crow::json::wvalue{ {x} });
 		}
 		return crow::json::wvalue{ jsonMessages };
-		});
+		});*/
 
 	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&gameInstance]() {
 		std::string randomWord = gameInstance.selectRandomWord(gameInstance.GetWords());
@@ -114,6 +128,7 @@ int main()
 
 		return jsonResponse;
 		});
+
 
 	app.port(18080).multithreaded().run();
 

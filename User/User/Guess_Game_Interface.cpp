@@ -16,7 +16,7 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 
 	QTimer* chatUpdateTimer = new QTimer(this); 
 	connect(chatUpdateTimer, SIGNAL(timeout()), this, SLOT(updateChat())); 
-	chatUpdateTimer->start(100); 
+	chatUpdateTimer->start(3000); 
 }
 
 Guess_Game_Interface::~Guess_Game_Interface()

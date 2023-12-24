@@ -13,7 +13,7 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget *parent)
 	connect(updateTimer, SIGNAL(timeout()), this, SLOT(updatePlayerList()));
 	QTimer* chatUpdateTimer = new QTimer(this);
 	connect(chatUpdateTimer, SIGNAL(timeout()), this, SLOT(updateChat()));
-	chatUpdateTimer->start(100);
+	chatUpdateTimer->start(3000);
 }
 
 Drawer_Game_Interface::~Drawer_Game_Interface()
