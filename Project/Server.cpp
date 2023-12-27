@@ -14,17 +14,17 @@ import<vector>;
 #include "usersDB.h"
 #include <algorithm>
 #include <crow/websocket.h>
+#include <sstream>
 
-
-void sendInfoToClients(bool boolValue, const std::string& stringValue) {
-	for (auto& conn : activeConnections) {
-		crow::json::wvalue message;
-		message["boolValue"] = boolValue;
-		message["stringValue"] = stringValue;
-		conn.send_text(crow::json::dump(message));
-	}
-}
-
+//void sendInfoToClients(bool boolValue, const std::string& stringValue) {
+//	for (auto& conn : activeConnections) {
+//		crow::json::wvalue message;
+//		message["boolValue"] = boolValue;
+//		message["stringValue"] = stringValue;
+//		conn.send_text(crow::json::dump(message));
+//	}
+//}
+using namespace gartic;
 void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<crow::json::wvalue>& active, Game& gameInstance)
 {
 	//alegem cuvant si drawer.
@@ -43,6 +43,7 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 						break;
 					}
 				}
+				std::vector<std::pair<std::string, bool>> nameBoolPairs; // Vector pentru a stoca perechi de nume și valori bool
 				std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
 				for (auto y : active)
 				{
@@ -50,11 +51,13 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 					{
 						if (user.GetName() == x["name"] && user.GetName() == gameInstance.GetDrawer().GetName())
 						{
-							sendInfoToClients(true);
+							//sendInfoToClients(true);
+							nameBoolPairs.push_back(std::make_pair(user.GetName(), true));
 						}
 						if (user.GetName() == x["name"] && user.GetName() != gameInstance.GetDrawer().GetName())
 						{
-							sendInfoToClients(false);
+							//sendInfoToClients(false);
+							nameBoolPairs.push_back(std::make_pair(user.GetName(), false));
 						}
 					}
 				}
@@ -73,7 +76,7 @@ int main()
 {
 	/*-----------------------------------------Instantiation-----------------------------------------------*/
 
-	using namespace gartic;
+	//using namespace gartic;
 	const std::string db_file = "products.sqlite";
 	Storage db = createStorage(db_file);
 	std::vector<crow::json::wvalue> chatMessages;
@@ -205,14 +208,21 @@ int main()
 		}
 		return crow::json::wvalue{ jsonMessages };
 		});
-	CROW_ROUTE(app, "/get_interface_type").methods("GET"_method)([&interfaces]() {
-		std::vector<crow::json::wvalue> jsonTypes;
-		bool a;
-		for (auto x : interfaces)
-		{
-			jsonTypes.push_back(crow::json::wvalue{ {x} });
+	CROW_ROUTE(app, "/get_interface_type").methods("GET"_method)([&nameBoolPairs, &activeConnections](const crow::request& req) {
+		auto pairIter = nameBoolPairs.begin(); // Iterator pentru vectorul de perechi nume-bool
+		std::vector<crow::json::wvalue> interfaceTypes;
+
+		for (auto& conn : activeConnections) {
+			// Aici poți crea un obiect JSON pentru fiecare pereche nume-bool
+			crow::json::wvalue message;
+			message["name"] = pairIter->first;
+			message["boolValue"] = pairIter->second;
+			interfaceTypes.push_back(message);
+
+			++pairIter; // Mergi la următoarea pereche din vector
 		}
-		return crow::json::wvalue{ jsonTypes };
+
+		return crow::json::wvalue{ interfaceTypes };
 		});
 
 	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&gameInstance]() {

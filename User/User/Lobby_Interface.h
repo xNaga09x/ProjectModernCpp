@@ -31,7 +31,7 @@ public slots:
 	void on_drawButton_clicked();
 
 	void getPLayers();
-	void openInterface(bool type);
+	void openInterface();
 
 private:
 	Ui::Lobby_InterfaceClass ui;

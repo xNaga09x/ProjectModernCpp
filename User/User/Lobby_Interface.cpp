@@ -53,21 +53,36 @@ void Lobby_Interface::getPLayers()
 	
 
 }
-void Lobby_Interface::openInterface(bool type)
+void Lobby_Interface::openInterface()
 {
-	if (type)
-	{
-		draw = new Drawer_Game_Interface(this);
-		this->close();
-		draw->show();
-	}
-	else
-	{
-		guesser = new Guess_Game_Interface(this);
-		guesser->setName(this->getName());
-		this->close();
-		guesser->show();
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_interface_type" });
+	auto interfaceTypes = crow::json::load(response.text);
 
+	if (interfaceTypes) {
+		// Preia?i valoarea boolean? pentru utilizatorul curent
+		bool userIsDrawer = false;  // Seteaz? la true dac? utilizatorul curent este desenatorul
+
+		for (const auto& interfaceType : interfaceTypes) {
+			std::string playerName = interfaceType["name"].s();
+			bool boolValue = interfaceType["boolValue"].b();
+
+			if (playerName == this->getName()) {
+				userIsDrawer = boolValue;
+				break;
+			}
+		}
+
+		if (userIsDrawer) {
+			draw = new Drawer_Game_Interface(this);
+			this->close();
+			draw->show();
+		}
+		else {
+			guesser = new Guess_Game_Interface(this);
+			guesser->setName(this->getName());
+			this->close();
+			guesser->show();
+		}
 	}
 }
 void Lobby_Interface::on_start_game_clicked()
