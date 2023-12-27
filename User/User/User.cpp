@@ -22,6 +22,7 @@ void User::on_Loggin_clicked()
 	std::string json_data = this->name;
 
 	crow::json::rvalue usersJson = crow::json::load(usersResponse.text);
+	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/activeUsers" }, cpr::Parameters{ { "name", name} });
 
 	auto found = usersResponse.text.find(this->name);
 

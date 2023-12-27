@@ -156,7 +156,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="GuessingWords.txt" />
-    <Text Include="TipsWords.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
