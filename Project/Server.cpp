@@ -15,31 +15,58 @@ import<vector>;
 #include <algorithm>
 #include <crow/websocket.h>
 
-//void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<crow::json::wvalue>& active, Game& gameInstance)
-//{
-//	//alegem cuvant si drawer.
-//	if (gameVerify.size() > 0)
-//	{
-//		for (int i = 0; i < 4; i++)
-//		{
-//			//int noDraw = 0;
-//			for (auto x : active)
-//			{
-//				for (auto user : gameInstance.GetPlayers() )
-//				{
-//					if (user.GetName() == x["name"])
-//					{
-//						gameInstance.SetDrawer(user);
-//						break;
-//					}
-//				}
-//				std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
-//				
-//
-//			}
-//		}
-//	}
-//}
+
+void sendInfoToClients(bool boolValue, const std::string& stringValue) {
+	for (auto& conn : activeConnections) {
+		crow::json::wvalue message;
+		message["boolValue"] = boolValue;
+		message["stringValue"] = stringValue;
+		conn.send_text(crow::json::dump(message));
+	}
+}
+
+void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<crow::json::wvalue>& active, Game& gameInstance)
+{
+	//alegem cuvant si drawer.
+	if (gameVerify.size() > 0)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			//int noDraw = 0;
+			for (auto x : active)
+			{
+				for (auto user : gameInstance.GetPlayers() )
+				{
+					if (user.GetName() == x["name"])
+					{
+						gameInstance.SetDrawer(user);
+						break;
+					}
+				}
+				std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
+				for (auto y : active)
+				{
+					for (auto user : gameInstance.GetPlayers())
+					{
+						if (user.GetName() == x["name"] && user.GetName() == gameInstance.GetDrawer().GetName())
+						{
+							sendInfoToClients(true);
+						}
+						if (user.GetName() == x["name"] && user.GetName() != gameInstance.GetDrawer().GetName())
+						{
+							sendInfoToClients(false);
+						}
+					}
+				}
+
+				//transmitere cuvant la interfete
+
+				//start timer
+
+			}
+		}
+	}
+}
 
 
 int main()
@@ -52,6 +79,7 @@ int main()
 	std::vector<crow::json::wvalue> chatMessages;
 	std::vector<crow::json::wvalue> gameVerify;
 	std::vector<crow::json::wvalue> active;
+	std::vector<crow::json::wvalue> interfaces;
 	std::vector<crow::websocket::connection> activeConnections;
 
 	crow::SimpleApp app;
@@ -117,7 +145,7 @@ int main()
 			}
 			return crow::json::wvalue{ users_json };
 		});
-
+	
 	CROW_ROUTE(app, "/adduser").methods(crow::HTTPMethod::Put)([&db](const crow::request& req)
 		{
 			std::string name{ req.url_params.get("name") };
@@ -142,7 +170,19 @@ int main()
 
 		return crow::response(200);
 		});
+	
+	CROW_ROUTE(app, "/send_info"){
+		crow::json::rvalue jsonMessage = crow::json::load(data);
+				if (jsonMessage.has("boolValue") && jsonMessage["boolValue"].t() == crow::json::type::BOOL &&
+					jsonMessage.has("stringValue") && jsonMessage["stringValue"].t() == crow::json::type::STRING) {
+					bool boolValue = jsonMessage["boolValue"].b();
+					std::string stringValue = jsonMessage["stringValue"].s();
 
+					// Poți face ceva cu boolValue și stringValue aici
+					// Apoi, trimite informațiile către toate conexiunile WebSocket active
+					sendInfoToClients(boolValue, stringValue);
+				}
+	});
 	//CROW_ROUTE(app, "/upload").methods("POST"_method)([](const crow::request& req)
 	//		{
 	//			// Decodifică imaginea Base64 primită în corpul cererii HTTP
@@ -164,6 +204,15 @@ int main()
 			jsonMessages.push_back(crow::json::wvalue{ {x} });
 		}
 		return crow::json::wvalue{ jsonMessages };
+		});
+	CROW_ROUTE(app, "/get_interface_type").methods("GET"_method)([&interfaces]() {
+		std::vector<crow::json::wvalue> jsonTypes;
+		bool a;
+		for (auto x : interfaces)
+		{
+			jsonTypes.push_back(crow::json::wvalue{ {x} });
+		}
+		return crow::json::wvalue{ jsonTypes };
 		});
 
 	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&gameInstance]() {

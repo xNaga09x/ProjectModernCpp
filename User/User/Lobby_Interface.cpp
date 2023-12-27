@@ -7,6 +7,8 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 	guesser = nullptr;
 	draw = nullptr;
 	getPLayers();
+
+
 }
 
 Lobby_Interface::~Lobby_Interface()
@@ -51,14 +53,29 @@ void Lobby_Interface::getPLayers()
 	
 
 }
+void Lobby_Interface::openInterface(bool type)
+{
+	if (type)
+	{
+		draw = new Drawer_Game_Interface(this);
+		this->close();
+		draw->show();
+	}
+	else
+	{
+		guesser = new Guess_Game_Interface(this);
+		guesser->setName(this->getName());
+		this->close();
+		guesser->show();
 
+	}
+}
 void Lobby_Interface::on_start_game_clicked()
 {
 	std::string start1 = "true";
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
-	guesser = new Guess_Game_Interface(this);
-	guesser->setName(this->getName());
+	/*guesser = new Guess_Game_Interface(this);
 	this->close();
-	guesser->show();
+	guesser->show();*/
 	
 }

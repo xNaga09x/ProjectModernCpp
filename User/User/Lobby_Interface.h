@@ -31,6 +31,8 @@ public slots:
 	void on_drawButton_clicked();
 
 	void getPLayers();
+	void openInterface(bool type);
+
 private:
 	Ui::Lobby_InterfaceClass ui;
 	Guess_Game_Interface* guesser;
