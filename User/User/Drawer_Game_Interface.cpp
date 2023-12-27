@@ -112,7 +112,6 @@ void Drawer_Game_Interface::mouseMoveEvent(QMouseEvent* event)
 
 void Drawer_Game_Interface::mouseReleaseEvent(QMouseEvent* event)
 {
-	// Se opre?te desenarea numai dac? s-a efectuat desenarea ?i dac? punctul curent este în interiorul regiunii permise
 	if (event->button() == Qt::LeftButton && scribbling && isPointInsideAllowedRegion(event->pos()))
 	{
 		drawLineTo(event->pos());

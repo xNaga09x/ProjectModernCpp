@@ -54,6 +54,8 @@ void Lobby_Interface::getPLayers()
 
 void Lobby_Interface::on_start_game_clicked()
 {
+	std::string start1 = "true";
+	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
 	guesser = new Guess_Game_Interface(this);
 	guesser->setName(this->getName());
 	this->close();

@@ -67,12 +67,7 @@ void Game::FileRead()
 		m_Words.push_back(word);
 	}
 	file.close();
-	std::ifstream file2("TipsWords.txt");
-	while (!file2.eof())
-	{
-		std::getline(file2, word);
-		m_Tips.push_back(word);
-	}
+	
 }
 
 const int& Game::GetCurrentRound(int Round)

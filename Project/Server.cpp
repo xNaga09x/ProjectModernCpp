@@ -15,6 +15,32 @@ import<vector>;
 #include <algorithm>
 #include <crow/websocket.h>
 
+//void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<crow::json::wvalue>& active, Game& gameInstance)
+//{
+//	//alegem cuvant si drawer.
+//	if (gameVerify.size() > 0)
+//	{
+//		for (int i = 0; i < 4; i++)
+//		{
+//			//int noDraw = 0;
+//			for (auto x : active)
+//			{
+//				for (auto user : gameInstance.GetPlayers() )
+//				{
+//					if (user.GetName() == x["name"])
+//					{
+//						gameInstance.SetDrawer(user);
+//						break;
+//					}
+//				}
+//				std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
+//				
+//
+//			}
+//		}
+//	}
+//}
+
 
 int main()
 {
@@ -24,10 +50,12 @@ int main()
 	const std::string db_file = "products.sqlite";
 	Storage db = createStorage(db_file);
 	std::vector<crow::json::wvalue> chatMessages;
+	std::vector<crow::json::wvalue> gameVerify;
+	std::vector<crow::json::wvalue> active;
 	std::vector<crow::websocket::connection> activeConnections;
+
 	crow::SimpleApp app;
 	Game gameInstance;
-
 	db.sync_schema();
 
 	auto initUsersCount = db.count<User>();
@@ -53,6 +81,27 @@ int main()
 
 	CROW_ROUTE(app, "/game")([]() {
 		return "This is the Game section";
+		});
+
+	CROW_ROUTE(app, "/startGame").methods(crow::HTTPMethod::Put)([&gameVerify](const crow::request& req) {
+
+		std::string start{ req.url_params.get("start") };
+
+		gameVerify.push_back(crow::json::wvalue{ { "start",start } });
+
+		return crow::response(200);
+		});
+
+	CROW_ROUTE(app, "/activeUsers").methods(crow::HTTPMethod::Put)([&active](const crow::request& req) {
+
+		std::string name{ req.url_params.get("name") };
+
+		active.push_back(crow::json::wvalue{
+			{"name",name}
+			});
+
+
+		return crow::response(200);
 		});
 
 	CROW_ROUTE(app, "/users")([&db]()
@@ -81,10 +130,8 @@ int main()
 		});
 
 	CROW_ROUTE(app, "/chat").methods(crow::HTTPMethod::Put)([&chatMessages](const crow::request& req) {
-		
-
 		// Extract the message from the request body
-		std::string message{ req.url_params.get("Message")};
+		std::string message{ req.url_params.get("Message") };
 		std::string name{ req.url_params.get("Username") };
 
 		// Store the message in the chatMessages deque
@@ -96,20 +143,20 @@ int main()
 		return crow::response(200);
 		});
 
-	CROW_ROUTE(app, "/upload").methods("POST"_method)([](const crow::request& req)
-			{
-				// Decodifică imaginea Base64 primită în corpul cererii HTTP
-				std::string base64Image = req.body;
-				// Decodează Base64 și obține imaginea
-				QImage receivedImage;
-				receivedImage.loadFromData(QByteArray::fromBase64(QByteArray::fromStdString(base64Image)));
+	//CROW_ROUTE(app, "/upload").methods("POST"_method)([](const crow::request& req)
+	//		{
+	//			// Decodifică imaginea Base64 primită în corpul cererii HTTP
+	//			std::string base64Image = req.body;
+	//			// Decodează Base64 și obține imaginea
+	//			QImage receivedImage;
+	//			receivedImage.loadFromData(QByteArray::fromBase64(QByteArray::fromStdString(base64Image)));
 
-				// Aici poți face ce dorești cu imaginea pe server (salvare într-un fișier, trimitere mai departe, etc.)
+	//			// Aici poți face ce dorești cu imaginea pe server (salvare într-un fișier, trimitere mai departe, etc.)
 
-				return crow::response("Image received successfully");
-			});
+	//			return crow::response("Image received successfully");
+	//		});
 
-	/*CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
+	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
 		std::vector<crow::json::wvalue> jsonMessages;
 		std::string a;
 		for (auto x : chatMessages)
@@ -117,52 +164,54 @@ int main()
 			jsonMessages.push_back(crow::json::wvalue{ {x} });
 		}
 		return crow::json::wvalue{ jsonMessages };
-		});*/
+		});
 
 	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&gameInstance]() {
 		std::string randomWord = gameInstance.selectRandomWord(gameInstance.GetWords());
 
-		
+
 		crow::json::wvalue jsonResponse;
 		jsonResponse["word"] = randomWord;
 
 		return jsonResponse;
 		});
 
+	/*run(gameVerify, active, gameInstance);*/
+	
 
 	app.port(18080).multithreaded().run();
 
 	return 0;
 }
-	//CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
-	//	std::vector<crow::json::wvalue> jsonMessages;
-	//	// Iterați prin chatMessages și adăugați fiecare mesaj sub forma unui obiect JSON în vector
-	//	for (const auto& chatMessage : chatMessages) {
-	//		jsonMessages.push_back(crow::json::wvalue{
-	//			{"Message", chatMessage["Message"]},
-	//			{"Username", chatMessage["Username"]}
-	//			});
-	//	}
-	//	return crow::json::wvalue{
-	//		{"messages", jsonMessages}
-	//	};
-	//	});
+//CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
+//	std::vector<crow::json::wvalue> jsonMessages;
+//	// Iterați prin chatMessages și adăugați fiecare mesaj sub forma unui obiect JSON în vector
+//	for (const auto& chatMessage : chatMessages) {
+//		jsonMessages.push_back(crow::json::wvalue{
+//			{"Message", chatMessage["Message"]},
+//			{"Username", chatMessage["Username"]}
+//			});
+//	}
+//	return crow::json::wvalue{
+//		{"messages", jsonMessages}
+//	};
+//	});
 
-	//CROW_ROUTE(app, "/get_draw").methods("GET"_method)([&Drawing]() {
-	//	std::array<crow::json::wvalue> jsonDraw;
-	//	for (auto x : Drawing)
-	//	{
-	//		jsonDraw.push_back(crow::json::wvalue{
-	//				x
-	//			});
-	//	}
-	//	return crow::json::wvalue{ jsonDraw };
-	//	});
+//CROW_ROUTE(app, "/get_draw").methods("GET"_method)([&Drawing]() {
+//	std::array<crow::json::wvalue> jsonDraw;
+//	for (auto x : Drawing)
+//	{
+//		jsonDraw.push_back(crow::json::wvalue{
+//				x
+//			});
+//	}
+//	return crow::json::wvalue{ jsonDraw };
+//	});
 
-	//CROW_ROUTE(app, "/draw").methods(crow::HTTPMethod::Put)([&Drawing](const crow::request& req) {
-	//	// Extract the message from the request body
-	//	std::array<int> draw{ req.url_params.get() };
-	//	gartic::Draw newDraw;
-	//	newDraw.SetDraw(draw);
-	//	return crow::response(200);
-	//	});
+//CROW_ROUTE(app, "/draw").methods(crow::HTTPMethod::Put)([&Drawing](const crow::request& req) {
+//	// Extract the message from the request body
+//	std::array<int> draw{ req.url_params.get() };
+//	gartic::Draw newDraw;
+//	newDraw.SetDraw(draw);
+//	return crow::response(200);
+//	});

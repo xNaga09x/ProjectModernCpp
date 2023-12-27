@@ -18,9 +18,6 @@
     <Text Include="GuessingWords.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="TipsWords.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cppm">
