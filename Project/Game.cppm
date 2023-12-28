@@ -25,6 +25,7 @@ namespace gartic
 		const User& GetDrawer() const;
 		const int& GetCurrentRound(int);
 
+		void SetPlayers(const std::vector<User> asd);
 		void SetPlayerScoreDefault(float, User);
 		void SetScores(const std::map<float, int>& scores);
 		void SetDrawer(const User& user);

@@ -12,6 +12,11 @@ Game::~Game()
 {
 }
 
+void Game::SetPlayers(const std::vector<User> asd)
+{
+	this->m_Players = asd;
+}
+
 void Game::SetPlayerScoreDefault(float score, User entity)
 {
 	m_Scores.insert({ score, entity.GetId() });

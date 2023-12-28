@@ -15,6 +15,7 @@ import<vector>;
 #include <algorithm>
 #include <crow/websocket.h>
 #include <sstream>
+#include <cpr/cpr.h>
 
 //void sendInfoToClients(bool boolValue, const std::string& stringValue) {
 //	for (auto& conn : activeConnections) {
@@ -25,49 +26,85 @@ import<vector>;
 //	}
 //}
 using namespace gartic;
+
 void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<crow::json::wvalue>& active, Game& gameInstance)
 {
 	//alegem cuvant si drawer.
 	if (gameVerify.size() > 0)
 	{
-		for (int i = 0; i < 4; i++)
+		/*std::vector<User> players;
+		for (auto l : active)
 		{
-			//int noDraw = 0;
-			for (auto x : active)
+			for (const auto& user : db.iterate<User>())
 			{
-				for (auto user : gameInstance.GetPlayers() )
-				{
-					if (user.GetName() == x["name"])
-					{
-						gameInstance.SetDrawer(user);
-						break;
-					}
-				}
-				std::vector<std::pair<std::string, bool>> nameBoolPairs; // Vector pentru a stoca perechi de nume și valori bool
-				std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
-				for (auto y : active)
-				{
-					for (auto user : gameInstance.GetPlayers())
-					{
-						if (user.GetName() == x["name"] && user.GetName() == gameInstance.GetDrawer().GetName())
-						{
-							//sendInfoToClients(true);
-							nameBoolPairs.push_back(std::make_pair(user.GetName(), true));
-						}
-						if (user.GetName() == x["name"] && user.GetName() != gameInstance.GetDrawer().GetName())
-						{
-							//sendInfoToClients(false);
-							nameBoolPairs.push_back(std::make_pair(user.GetName(), false));
-						}
-					}
-				}
+				if ((crow::json::wvalue{ {"name", user.GetName()} } == l))
+					players.push_back(user);
+			}
+		}*/
+		
+	
+		auto usersResponse = cpr::Get(cpr::Url{ "http://localhost:18080/getUsers" });
+		auto activeUsers = crow::json::load(usersResponse.text);
 
-				//transmitere cuvant la interfete
 
-				//start timer
+		auto usersResponse1 = cpr::Get(cpr::Url{ "http://localhost:18080/users" });
+		auto Users = crow::json::load(usersResponse1.text);
 
+		std::vector<User> actives;
+
+		for (auto userAct : activeUsers)
+		{
+			for (auto user : Users)
+			{
+				if(userAct["name"].s() == user["name"].s())
+
+					actives.push_back(User(user["id"].i(), userAct["name"].s() ) );
 			}
 		}
+		gameInstance.SetPlayers(actives);
+
+		/*gameInstance.SetPlayers(players);*/
+		//for (int i = 0; i < 4; i++)
+		//{
+		//	//int noDraw = 0;
+		//	for (auto x : active)
+		//	{
+		//		for (auto user : gameInstance.GetPlayers() )
+		//		{
+		//			if (user.GetName() == x["name"])
+		//			{
+		//				gameInstance.SetDrawer(user);
+		//				break;
+		//			}
+		//		}
+		//		nameBoolPairs.clear();
+		//		std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
+		//		for (auto y : active)
+		//		{
+		//			for (auto user : gameInstance.GetPlayers())
+		//			{
+
+		//				if (user.GetName() == x["name"].s() && user.GetName() == gameInstance.GetDrawer().GetName())
+		//				{
+		//					//sendInfoToClients(true);
+		//					nameBoolPairs.push_back(std::make_pair(user.GetName(), true));
+		//				}
+
+		//				if (user.GetName() == x["name"] && user.GetName() != gameInstance.GetDrawer().GetName())
+		//				{
+		//					//sendInfoToClients(false);
+		//					nameBoolPairs.push_back(std::make_pair(user.GetName(), false));
+		//				}
+
+		//			}
+		//		}
+
+		//		//transmitere cuvant la interfete
+
+		//		//start timer
+
+		//	}
+		//}
 	}
 }
 
@@ -83,7 +120,9 @@ int main()
 	std::vector<crow::json::wvalue> gameVerify;
 	std::vector<crow::json::wvalue> active;
 	std::vector<crow::json::wvalue> interfaces;
-	std::vector<crow::websocket::connection> activeConnections;
+	std::vector<std::pair<std::string, bool>> nameBoolPairs; // Vector pentru a stoca perechi de nume și valori bool
+
+
 
 	crow::SimpleApp app;
 	Game gameInstance;
@@ -128,7 +167,7 @@ int main()
 		std::string name{ req.url_params.get("name") };
 
 		active.push_back(crow::json::wvalue{
-			{"name",name}
+			{"name", name}
 			});
 
 
@@ -173,31 +212,6 @@ int main()
 
 		return crow::response(200);
 		});
-	
-	CROW_ROUTE(app, "/send_info"){
-		crow::json::rvalue jsonMessage = crow::json::load(data);
-				if (jsonMessage.has("boolValue") && jsonMessage["boolValue"].t() == crow::json::type::BOOL &&
-					jsonMessage.has("stringValue") && jsonMessage["stringValue"].t() == crow::json::type::STRING) {
-					bool boolValue = jsonMessage["boolValue"].b();
-					std::string stringValue = jsonMessage["stringValue"].s();
-
-					// Poți face ceva cu boolValue și stringValue aici
-					// Apoi, trimite informațiile către toate conexiunile WebSocket active
-					sendInfoToClients(boolValue, stringValue);
-				}
-	});
-	//CROW_ROUTE(app, "/upload").methods("POST"_method)([](const crow::request& req)
-	//		{
-	//			// Decodifică imaginea Base64 primită în corpul cererii HTTP
-	//			std::string base64Image = req.body;
-	//			// Decodează Base64 și obține imaginea
-	//			QImage receivedImage;
-	//			receivedImage.loadFromData(QByteArray::fromBase64(QByteArray::fromStdString(base64Image)));
-
-	//			// Aici poți face ce dorești cu imaginea pe server (salvare într-un fișier, trimitere mai departe, etc.)
-
-	//			return crow::response("Image received successfully");
-	//		});
 
 	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
 		std::vector<crow::json::wvalue> jsonMessages;
@@ -208,24 +222,18 @@ int main()
 		}
 		return crow::json::wvalue{ jsonMessages };
 		});
-	CROW_ROUTE(app, "/get_interface_type").methods("GET"_method)([&nameBoolPairs, &activeConnections](const crow::request& req) {
-		auto pairIter = nameBoolPairs.begin(); // Iterator pentru vectorul de perechi nume-bool
-		std::vector<crow::json::wvalue> interfaceTypes;
 
-		for (auto& conn : activeConnections) {
-			// Aici poți crea un obiect JSON pentru fiecare pereche nume-bool
-			crow::json::wvalue message;
-			message["name"] = pairIter->first;
-			message["boolValue"] = pairIter->second;
-			interfaceTypes.push_back(message);
-
-			++pairIter; // Mergi la următoarea pereche din vector
+	CROW_ROUTE(app, "/getUsers").methods("GET"_method)([&active]() {
+		std::vector<crow::json::wvalue> jsonMessages;
+		for (auto x : active)
+		{
+			jsonMessages.push_back(crow::json::wvalue{ {x} });
 		}
-
-		return crow::json::wvalue{ interfaceTypes };
+		return crow::json::wvalue{ jsonMessages };
 		});
-
+		
 	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&gameInstance]() {
+
 		std::string randomWord = gameInstance.selectRandomWord(gameInstance.GetWords());
 
 
@@ -235,13 +243,49 @@ int main()
 		return jsonResponse;
 		});
 
-	/*run(gameVerify, active, gameInstance);*/
-	
-
 	app.port(18080).multithreaded().run();
 
+	run(gameVerify, active, gameInstance);
+	
 	return 0;
 }
+	//CROW_ROUTE(app, "/send_info")
+	//{
+	//	crow::json::rvalue jsonMessage = crow::json::load(data);
+	//			if (jsonMessage.has("boolValue") && jsonMessage["boolValue"].t() == crow::json::type::BOOL &&
+	//				jsonMessage.has("stringValue") && jsonMessage["stringValue"].t() == crow::json::type::STRING) {
+	//				bool boolValue = jsonMessage["boolValue"].b();
+	//				std::string stringValue = jsonMessage["stringValue"].s();
+	//				// Poți face ceva cu boolValue și stringValue aici
+	//				// Apoi, trimite informațiile către toate conexiunile WebSocket active
+	//				sendInfoToClients(boolValue, stringValue);
+	//			}
+	//});
+
+	//CROW_ROUTE(app, "/get_interface_type").methods("GET"_method)([&nameBoolPairs, &activeConnections](const crow::request& req) {
+	//	auto pairIter = nameBoolPairs.begin(); // Iterator pentru vectorul de perechi nume-bool
+	//	std::vector<crow::json::wvalue> interfaceTypes;
+	//	for (auto& conn : activeConnections) {
+	//		// Aici poți crea un obiect JSON pentru fiecare pereche nume-bool
+	//		crow::json::wvalue message;
+	//		message["name"] = pairIter->first;
+	//		message["boolValue"] = pairIter->second;
+	//		interfaceTypes.push_back(message);
+	//		++pairIter; // Mergi la următoarea pereche din vector
+	//	}
+	//	return crow::json::wvalue{ interfaceTypes };
+	//	});
+
+	//CROW_ROUTE(app, "/upload").methods("POST"_method)([](const crow::request& req)
+	//		{
+	//			// Decodifică imaginea Base64 primită în corpul cererii HTTP
+	//			std::string base64Image = req.body;
+	//			// Decodează Base64 și obține imaginea
+	//			QImage receivedImage;
+	//			receivedImage.loadFromData(QByteArray::fromBase64(QByteArray::fromStdString(base64Image)));
+	//			// Aici poți face ce dorești cu imaginea pe server (salvare într-un fișier, trimitere mai departe, etc.)
+	//			return crow::response("Image received successfully");
+	//		});
 //CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
 //	std::vector<crow::json::wvalue> jsonMessages;
 //	// Iterați prin chatMessages și adăugați fiecare mesaj sub forma unui obiect JSON în vector
