@@ -64,7 +64,7 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 		}
 		gameInstance.SetPlayers(actives);
 		for (auto x : gameInstance.GetPlayers())
-			std::cout << x.GetName()<<"\n";
+			std::cout << x.GetName()<<" ";
 
 		gameInstance.FileRead();
 		std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
@@ -72,8 +72,8 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 		cpr::Parameters parameters = {
 		{"word", word},};
 
-		auto response = cpr::Post(cpr::Url{ "http://localhost:18080/randomWord" }, parameters);
-
+		auto response = cpr::Put(cpr::Url{ "http://localhost:18080/randomWord" }, parameters);
+		std::cout << response.text;
 		if (response.status_code == 200) 
 			std::cout << "Cuvântul a fost trimis cu succes la server!\n";
 		else std::cerr << "Eroare la trimiterea cuvântului la server.\n";
@@ -99,6 +99,7 @@ int main()
 	std::vector<crow::json::wvalue> gameVerify;
 	std::vector<crow::json::wvalue> active;
 	std::vector<crow::json::wvalue> interfaces;
+	crow::json::wvalue randomWord;
 	std::vector<std::pair<std::string, bool>> nameBoolPairs; // Vector pentru a stoca perechi de nume și valori bool
 
 
@@ -140,6 +141,16 @@ int main()
 
 		return crow::response(200);
 		});
+
+	CROW_ROUTE(app, "/randomWord").methods(crow::HTTPMethod::Put)([&](const crow::request& req) {
+
+		std::string word{ req.url_params.get("word") };
+
+		gameVerify.push_back(crow::json::wvalue{ { "word",word } });
+
+		return crow::response(200);
+		});
+
 
 	CROW_ROUTE(app, "/activeUsers").methods(crow::HTTPMethod::Put)([&active](const crow::request& req) {
 
