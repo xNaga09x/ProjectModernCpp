@@ -45,10 +45,11 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 	
 		auto usersResponse = cpr::Get(cpr::Url{ "http://localhost:18080/getUsers" });
 		auto activeUsers = crow::json::load(usersResponse.text);
-
+		std::cout << usersResponse.text;
 
 		auto usersResponse1 = cpr::Get(cpr::Url{ "http://localhost:18080/users" });
 		auto Users = crow::json::load(usersResponse1.text);
+		std::cout << usersResponse1.text;
 
 		std::vector<User> actives;
 
@@ -62,44 +63,22 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 			}
 		}
 		gameInstance.SetPlayers(actives);
+		for (auto x : gameInstance.GetPlayers())
+			std::cout << x.GetName()<<"\n";
 
-		/*gameInstance.SetPlayers(players);*/
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	//int noDraw = 0;
-		//	for (auto x : active)
-		//	{
-		//		for (auto user : gameInstance.GetPlayers() )
-		//		{
-		//			if (user.GetName() == x["name"])
-		//			{
-		//				gameInstance.SetDrawer(user);
-		//				break;
-		//			}
-		//		}
-		//		nameBoolPairs.clear();
-		//		std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
-		//		for (auto y : active)
-		//		{
-		//			for (auto user : gameInstance.GetPlayers())
-		//			{
+		gameInstance.FileRead();
+		std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
 
-		//				if (user.GetName() == x["name"].s() && user.GetName() == gameInstance.GetDrawer().GetName())
-		//				{
-		//					//sendInfoToClients(true);
-		//					nameBoolPairs.push_back(std::make_pair(user.GetName(), true));
-		//				}
+		cpr::Parameters parameters = {
+		{"word", word},};
 
-		//				if (user.GetName() == x["name"] && user.GetName() != gameInstance.GetDrawer().GetName())
-		//				{
-		//					//sendInfoToClients(false);
-		//					nameBoolPairs.push_back(std::make_pair(user.GetName(), false));
-		//				}
+		auto response = cpr::Post(cpr::Url{ "http://localhost:18080/randomWord" }, parameters);
 
-		//			}
-		//		}
+		if (response.status_code == 200) 
+			std::cout << "Cuvântul a fost trimis cu succes la server!\n";
+		else std::cerr << "Eroare la trimiterea cuvântului la server.\n";
 
-		//		//transmitere cuvant la interfete
+		//	//transmitere cuvant la interfete
 
 		//		//start timer
 
@@ -174,6 +153,12 @@ int main()
 		return crow::response(200);
 		});
 
+	CROW_ROUTE(app, "/verifyMethod").methods("GET"_method)([&gameVerify,&active,&gameInstance]() {
+
+		run(gameVerify, active, gameInstance);
+		return crow::response(200);
+		});
+
 	CROW_ROUTE(app, "/users")([&db]()
 		{
 			std::vector<crow::json::wvalue> users_json;
@@ -208,8 +193,7 @@ int main()
 		chatMessages.push_back(crow::json::wvalue{
 			{"Message",message},
 			{"Username",name}
-			});
-
+			});	
 		return crow::response(200);
 		});
 
