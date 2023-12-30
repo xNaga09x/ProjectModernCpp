@@ -143,15 +143,14 @@ int main()
 		return crow::response(200);
 		});
 
-	CROW_ROUTE(app, "/randomWord").methods(crow::HTTPMethod::Put)([&](const crow::request& req) {
+	CROW_ROUTE(app, "/randomWord").methods(crow::HTTPMethod::Put)([&randomWord](const crow::request& req) {
 
 		std::string word{ req.url_params.get("word") };
 
-		gameVerify.push_back(crow::json::wvalue{ { "word",word } });
+		randomWord=crow::json::wvalue{ {"word",word} };
 
 		return crow::response(200);
 		});
-
 
 	CROW_ROUTE(app, "/activeUsers").methods(crow::HTTPMethod::Put)([&active](const crow::request& req) {
 
@@ -226,18 +225,12 @@ int main()
 			jsonMessages.push_back(crow::json::wvalue{ {x} });
 		}
 		return crow::json::wvalue{ jsonMessages };
-		});
+	});
 		
-	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&gameInstance]() {
-
-		std::string randomWord = gameInstance.selectRandomWord(gameInstance.GetWords());
-
-
-		crow::json::wvalue jsonResponse;
-		jsonResponse["word"] = randomWord;
-
-		return jsonResponse;
-		});
+	CROW_ROUTE(app, "/get_random_word").methods("GET"_method)([&randomWord]()
+	{
+		return randomWord;
+	});
 
 	app.port(18080).multithreaded().run();
 
