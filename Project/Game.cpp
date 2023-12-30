@@ -42,7 +42,7 @@ const std::unordered_set<std::string>& Game::GetUsedWords() const
 	return m_usedWords;
 }
 
-const std::vector<std::string>& Game::GetWords() const
+std::vector<std::string>& Game::GetWords()
 {
 	return m_Words;
 }
@@ -166,20 +166,25 @@ void Game::verifyGuessed()
 
 }
 
-std::string Game::selectRandomWord(const std::vector<std::string> m_Words) const
+std::string Game::selectRandomWord(std::vector<std::string>& m_Words)
 {
 	if (m_Words.empty()) {
 		std::cerr << "m_Words vector is empty. Unable to select a random word." << std::endl;
 		return "";
 	}
+
 	std::random_device rd;
 	std::mt19937 gen(rd());
 
 	std::uniform_int_distribution<size_t> distribution(0, m_Words.size() - 1);
 	size_t randomIndex = distribution(gen);
 
+	std::string selectedWord = m_Words[randomIndex];
 
-	return m_Words[randomIndex];
+	// Elimina elementul selectat din vector
+	m_Words.erase(m_Words.begin() + randomIndex);
+
+	return selectedWord;
 }
 
 void Game::AddUsedWord(const std::string& word) {

@@ -19,7 +19,7 @@ namespace gartic
 
 		const std::vector<User>& GetPlayers() const;
 		const std::unordered_set<std::string>& GetUsedWords() const;
-		const std::vector<std::string>& GetWords() const;
+		std::vector<std::string>& GetWords();
 		const std::vector<std::string>& GetTips() const;
 		const std::map<float, int>& GetScores() const;
 		const User& GetDrawer() const;
@@ -30,7 +30,7 @@ namespace gartic
 		void SetScores(const std::map<float, int>& scores);
 		void SetDrawer(const User& user);
 
-		std::string selectRandomWord(const std::vector<std::string> m_Words) const;
+		std::string selectRandomWord(std::vector<std::string>& m_Words);
 		void verifyGuessed();
 		void AddUsedWord(const std::string&);
 		void FileRead();

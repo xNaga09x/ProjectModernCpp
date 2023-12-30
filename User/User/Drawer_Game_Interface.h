@@ -63,7 +63,7 @@ protected:
     bool isPointInsideAllowedRegion(const QPoint& point);
     void paintEvent(QPaintEvent* event) override;       // pt. updatarea desenului
     void resizeEvent(QResizeEvent* event) override;     // verif. ca QImaginea pe care desenam sa fie minim de dimensiunea widgetului
-    
+    void setWord();              //functie de setword pentru fiecare joc .
     
    
    
@@ -83,5 +83,5 @@ private:
     QPoint lastPoint;               // tine minte ultima pozitie a unei actiuni a mouse-ului
     
     QTimer* updateTimer;
-
+    std::string word;
 };

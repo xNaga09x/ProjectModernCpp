@@ -66,6 +66,7 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 		for (auto x : gameInstance.GetPlayers())
 			std::cout << x.GetName()<<" ";
 
+		//Send word to server->client.
 		gameInstance.FileRead();
 		std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
 

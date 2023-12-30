@@ -6,6 +6,7 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget *parent)
 {
 	ui.setupUi(this);
 
+	setWord();
 	updateTimer = new QTimer(this);
 	updateTimer->start(10000);
 	getPLayers();
@@ -198,6 +199,13 @@ void Drawer_Game_Interface::resizeEvent(QResizeEvent* event)
 	//setGeometry(20,20, image.width(), image.height());
 	update();
 	QWidget::resizeEvent(event);
+}
+
+void Drawer_Game_Interface::setWord()
+{
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_random_word" });
+	this->word = response.text;
+	qDebug() << word;
 }
 
 void Drawer_Game_Interface::drawLineTo(const QPoint & endPoint)
