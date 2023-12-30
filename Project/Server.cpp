@@ -116,7 +116,6 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 
 
 
-			//	//transmitere cuvant la interfete
 
 			//		//start timer
 
@@ -173,12 +172,12 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 			return "This is the Game section";
 			});
 
-		CROW_ROUTE(app, "/startGame").methods(crow::HTTPMethod::Put)([&gameVerify](const crow::request& req) {
+		CROW_ROUTE(app, "/startGame").methods(crow::HTTPMethod::Put)([&gameVerify,&active,&gameInstance](const crow::request& req) {
 
 			std::string start{ req.url_params.get("start") };
 
 			gameVerify.push_back(crow::json::wvalue{ { "start",start } });
-
+			run(gameVerify, active, gameInstance);
 			return crow::response(200);
 			});
 
@@ -295,7 +294,7 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 			});
 		app.port(18080).multithreaded().run();
 
-		run(gameVerify, active, gameInstance);
+		//run(gameVerify, active, gameInstance);
 
 		return 0;
 	}

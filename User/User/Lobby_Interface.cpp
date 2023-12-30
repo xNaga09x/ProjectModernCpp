@@ -55,16 +55,16 @@ void Lobby_Interface::getPLayers()
 }
 void Lobby_Interface::openInterface()
 {
-	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_interface_type" });
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
 	auto interfaceTypes = crow::json::load(response.text);
 
 	if (interfaceTypes) {
 		// Preia?i valoarea boolean? pentru utilizatorul curent
-		bool userIsDrawer = false;  // Seteaz? la true dac? utilizatorul curent este desenatorul
+		std::string userIsDrawer = "false";  // Seteaz? la true dac? utilizatorul curent este desenatorul
 
 		for (const auto& interfaceType : interfaceTypes) {
 			std::string playerName = interfaceType["name"].s();
-			bool boolValue = interfaceType["boolValue"].b();
+			std::string boolValue = interfaceType["guesser"].s();
 
 			if (playerName == this->getName()) {
 				userIsDrawer = boolValue;
@@ -72,12 +72,12 @@ void Lobby_Interface::openInterface()
 			}
 		}
 
-		if (userIsDrawer) {
+		if (userIsDrawer=="true") {
 			draw = new Drawer_Game_Interface(this);
 			this->close();
 			draw->show();
 		}
-		else {
+		else if (userIsDrawer == "false") {
 			guesser = new Guess_Game_Interface(this);
 			guesser->setName(this->getName());
 			this->close();
@@ -89,9 +89,10 @@ void Lobby_Interface::on_start_game_clicked()
 {
 	std::string start1 = "true";
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
-	guesser = new Guess_Game_Interface(this);
+	openInterface();
+	/*guesser = new Guess_Game_Interface(this);
 	guesser->setName(this->getName());
 	this->close();
-	guesser->show();
+	guesser->show();*/
 	
 }
