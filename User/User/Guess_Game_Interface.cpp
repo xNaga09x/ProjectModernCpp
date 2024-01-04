@@ -20,7 +20,14 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	connect(chatUpdateTimer, SIGNAL(timeout()), this, SLOT(updateChat())); 
 	chatUpdateTimer->start(3000);
 
-	const QString qword = QString::fromStdString(word);
+	for (int i = 0; i < word.size(); i++)
+	{
+		if(i< word.size()-1)
+		secretword += "_ ";
+		else
+			secretword += "_";
+	}
+	const QString qword = QString::fromStdString(secretword);
 
 	ui.GuessWord->setText(qword);
 	ui.GuessWord->setAlignment(Qt::AlignCenter);

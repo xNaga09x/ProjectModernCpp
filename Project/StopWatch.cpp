@@ -12,6 +12,6 @@ void gartic::Stopwatch::stop()
 
 float gartic::Stopwatch::elapsed_time()
 {
-	std::chrono::duration<float> duration = endTime - startTime;
+	std::chrono::duration<float> duration = std::chrono::high_resolution_clock::now() - startTime;
 	return duration.count();
 }

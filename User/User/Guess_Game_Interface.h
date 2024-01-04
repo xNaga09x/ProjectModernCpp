@@ -46,5 +46,5 @@ private:
 	std::string name;
 	QTimer* updateTimer; 
 	std::string word;
-
+	std::string secretword;
 };

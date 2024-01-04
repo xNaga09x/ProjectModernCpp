@@ -29,6 +29,8 @@ using namespace gartic;
 
 void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<crow::json::wvalue>& active, Game& gameInstance)
 {
+
+	Stopwatch sw;
 	//alegem cuvant si drawer.
 	if (gameVerify.size() > 0)
 	{
@@ -74,11 +76,12 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 
 
 		bool userType;
-		for (int i = 0; i < 4; i++)
+		
 		{
 			//int noDraw = 0;
 			for (auto x : actives)
 			{
+
 				gameInstance.SetDrawer(x);
 
 
@@ -114,6 +117,20 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 					}
 
 				}
+				sw.start();
+				//for (int i = 1; i <= 60; i++)
+				//	//if (i % 60 == 0)
+				//	//	//std::cout << i << std::endl;
+				//	//else
+				//	//	std::cout << i<<' ';
+				//{ }
+				auto endTimeTarget = sw.elapsed_time() + 20.0f;
+
+				while (sw.elapsed_time() < endTimeTarget) {
+					// ... // Execută codul pentru care vrei să măsori timpul
+				}
+				sw.stop();
+				std::cout << '\n' << sw.elapsed_time() << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 			}
 
 
@@ -178,9 +195,12 @@ int main()
 	CROW_ROUTE(app, "/startGame").methods(crow::HTTPMethod::Put)([&gameVerify, &active, &gameInstance](const crow::request& req) {
 
 		std::string start{ req.url_params.get("start") };
-
 		gameVerify.push_back(crow::json::wvalue{ { "start",start } });
-		run(gameVerify, active, gameInstance);
+		for (int i = 0; i < 2; i++)
+		{
+			run(gameVerify, active, gameInstance);
+
+		}
 		return crow::response(200);
 		});
 
