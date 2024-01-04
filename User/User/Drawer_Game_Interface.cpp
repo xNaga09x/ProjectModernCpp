@@ -177,6 +177,13 @@ void Drawer_Game_Interface::paintEvent(QPaintEvent* event)
 		QRect allowedRect = dirtyRect.intersected(allowedRegion);
 		painter.drawImage(allowedRect, image, allowedRect);
 	}
+	const QString qword = QString::fromStdString(word);
+
+	ui.GuessWord->setText(qword);
+	ui.GuessWord->setAlignment(Qt::AlignCenter);
+
+	ui.GuessWord->show();
+
 }
 
 void Drawer_Game_Interface::resizeEvent(QResizeEvent* event)
@@ -204,7 +211,9 @@ void Drawer_Game_Interface::resizeEvent(QResizeEvent* event)
 void Drawer_Game_Interface::setWord()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_random_word" });
-	this->word = response.text;
+	auto jsonword = crow::json::load(response.text);
+
+	this->word = jsonword["word"].s();
 	qDebug() << word;
 }
 

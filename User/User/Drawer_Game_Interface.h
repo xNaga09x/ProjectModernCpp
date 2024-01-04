@@ -56,6 +56,9 @@ public slots:
     void updatePlayerList();
     void getPLayers();
 
+
+
+
 protected:
     void mousePressEvent(QMouseEvent* event) override;  //
     void mouseMoveEvent(QMouseEvent* event) override;   // aceste 3 functii au rolul de a implementa desenul
