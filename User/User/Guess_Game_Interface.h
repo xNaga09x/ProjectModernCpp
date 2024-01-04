@@ -39,9 +39,12 @@ private slots:
 
 	void updateChat();
 
+	void setWord();
+
 private:
 	Ui::Guess_Game_InterfaceClass ui;
 	std::string name;
 	QTimer* updateTimer; 
+	std::string word;
 
 };

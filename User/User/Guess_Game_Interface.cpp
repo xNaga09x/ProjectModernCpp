@@ -6,6 +6,8 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	ui.setupUi(this);
 	setWindowTitle("Main Game");
 
+
+	setWord();
 	updateTimer = new QTimer(this); 
 	getPLayers(); 
 	// Connect signals and slots
@@ -16,7 +18,16 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 
 	QTimer* chatUpdateTimer = new QTimer(this); 
 	connect(chatUpdateTimer, SIGNAL(timeout()), this, SLOT(updateChat())); 
-	chatUpdateTimer->start(3000); 
+	chatUpdateTimer->start(3000);
+
+	const QString qword = QString::fromStdString(word);
+
+	ui.GuessWord->setText(qword);
+	ui.GuessWord->setAlignment(Qt::AlignCenter);
+
+	ui.GuessWord->show();
+
+
 }
 
 Guess_Game_Interface::~Guess_Game_Interface()
@@ -110,4 +121,12 @@ void Guess_Game_Interface::sendMessage()
 		cpr::Response sendMessageResponse = cpr::Put(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ { "Message" ,message.toStdString()},
 		{"Username",this->getName()}});
 	}
+}
+void Guess_Game_Interface::setWord()
+{
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_random_word" });
+	auto jsonword = crow::json::load(response.text);
+
+	this->word = jsonword["word"].s();
+	qDebug() << word;
 }
