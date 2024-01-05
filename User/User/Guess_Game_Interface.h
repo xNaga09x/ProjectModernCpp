@@ -18,7 +18,8 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 
-
+#include "StopWatch.h"
+#include "Transition.h"
 
 class Guess_Game_Interface : public QMainWindow
 {
@@ -29,6 +30,7 @@ public:
 	~Guess_Game_Interface();
 	void setName(std::string name);
 	std::string getName();
+	//void closeAndOpenDrawer();
 
 private slots:
 	void sendMessage();
@@ -40,6 +42,7 @@ private slots:
 	void updateChat();
 
 	void setWord();
+	void closeWindow();
 
 private:
 	Ui::Guess_Game_InterfaceClass ui;
@@ -47,4 +50,7 @@ private:
 	QTimer* updateTimer; 
 	std::string word;
 	std::string secretword;
+	StopWatch stopwatch;
+
+
 };

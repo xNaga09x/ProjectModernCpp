@@ -15,6 +15,8 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 
+#include "Transition.h"
+
 
 class Lobby_Interface : public QMainWindow
 {
@@ -28,15 +30,12 @@ public:
 
 public slots:
 	void on_start_game_clicked();
-	void on_drawButton_clicked();
 
 	void getPLayers();
 	void openInterface();
 
 private:
 	Ui::Lobby_InterfaceClass ui;
-	Guess_Game_Interface* guesser;
-	Drawer_Game_Interface* draw;
 	std::string name;
 
 };

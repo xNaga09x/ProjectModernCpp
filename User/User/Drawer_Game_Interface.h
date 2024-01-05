@@ -17,6 +17,8 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 
+#include "StopWatch.h"
+#include "Transition.h"
 
 class Drawer_Game_Interface : public QMainWindow
 {
@@ -33,6 +35,9 @@ public:
     bool isModified() const { return modified; }    // verifica daca s-a modificat ceva fata de starea anterioara
     QColor penColor() const { return myPenColor; }  // tine minte culoarea selectata
     int penWidth() const { return myPenWidth; }     // tine minte grosimea selectata
+   // void closeAndOpenGuesser();
+
+
 public slots:
     void clearImage();  //sterge imaginea curenta
     void print();       //afisarea imaginii curente
@@ -57,6 +62,10 @@ public slots:
     void getPLayers();
 
 
+    void runGame();
+    void setName(std::string );
+    std::string getName();
+
 
 
 protected:
@@ -67,7 +76,6 @@ protected:
     void paintEvent(QPaintEvent* event) override;       // pt. updatarea desenului
     void resizeEvent(QResizeEvent* event) override;     // verif. ca QImaginea pe care desenam sa fie minim de dimensiunea widgetului
     void setWord();              //functie de setword pentru fiecare joc .
-    
    
    
 
@@ -87,4 +95,8 @@ private:
     
     QTimer* updateTimer;
     std::string word;
+    StopWatch stopwatch;
+    std::string name;
+    //Guess_Game_Interface* guesser;
+  
 };

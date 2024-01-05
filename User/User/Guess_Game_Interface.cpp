@@ -6,7 +6,6 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	ui.setupUi(this);
 	setWindowTitle("Main Game");
 
-
 	setWord();
 	updateTimer = new QTimer(this); 
 	getPLayers(); 
@@ -33,10 +32,21 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	ui.GuessWord->setAlignment(Qt::AlignCenter);
 
 	ui.GuessWord->show();
-
-
+	
+	QTimer* runTimer = new QTimer(this);
+	connect(runTimer, SIGNAL(timeout()), this, SLOT(closeWindow()));
+	runTimer->start(4000);
 }
+void Guess_Game_Interface::closeWindow()
+{
+	/*Transition* lobby = new Transition(this);
+	lobby->setName(this->getName());
+	lobby->show();
+	this->close();*/
+	delete this;
 
+	//closeAndOpenDrawer();
+}
 Guess_Game_Interface::~Guess_Game_Interface()
 {}
 
@@ -137,3 +147,50 @@ void Guess_Game_Interface::setWord()
 	this->word = jsonword["word"].s();
 	qDebug() << word;
 }
+
+//void Guess_Game_Interface::closeAndOpenDrawer()
+//{
+//	std::string start1 = "true";
+//	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
+//
+//	cpr::Response response1 = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
+//	auto interfaceTypes = crow::json::load(response1.text);
+//
+//	if (interfaceTypes) {
+//		std::string userIsDrawer;  // Seteaz? la true dac? utilizatorul curent este desenatorul
+//
+//		for (const auto& interfaceType : interfaceTypes) {
+//			std::string playerName = interfaceType["name"].s();
+//			std::string boolValue = interfaceType["guesser"].s();
+//
+//			if (playerName == this->getName()) {
+//				userIsDrawer = boolValue;
+//				break;
+//			}
+//		}
+//
+//		QWidgetList topLevelWidgets = QApplication::topLevelWidgets();
+//		for (int i = 0; i < topLevelWidgets.size(); ++i) {
+//			QWidget* widget = topLevelWidgets.at(i);
+//			if (widget->objectName() == "Drawer_Game_Interface" || widget->objectName() == "Guess_Game_Interface") {
+//				widget->close();  // Închide widget-ul
+//				widget->deleteLater();  // Amân? ?tergerea widget-ului
+//			}
+//		}
+//		if (userIsDrawer == "true") {
+//			Drawer_Game_Interface* draw = new Drawer_Game_Interface(this);
+//			draw->setName(this->getName());
+//			draw->show();
+//		}
+//		else if (userIsDrawer == "false") {
+//			Guess_Game_Interface* guesser = new Guess_Game_Interface(this);
+//			guesser->setName(this->getName());
+//			guesser->show();
+//		}
+//		else if (userIsDrawer == "end") {
+//			Lobby_Interface* lobby = new Lobby_Interface(this);
+//			lobby->setName(this->getName());
+//			lobby->show();
+//		}
+//	}
+//}

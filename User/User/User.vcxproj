@@ -97,12 +97,15 @@
     <QtUic Include="Drawer_Game_Interface.ui" />
     <QtUic Include="Guess_Game_Interface.ui" />
     <QtUic Include="Lobby_Interface.ui" />
+    <QtUic Include="Transition.ui" />
     <QtUic Include="User.ui" />
     <QtMoc Include="User.h" />
     <ClCompile Include="Drawer_Game_Interface.cpp" />
     <ClCompile Include="Guess_Game_Interface.cpp" />
     <ClCompile Include="Lobby_Interface.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="StopWatch.cpp" />
+    <ClCompile Include="Transition.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -120,6 +123,10 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Drawer_Game_Interface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="StopWatch.h" />
+    <QtMoc Include="Transition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

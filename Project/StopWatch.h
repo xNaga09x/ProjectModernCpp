@@ -15,6 +15,7 @@ namespace gartic
         void start();
         void stop();
         float elapsed_time();
+        float run_time();
     };
 }
 // DLL momentan stopwatch .

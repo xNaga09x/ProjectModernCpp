@@ -1,10 +1,11 @@
 #include "Drawer_Game_Interface.h"
 
 
-Drawer_Game_Interface::Drawer_Game_Interface(QWidget *parent)
+Drawer_Game_Interface::Drawer_Game_Interface(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
 
 	setWord();
 	updateTimer = new QTimer(this);
@@ -15,12 +16,37 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget *parent)
 	QTimer* chatUpdateTimer = new QTimer(this);
 	connect(chatUpdateTimer, SIGNAL(timeout()), this, SLOT(updateChat()));
 	chatUpdateTimer->start(3000);
+
+	QTimer* runTimer = new QTimer(this);
+	connect(runTimer, SIGNAL(timeout()), this, SLOT(runGame()));
+	runTimer->start(4000);
 }
 
 Drawer_Game_Interface::~Drawer_Game_Interface()
 {}
+void Drawer_Game_Interface::runGame()
+{
+	/*Transition* lobby = new Transition(this);
+	lobby->setName(this->getName());
+	lobby->show();*/
+	this->close();
+	delete this;
+	//closeAndOpenGuesser();
 
-bool Drawer_Game_Interface::openImage(const QString & fileName)
+}
+
+void Drawer_Game_Interface::setName(std::string name)
+{
+
+	this->name = name;
+
+}
+std::string Drawer_Game_Interface::getName()
+{
+	return name;
+}
+
+bool Drawer_Game_Interface::openImage(const QString& fileName)
 {
 	//aici primim o imagine din fisier si verificam sa fie minim pe marimile widget-ului
 	QImage loadedImage;
@@ -91,7 +117,7 @@ void Drawer_Game_Interface::print()
 #endif // QT_CONFIG(printdialog)
 }
 
-void Drawer_Game_Interface::mousePressEvent(QMouseEvent * event)
+void Drawer_Game_Interface::mousePressEvent(QMouseEvent* event)
 {
 	if (event->button() == Qt::LeftButton)
 	{
@@ -158,7 +184,7 @@ void Drawer_Game_Interface::paintEvent(QPaintEvent* event)
 
 	// Defini?i regiunea permis? (rama alb?)
 	int margin = 100;
-	QRect allowedRegion(margin+100, margin, width() - 420, height() - 300);
+	QRect allowedRegion(margin + 100, margin, width() - 420, height() - 300);
 
 	// Desena?i culoarea pentru regiunea permis? (fundalul alb)
 	painter.fillRect(allowedRegion, Qt::white);
@@ -199,7 +225,7 @@ void Drawer_Game_Interface::resizeEvent(QResizeEvent* event)
 		int y = (height() - image.height()) / 2;
 
 		// Actualiza?i pozi?ia zonei de desenare
-		setGeometry(x + 70, y + 70, image.width()-10, image.height());
+		setGeometry(x + 70, y + 70, image.width() - 10, image.height());
 
 		update();
 	}
@@ -217,7 +243,7 @@ void Drawer_Game_Interface::setWord()
 	qDebug() << word;
 }
 
-void Drawer_Game_Interface::drawLineTo(const QPoint & endPoint)
+void Drawer_Game_Interface::drawLineTo(const QPoint& endPoint)
 {
 	//Desenam o linie de la ultima pozitie pana la pozitia curenta
 	//Setam modificat ca true
@@ -312,7 +338,7 @@ void Drawer_Game_Interface::brownButtonClicked()
 
 void Drawer_Game_Interface::orangeButtonClicked()
 {
-	
+
 	setPenColor(QColor(255, 165, 0));
 }
 
@@ -337,15 +363,15 @@ void Drawer_Game_Interface::DeleteChatMessage(const std::string& contentToDelete
 
 void Drawer_Game_Interface::getChatAndDelete()
 {
-		cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_chat" });
-		auto chat = crow::json::load(response.text);
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_chat" });
+	auto chat = crow::json::load(response.text);
 
-		// Itera?i prin mesaje ?i face?i cereri DELETE pentru fiecare
-		for (const auto& message : chat)
-		{
-			std::string content = message["content"].s();
-			DeleteChatMessage(content);
-		}
+	// Itera?i prin mesaje ?i face?i cereri DELETE pentru fiecare
+	for (const auto& message : chat)
+	{
+		std::string content = message["content"].s();
+		DeleteChatMessage(content);
+	}
 }
 
 void Drawer_Game_Interface::updatePlayerList()
@@ -394,6 +420,51 @@ void Drawer_Game_Interface::updateChat()
 }
 
 
-
-
+//void Drawer_Game_Interface::closeAndOpenGuesser()
+//{
+//	std::string start1 = "true";
+//	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
+//
+//	cpr::Response response1 = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
+//	auto interfaceTypes = crow::json::load(response1.text);
+//
+//	if (interfaceTypes) {
+//		std::string userIsDrawer;  // Seteaz? la true dac? utilizatorul curent este desenatorul
+//
+//		for (const auto& interfaceType : interfaceTypes) {
+//			std::string playerName = interfaceType["name"].s();
+//			std::string boolValue = interfaceType["guesser"].s();
+//
+//			if (playerName == this->getName()) {
+//				userIsDrawer = boolValue;
+//				break;
+//			}
+//		}
+//
+//		QWidgetList topLevelWidgets = QApplication::topLevelWidgets();
+//		for (int i = 0; i < topLevelWidgets.size(); ++i) {
+//			QWidget* widget = topLevelWidgets.at(i);
+//			if (widget->objectName() == "Drawer_Game_Interface" || widget->objectName() == "Guess_Game_Interface") {
+//				widget->close();  // Închide widget-ul
+//				widget->deleteLater();  // Amân? ?tergerea widget-ului
+//			}
+//		}
+//
+//		if (userIsDrawer == "true") {
+//			Drawer_Game_Interface* draw = new Drawer_Game_Interface(this);
+//			draw->setName(this->getName());
+//			draw->show();
+//		}
+//		else if (userIsDrawer == "false") {
+//			Guess_Game_Interface* guesser = new Guess_Game_Interface(this);
+//			guesser->setName(this->getName());
+//			guesser->show();
+//		}
+//		else if (userIsDrawer == "end") {
+//			Lobby_Interface* lobby = new Lobby_Interface(this);
+//			lobby->setName(this->getName());
+//			lobby->show();
+//		}
+//	}
+//}
 

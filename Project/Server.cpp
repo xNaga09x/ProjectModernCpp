@@ -27,13 +27,12 @@ import<vector>;
 //}
 using namespace gartic;
 
-void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<crow::json::wvalue>& active, Game& gameInstance)
+void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<crow::json::wvalue>& active, Game& gameInstance, int& iterator)
 {
-
-	Stopwatch sw;
 	//alegem cuvant si drawer.
 	if (gameVerify.size() > 0)
 	{
+
 		/*std::vector<User> players;
 		for (auto l : active)
 		{
@@ -76,75 +75,70 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 
 
 		bool userType;
-		
+		if (iterator / actives.size() != 4)
 		{
-			//int noDraw = 0;
-			for (auto x : actives)
+
+			gameInstance.SetDrawer(actives[iterator % actives.size()]);
+			std::cout << gameInstance.GetDrawer().GetName()<<"\n\n\n\n";
+
+			std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
+
+			cpr::Parameters parameters = {
+				{"word", word}, };
+
+			auto response = cpr::Put(cpr::Url{ "http://localhost:18080/randomWord" }, parameters);
+			std::cout << response.text;
+			if (response.status_code == 200)
+				std::cout << "Cuvântul a fost trimis cu succes la server!\n";
+			else std::cerr << "Eroare la trimiterea cuvântului la server.\n";
+
+			for (auto y : actives)
 			{
 
-				gameInstance.SetDrawer(x);
-
-
-				std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
-
-				cpr::Parameters parameters = {
-					{"word", word}, };
-
-				auto response = cpr::Put(cpr::Url{ "http://localhost:18080/randomWord" }, parameters);
-				std::cout << response.text;
-				if (response.status_code == 200)
-					std::cout << "Cuvântul a fost trimis cu succes la server!\n";
-				else std::cerr << "Eroare la trimiterea cuvântului la server.\n";
-
-				for (auto y : actives)
+				if (y.GetName() == gameInstance.GetDrawer().GetName())
 				{
+					cpr::Parameters parameters = {
+							{"name", y.GetName()},
+							{"guesser","true"}, };
 
-					if (y.GetName() == gameInstance.GetDrawer().GetName())
-					{
-						cpr::Parameters parameters = {
-								{"name", y.GetName()},
-								{"guesser","true"}, };
-
-						auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
-
-					}
-					if (y.GetName() != gameInstance.GetDrawer().GetName())
-					{
-						cpr::Parameters parameters = {
-								{"name", y.GetName()},
-								{"guesser","false"}, };
-						auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
-					}
+					auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
 
 				}
-				sw.start();
-				//for (int i = 1; i <= 60; i++)
-				//	//if (i % 60 == 0)
-				//	//	//std::cout << i << std::endl;
-				//	//else
-				//	//	std::cout << i<<' ';
-				//{ }
-				auto endTimeTarget = sw.elapsed_time() + 20.0f;
-
-				while (sw.elapsed_time() < endTimeTarget) {
-					// ... // Execută codul pentru care vrei să măsori timpul
+				if (y.GetName() != gameInstance.GetDrawer().GetName())
+				{
+					cpr::Parameters parameters = {
+							{"name", y.GetName()},
+							{"guesser","false"}, };
+					auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
 				}
-				sw.stop();
-				std::cout << '\n' << sw.elapsed_time() << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+
+				//sw.start();
+
+				//auto endTimeTarget = sw.elapsed_time() + 20.0f;
+
+				//while (sw.elapsed_time() < endTimeTarget) {
+				//	// ... // Execută codul pentru care vrei să măsori timpul
+				//}
+				//sw.stop();
+				//std::cout << '\n' << sw.elapsed_time() << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+
+
 			}
-
-
-
-
-
-			//		//start timer
-
-			//	}
-			//}
+			iterator++;
 		}
+		else
+		{
+			for (auto y : actives)
+			{
+				cpr::Parameters parameters = {
+										{"name", y.GetName()},
+										{"guesser","end"}, };
+				auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
+			}
+		}
+
 	}
 }
-
 
 int main()
 {
@@ -161,7 +155,7 @@ int main()
 	crow::json::wvalue randomWord;
 	std::vector<std::pair<std::string, bool>> nameBoolPairs; // Vector pentru a stoca perechi de nume și valori bool
 
-
+	int iterator = 0;
 
 	crow::SimpleApp app;
 	Game gameInstance;
@@ -172,6 +166,7 @@ int main()
 		populateStorage(db);
 
 	auto usersCount = db.count<User>();
+
 
 	/*-----------------------------------------ROUTING-----------------------------------------------*/
 
@@ -192,15 +187,12 @@ int main()
 		return "This is the Game section";
 		});
 
-	CROW_ROUTE(app, "/startGame").methods(crow::HTTPMethod::Put)([&gameVerify, &active, &gameInstance](const crow::request& req) {
+	CROW_ROUTE(app, "/startGame").methods(crow::HTTPMethod::Put)([&gameVerify, &active, &gameInstance, &iterator](const crow::request& req) {
 
+		iterator;
 		std::string start{ req.url_params.get("start") };
 		gameVerify.push_back(crow::json::wvalue{ { "start",start } });
-		for (int i = 0; i < 2; i++)
-		{
-			run(gameVerify, active, gameInstance);
-
-		}
+		run(gameVerify, active, gameInstance, iterator);
 		return crow::response(200);
 		});
 
@@ -226,9 +218,9 @@ int main()
 		return crow::response(200);
 		});
 
-	CROW_ROUTE(app, "/verifyMethod").methods("GET"_method)([&gameVerify, &active, &gameInstance]() {
+	CROW_ROUTE(app, "/verifyMethod").methods("GET"_method)([&gameVerify, &active, &gameInstance, &iterator]() {
 
-		run(gameVerify, active, gameInstance);
+		run(gameVerify, active, gameInstance, iterator);
 		return crow::response(200);
 		});
 
@@ -313,11 +305,14 @@ int main()
 		{
 			jsonTypes.push_back(crow::json::wvalue{ {x} });
 		}
-		return crow::json::wvalue{ jsonTypes };
+		return crow::json::wvalue{ jsonTypes};
 		});
 	app.port(18080).multithreaded().run();
 
 	//run(gameVerify, active, gameInstance);
+
+
+
 
 	return 0;
 }
