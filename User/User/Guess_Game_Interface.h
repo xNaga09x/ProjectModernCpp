@@ -36,15 +36,17 @@ private slots:
 	void sendMessage();
 	void updatePlayerList();
 	void getPLayers();
-	void getChatAndDelete();
-	void DeleteChatMessage(const std::string& contentToDelete); 
+	/*void getChatAndDelete();
+	void DeleteChatMessage(const std::string& contentToDelete); */
 
 	void updateChat();
 
 	void setWord();
 	void closeWindow();
+
 public slots:
 	void watch();
+	void updateImage();
 
 private:
 	Ui::Guess_Game_InterfaceClass ui;
@@ -56,4 +58,5 @@ private:
 
 	short int seconds;
 	QTimer timer;
+	QPixmap image;
 };

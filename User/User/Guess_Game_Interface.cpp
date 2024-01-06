@@ -6,6 +6,20 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	ui.setupUi(this);
 	setWindowTitle("Main Game");
 
+	//IMAGINE
+	image = QPixmap("auto_save.png");
+
+	if (image.isNull()) {
+		qDebug() << "Eroare la incarcarea imaginii!";
+	}
+	else {
+		ui.label->setPixmap(image);
+	}
+
+	QTimer* imageTimer = new QTimer(this);
+	connect(imageTimer, SIGNAL(timeout()), this, SLOT(updateImage()));
+	imageTimer->start(1000);
+
 	setWord();
 	updateTimer = new QTimer(this); 
 	getPLayers(); 
@@ -35,12 +49,13 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	
 	QTimer* runTimer = new QTimer(this);
 	connect(runTimer, SIGNAL(timeout()), this, SLOT(closeWindow()));
-	runTimer->start(4000);
+	runTimer->start(25000);
 
 	seconds = 60;
 	connect(&timer, SIGNAL(timeout()), this, SLOT(watch()));
 	timer.start(1000);
 }
+
 void Guess_Game_Interface::closeWindow()
 {
 	/*Transition* lobby = new Transition(this);
@@ -51,6 +66,20 @@ void Guess_Game_Interface::closeWindow()
 
 	//closeAndOpenDrawer();
 }
+
+void Guess_Game_Interface::updateImage()
+{
+	QPixmap newImage("auto_save.png");
+
+	if (newImage.isNull()) {
+		qDebug() << "Eroare la incarcarea imaginii!";
+	}
+	else {
+		image = newImage;
+		ui.label->setPixmap(image);
+	}
+}
+
 Guess_Game_Interface::~Guess_Game_Interface()
 {}
 
@@ -92,24 +121,6 @@ void Guess_Game_Interface::getPLayers()
 
 }
 
-void Guess_Game_Interface::getChatAndDelete()
-{
-	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_chat" });
-	auto chat = crow::json::load(response.text);
-
-	// Itera?i prin mesaje ?i face?i cereri DELETE pentru fiecare
-	for (const auto& message : chat)
-	{
-		std::string content = message["content"].s(); 
-		DeleteChatMessage(content);
-	}
-}
-
-void Guess_Game_Interface::DeleteChatMessage(const std::string& contentToDelete)
-{
-	cpr::Response deleteResponse = cpr::Delete(cpr::Url{ "http://localhost:18080/chat" },cpr::Parameters{ {"Message", contentToDelete} });
-}
-
 void Guess_Game_Interface::updateChat()
 {
 	auto responseMessages = cpr::Get(cpr::Url{ "http://localhost:18080/get_chat" });
@@ -129,7 +140,6 @@ void Guess_Game_Interface::updateChat()
 		ui.chatDisplay->append(qstrMessage);
 	}
 	
-	
 }
 
 void Guess_Game_Interface::sendMessage()
@@ -137,12 +147,13 @@ void Guess_Game_Interface::sendMessage()
 	QString message = ui.messageInput->text();
 	if (!message.isEmpty())
 	{
-		/*ui.chatDisplay->append("You: " + message);*/
+		
 		ui.messageInput->clear();
 		cpr::Response sendMessageResponse = cpr::Put(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ { "Message" ,message.toStdString()},
 		{"Username",this->getName()}});
 	}
 }
+
 void Guess_Game_Interface::setWord()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_random_word" });
@@ -151,6 +162,7 @@ void Guess_Game_Interface::setWord()
 	this->word = jsonword["word"].s();
 	qDebug() << word;
 }
+
 void Guess_Game_Interface::watch()
 {
 	seconds = seconds - 1;
@@ -159,49 +171,3 @@ void Guess_Game_Interface::watch()
 		ui.stopWatch->display(seconds);
 	}
 }
-//void Guess_Game_Interface::closeAndOpenDrawer()
-//{
-//	std::string start1 = "true";
-//	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
-//
-//	cpr::Response response1 = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
-//	auto interfaceTypes = crow::json::load(response1.text);
-//
-//	if (interfaceTypes) {
-//		std::string userIsDrawer;  // Seteaz? la true dac? utilizatorul curent este desenatorul
-//
-//		for (const auto& interfaceType : interfaceTypes) {
-//			std::string playerName = interfaceType["name"].s();
-//			std::string boolValue = interfaceType["guesser"].s();
-//
-//			if (playerName == this->getName()) {
-//				userIsDrawer = boolValue;
-//				break;
-//			}
-//		}
-//
-//		QWidgetList topLevelWidgets = QApplication::topLevelWidgets();
-//		for (int i = 0; i < topLevelWidgets.size(); ++i) {
-//			QWidget* widget = topLevelWidgets.at(i);
-//			if (widget->objectName() == "Drawer_Game_Interface" || widget->objectName() == "Guess_Game_Interface") {
-//				widget->close();  // Închide widget-ul
-//				widget->deleteLater();  // Amân? ?tergerea widget-ului
-//			}
-//		}
-//		if (userIsDrawer == "true") {
-//			Drawer_Game_Interface* draw = new Drawer_Game_Interface(this);
-//			draw->setName(this->getName());
-//			draw->show();
-//		}
-//		else if (userIsDrawer == "false") {
-//			Guess_Game_Interface* guesser = new Guess_Game_Interface(this);
-//			guesser->setName(this->getName());
-//			guesser->show();
-//		}
-//		else if (userIsDrawer == "end") {
-//			Lobby_Interface* lobby = new Lobby_Interface(this);
-//			lobby->setName(this->getName());
-//			lobby->show();
-//		}
-//	}
-//}

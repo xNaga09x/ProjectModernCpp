@@ -19,12 +19,16 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget* parent)
 
 	QTimer* runTimer = new QTimer(this);
 	connect(runTimer, SIGNAL(timeout()), this, SLOT(runGame()));
-	runTimer->start(4000);
+	runTimer->start(25000);
 
 	
 	seconds = 60;
 	connect(&timer, SIGNAL(timeout()), this, SLOT(watch()));
 	timer.start(1000);
+
+	QTimer* autoSaveTimer = new QTimer(this);
+	connect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(autoSaveImage()));
+	autoSaveTimer->start(5000);  // Setare interval de 2 secunde pentru salvare automat?
 }
 
 Drawer_Game_Interface::~Drawer_Game_Interface()
@@ -432,6 +436,15 @@ void Drawer_Game_Interface::watch()
 	{
 		ui.stopWatch->display(seconds);
 	}
+}
+
+void Drawer_Game_Interface::autoSaveImage()
+{
+	// Define?te un nume de fi?ier unic, de exemplu, bazat pe data ?i or?
+	QString fileName = "auto_save.png";
+
+	// Salveaz? imaginea cu numele de fi?ier generat
+	saveImage(fileName, "PNG");
 }
 
 //void Drawer_Game_Interface::closeAndOpenGuesser()

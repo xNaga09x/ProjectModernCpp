@@ -88,12 +88,25 @@ void Lobby_Interface::openInterface()
 }
 void Lobby_Interface::on_start_game_clicked()
 {
-	/*std::string start1 = "true";
-	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });*/
-	openInterface();
-	/*guesser = new Guess_Game_Interface(this);
+	std::string start1 = "true";
+	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
+	/* openInterface(); */
+
+		Guess_Game_Interface * guesser = new Guess_Game_Interface(this);
 	guesser->setName(this->getName());
+	guesser->show();
+
+	Drawer_Game_Interface* draw = new Drawer_Game_Interface(this);
+	draw->setName(this->getName());
+	draw->show();
+
 	this->close();
-	guesser->show();*/
+	///*std::string start1 = "true";
+	//auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });*/
+	//openInterface();
+	///*guesser = new Guess_Game_Interface(this);
+	//guesser->setName(this->getName());
+	//this->close();
+	//guesser->show();*/
 	
 }
