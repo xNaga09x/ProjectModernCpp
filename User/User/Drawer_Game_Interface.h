@@ -66,7 +66,7 @@ public slots:
     void setName(std::string );
     std::string getName();
 
-
+    void watch();
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;  //
@@ -97,6 +97,7 @@ private:
     std::string word;
     StopWatch stopwatch;
     std::string name;
-    //Guess_Game_Interface* guesser;
   
+    short int seconds;
+    QTimer timer;
 };

@@ -20,6 +20,11 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget* parent)
 	QTimer* runTimer = new QTimer(this);
 	connect(runTimer, SIGNAL(timeout()), this, SLOT(runGame()));
 	runTimer->start(4000);
+
+	
+	seconds = 60;
+	connect(&timer, SIGNAL(timeout()), this, SLOT(watch()));
+	timer.start(1000);
 }
 
 Drawer_Game_Interface::~Drawer_Game_Interface()
@@ -45,6 +50,8 @@ std::string Drawer_Game_Interface::getName()
 {
 	return name;
 }
+
+
 
 bool Drawer_Game_Interface::openImage(const QString& fileName)
 {
@@ -418,7 +425,14 @@ void Drawer_Game_Interface::updateChat()
 		ui.chatDisplayDraw->append(qstrMessage);
 	}
 }
-
+void Drawer_Game_Interface::watch()
+{
+	seconds = seconds - 1;
+	if (seconds >= 0)
+	{
+		ui.stopWatch->display(seconds);
+	}
+}
 
 //void Drawer_Game_Interface::closeAndOpenGuesser()
 //{
