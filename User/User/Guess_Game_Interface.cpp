@@ -36,6 +36,10 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	QTimer* runTimer = new QTimer(this);
 	connect(runTimer, SIGNAL(timeout()), this, SLOT(closeWindow()));
 	runTimer->start(4000);
+
+	seconds = 60;
+	connect(&timer, SIGNAL(timeout()), this, SLOT(watch()));
+	timer.start(1000);
 }
 void Guess_Game_Interface::closeWindow()
 {
@@ -147,7 +151,14 @@ void Guess_Game_Interface::setWord()
 	this->word = jsonword["word"].s();
 	qDebug() << word;
 }
-
+void Guess_Game_Interface::watch()
+{
+	seconds = seconds - 1;
+	if (seconds >= 0)
+	{
+		ui.stopWatch->display(seconds);
+	}
+}
 //void Guess_Game_Interface::closeAndOpenDrawer()
 //{
 //	std::string start1 = "true";

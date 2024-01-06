@@ -43,6 +43,8 @@ private slots:
 
 	void setWord();
 	void closeWindow();
+public slots:
+	void watch();
 
 private:
 	Ui::Guess_Game_InterfaceClass ui;
@@ -52,5 +54,6 @@ private:
 	std::string secretword;
 	StopWatch stopwatch;
 
-
+	short int seconds;
+	QTimer timer;
 };
