@@ -396,7 +396,7 @@ void Drawer_Game_Interface::getPLayers()
 	QStandardItem* item1 = new QStandardItem("Player 1");
 
 	std::ofstream f("Text.txt");
-	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/users" });
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/getUsers" });
 	std::cout << "Users:\n";
 	auto users = crow::json::load(response.text);
 	for (const auto& user : users)
