@@ -8,7 +8,7 @@ Transition::Transition(QWidget *parent)
 
 	QTimer* runTimer = new QTimer(this);
 	connect(runTimer, SIGNAL(timeout()), this, SLOT(UserType()));
-	runTimer->start(7000);
+	runTimer->start(5000);
 }
 
 Transition::~Transition()
@@ -36,7 +36,8 @@ void Transition::UserType()
 		// Preia?i valoarea boolean? pentru utilizatorul curent
 		std::string userIsDrawer = "false";  // Seteaz? la true dac? utilizatorul curent este desenatorul
 
-		for (const auto& interfaceType : interfaceTypes) {
+		for (const auto& interfaceType : interfaceTypes) 
+		{
 			std::string playerName = interfaceType["name"].s();
 			std::string boolValue = interfaceType["guesser"].s();
 			qDebug() << playerName<<" "<<boolValue;

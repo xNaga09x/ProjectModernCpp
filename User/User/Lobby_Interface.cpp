@@ -6,7 +6,13 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 	ui.setupUi(this);
 	getPLayers();
 
-
+	QTimer* checkStarted = new QTimer(this);
+	if (ok == 0)
+	{
+		ok = 1;
+		connect(checkStarted, SIGNAL(timeout()), this, SLOT(verifyStarted()));
+		checkStarted->start(6000);
+	}
 }
 
 Lobby_Interface::~Lobby_Interface()
@@ -40,14 +46,13 @@ void Lobby_Interface::getPLayers()
 		model->appendRow(item1);
 
 	}
-	
+
 	ui.playerList->setModel(model);
-	
+
 
 }
 void Lobby_Interface::openInterface()
 {
-
 	Transition* transition = new Transition(this);
 	transition->setName(this->getName());
 	transition->show();
@@ -86,21 +91,33 @@ void Lobby_Interface::openInterface()
 	//}
 
 }
+void Lobby_Interface::verifyStarted()
+{
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/checkStarted" });
+	auto check = crow::json::load(response.text);
+	for (const auto& checked : check)
+	{
+		if (checked["start"].s() == "true")
+		{
+			openInterface();
+		}
+	}
+}
 void Lobby_Interface::on_start_game_clicked()
 {
 	std::string start1 = "true";
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
-	/* openInterface(); */
+	openInterface();
 
-		Guess_Game_Interface * guesser = new Guess_Game_Interface(this);
+	/*	Guess_Game_Interface * guesser = new Guess_Game_Interface(this);
 	guesser->setName(this->getName());
 	guesser->show();
 
 	Drawer_Game_Interface* draw = new Drawer_Game_Interface(this);
 	draw->setName(this->getName());
-	draw->show();
+	draw->show();*/
+	//this->close();
 
-	this->close();
 	///*std::string start1 = "true";
 	//auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });*/
 	//openInterface();
@@ -108,5 +125,5 @@ void Lobby_Interface::on_start_game_clicked()
 	//guesser->setName(this->getName());
 	//this->close();
 	//guesser->show();*/
-	
+
 }

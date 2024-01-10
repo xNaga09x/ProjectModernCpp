@@ -79,7 +79,7 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 		{
 
 			gameInstance.SetDrawer(actives[iterator % actives.size()]);
-			std::cout << gameInstance.GetDrawer().GetName()<<"\n\n\n\n";
+			std::cout << gameInstance.GetDrawer().GetName() << "\n\n\n\n";
 
 			std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
 
@@ -196,6 +196,20 @@ int main()
 		return crow::response(200);
 		});
 
+	CROW_ROUTE(app, "/checkStarted").methods(crow::HTTPMethod::Get)([&gameVerify](const crow::request& req) {
+		// Verificați starea butonului aici, folosind informațiile stocate în gameVerify
+		// De exemplu, puteți verifica dacă există o intrare pentru "start" și dacă are o anumită valoare
+
+		std::vector<crow::json::wvalue> jsonMessage;
+		for (auto x : gameVerify)
+		{
+			jsonMessage.push_back(crow::json::wvalue{ {x} });
+		}
+		return crow::json::wvalue{ jsonMessage };
+
+		
+});
+
 	CROW_ROUTE(app, "/randomWord").methods(crow::HTTPMethod::Put)([&randomWord](const crow::request& req) {
 
 		std::string word{ req.url_params.get("word") };
@@ -305,7 +319,7 @@ int main()
 		{
 			jsonTypes.push_back(crow::json::wvalue{ {x} });
 		}
-		return crow::json::wvalue{ jsonTypes};
+		return crow::json::wvalue{ jsonTypes };
 		});
 	app.port(18080).multithreaded().run();
 

@@ -27,4 +27,5 @@ public slots:
 private:
 	Ui::TransitionClass ui;
 	std::string name;
+	int noTransitions=0;
 };

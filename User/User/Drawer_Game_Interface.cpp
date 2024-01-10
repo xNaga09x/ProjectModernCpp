@@ -19,7 +19,7 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget* parent)
 
 	QTimer* runTimer = new QTimer(this);
 	connect(runTimer, SIGNAL(timeout()), this, SLOT(runGame()));
-	runTimer->start(25000);
+	runTimer->start(60000);
 
 	
 	seconds = 60;

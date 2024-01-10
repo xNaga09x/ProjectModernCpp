@@ -49,7 +49,7 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	
 	QTimer* runTimer = new QTimer(this);
 	connect(runTimer, SIGNAL(timeout()), this, SLOT(closeWindow()));
-	runTimer->start(25000);
+	runTimer->start(60000);
 
 	seconds = 60;
 	connect(&timer, SIGNAL(timeout()), this, SLOT(watch()));

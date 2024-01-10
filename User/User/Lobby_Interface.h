@@ -33,11 +33,13 @@ public slots:
 
 	void getPLayers();
 	void openInterface();
+	void verifyStarted();
 
 private:
 	Ui::Lobby_InterfaceClass ui;
 	std::string name;
-
+	QTimer checkTimer;
+	int ok = 0;
 };
 
 
