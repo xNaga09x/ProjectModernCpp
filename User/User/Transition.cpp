@@ -8,7 +8,7 @@ Transition::Transition(QWidget *parent)
 
 	QTimer* runTimer = new QTimer(this);
 	connect(runTimer, SIGNAL(timeout()), this, SLOT(UserType()));
-	runTimer->start(5000);
+	runTimer->start(60000);
 }
 
 Transition::~Transition()

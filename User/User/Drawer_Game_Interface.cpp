@@ -436,6 +436,7 @@ void Drawer_Game_Interface::watch()
 	{
 		ui.stopWatch->display(seconds);
 	}
+	if (seconds == 0)this->close();
 }
 
 void Drawer_Game_Interface::autoSaveImage()

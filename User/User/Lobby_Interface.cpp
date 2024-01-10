@@ -6,13 +6,13 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 	ui.setupUi(this);
 	getPLayers();
 
-	QTimer* checkStarted = new QTimer(this);
+	/*QTimer* checkStarted = new QTimer(this);
 	if (ok == 0)
 	{
 		ok = 1;
 		connect(checkStarted, SIGNAL(timeout()), this, SLOT(verifyStarted()));
 		checkStarted->start(6000);
-	}
+	}*/
 }
 
 Lobby_Interface::~Lobby_Interface()
