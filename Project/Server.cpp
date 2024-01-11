@@ -153,6 +153,7 @@ int main()
 	std::vector<crow::json::wvalue> interfaces;
 	std::vector<crow::json::wvalue> userType;
 	crow::json::wvalue randomWord;
+	crow::json::wvalue lobbyActive;
 	std::vector<std::pair<std::string, bool>> nameBoolPairs; // Vector pentru a stoca perechi de nume și valori bool
 
 	int iterator = 0;
@@ -231,6 +232,21 @@ int main()
 
 		return crow::response(200);
 		});
+
+	CROW_ROUTE(app, "/lobbyActive").methods(crow::HTTPMethod::Put)([&lobbyActive](const crow::request& req) 
+		{
+		std::string name{ req.url_params.get("status") };
+		std::string namex{ req.url_params.get("name") };
+
+		lobbyActive = crow::json::wvalue{ {"status",name},{"name",namex}};
+
+		return crow::response(200);
+		});
+	
+	CROW_ROUTE(app, "/getLobbyActive").methods("GET"_method)([&lobbyActive]() {
+		return lobbyActive;
+		});
+
 
 	CROW_ROUTE(app, "/verifyMethod").methods("GET"_method)([&gameVerify, &active, &gameInstance, &iterator]() {
 

@@ -6,13 +6,10 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 	ui.setupUi(this);
 	getPLayers();
 
-	/*QTimer* checkStarted = new QTimer(this);
-	if (ok == 0)
-	{
-		ok = 1;
-		connect(checkStarted, SIGNAL(timeout()), this, SLOT(verifyStarted()));
-		checkStarted->start(6000);
-	}*/
+	QTimer* runTime = new QTimer(this); 
+	runTime->start(1000); 
+	connect(runTime, SIGNAL(timeout()), this, SLOT(verifyStarted())); 
+
 }
 
 Lobby_Interface::~Lobby_Interface()
@@ -53,77 +50,70 @@ void Lobby_Interface::getPLayers()
 }
 void Lobby_Interface::openInterface()
 {
-	Transition* transition = new Transition(this);
-	transition->setName(this->getName());
-	transition->show();
-	this->close();
-	/*cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
-	auto interfaceTypes = crow::json::load(response.text);*/
+	std::string start1 = "true";
+	auto response3 = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
+	/*auto response = cpr::Put(cpr::Url{ "http://localhost:18080/lobbyActive" }, cpr::Parameters{ { "status", "true"},{"name",this->name}});*/
 
-	//if (interfaceTypes) {
-	//	// Preia?i valoarea boolean? pentru utilizatorul curent
-	//	std::string userIsDrawer = "false";  // Seteaz? la true dac? utilizatorul curent este desenatorul
+	cpr::Response response7 = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
+	auto interfaceTypes = crow::json::load(response7.text);
 
-	//	for (const auto& interfaceType : interfaceTypes) {
-	//		std::string playerName = interfaceType["name"].s();
-	//		std::string boolValue = interfaceType["guesser"].s();
+	if (interfaceTypes) {
+		// Preia?i valoarea boolean? pentru utilizatorul curent
+		std::string userIsDrawer = "false";  // Seteaz? la true dac? utilizatorul curent este desenatorul
 
-	//		if (playerName == this->getName()) {
-	//			userIsDrawer = boolValue;
-	//			break;
-	//		}
-	//	}
+		for (const auto& interfaceType : interfaceTypes)
+		{
+			std::string playerName = interfaceType["name"].s();
+			std::string boolValue = interfaceType["guesser"].s();
+			qDebug() << playerName << " " << boolValue;
 
-	//	/*if (userIsDrawer=="true") {
-	//		Drawer_Game_Interface* draw= new Drawer_Game_Interface(this);
-	//		draw->setName(this->getName());
-	//		this->close();
-	//		draw->show();
-	//	}
-	//	else if (userIsDrawer == "false") {
-	//		Guess_Game_Interface* guesser= new Guess_Game_Interface(this);
-	//		guesser->setName(this->getName());
-	//		this->close();
-	//		guesser->show();
-	//	}*/
+			if (playerName == this->getName()) {
+				userIsDrawer = boolValue;
+				break;
+			}
+		}
 
-
-	//}
-
+		if (userIsDrawer == "true") {
+			Drawer_Game_Interface* draw = new Drawer_Game_Interface(this);
+			draw->setName(this->getName());
+			//this->close();
+			this->hide();
+			draw->show();
+		}
+		else if (userIsDrawer == "false") {
+			Guess_Game_Interface* guesser = new Guess_Game_Interface(this);
+			guesser->setName(this->getName());
+			//this->close();
+			this->hide();
+			guesser->show();
+		}
+		else if (userIsDrawer == "end")
+		{
+			delete this;
+		}
+		QTimer* runTimer = new QTimer(this);
+		connect(runTimer, SIGNAL(timeout()), this, SLOT(UserType()));
+		runTimer->start(60000);
+	}
 }
+
 void Lobby_Interface::verifyStarted()
 {
 	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/checkStarted" });
 	auto check = crow::json::load(response.text);
 	for (const auto& checked : check)
 	{
-		if (checked["start"].s() == "true")
+		if (checked["start"].s() == "true" && ok == 0)
 		{
+			ok = 1;
 			openInterface();
 		}
 	}
 }
+
 void Lobby_Interface::on_start_game_clicked()
 {
 	std::string start1 = "true";
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
 	openInterface();
-
-	/*	Guess_Game_Interface * guesser = new Guess_Game_Interface(this);
-	guesser->setName(this->getName());
-	guesser->show();
-
-	Drawer_Game_Interface* draw = new Drawer_Game_Interface(this);
-	draw->setName(this->getName());
-	draw->show();*/
-	//this->close();
-
-	///*std::string start1 = "true";
-	//auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });*/
-	//openInterface();
-	///*guesser = new Guess_Game_Interface(this);
-	//guesser->setName(this->getName());
-	//this->close();
-	//guesser->show();*/
-
 }
