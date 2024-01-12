@@ -111,18 +111,6 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 							{"guesser","false"}, };
 					auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
 				}
-
-				//sw.start();
-
-				//auto endTimeTarget = sw.elapsed_time() + 20.0f;
-
-				//while (sw.elapsed_time() < endTimeTarget) {
-				//	// ... // Execută codul pentru care vrei să măsori timpul
-				//}
-				//sw.stop();
-				//std::cout << '\n' << sw.elapsed_time() << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-
-
 			}
 			iterator++;
 		}
@@ -242,6 +230,32 @@ int main()
 
 		return crow::response(200);
 		});
+
+	CROW_ROUTE(app, "/uploadImage").methods(crow::HTTPMethod::Post)([&](const crow::request& req) {
+		// Handle the image upload here
+
+		// Get the uploaded image data from the request body
+		const auto& body = req.body;
+		std::string imageData(body.data(), body.size());
+
+		// Save the image data to a file (you may need to adjust the path)
+		std::ofstream imageFile("uploaded_image.png", std::ios::binary);
+		imageFile.write(imageData.c_str(), imageData.size());
+
+		return crow::response(200, "Image uploaded successfully");
+		});
+
+	CROW_ROUTE(app, "/downloadImage").methods(crow::HTTPMethod::Get)([&](const crow::request& req) {
+		// Handle the image download here
+
+		// Load the image from file (you may need to adjust the path)
+		std::ifstream imageFile("uploaded_image.png", std::ios::binary);
+		std::ostringstream imageData;
+		imageData << imageFile.rdbuf();
+
+		// Respond with the image data
+		return crow::response(200, imageData.str());
+		});
 	
 	CROW_ROUTE(app, "/getLobbyActive").methods("GET"_method)([&lobbyActive]() {
 		return lobbyActive;
@@ -289,6 +303,7 @@ int main()
 			{"Message",message},
 			{"Username",name}
 			});
+
 		return crow::response(200);
 		});
 
@@ -337,6 +352,10 @@ int main()
 		}
 		return crow::json::wvalue{ jsonTypes };
 		});
+
+
+
+
 	app.port(18080).multithreaded().run();
 
 	//run(gameVerify, active, gameInstance);

@@ -4,12 +4,11 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
 	getPLayers();
 
-	QTimer* runTime = new QTimer(this); 
-	runTime->start(1000); 
-	connect(runTime, SIGNAL(timeout()), this, SLOT(verifyStarted())); 
-
+	runTime->start(1000);
+	connect(runTime, SIGNAL(timeout()), this, SLOT(verifyStarted()));
 }
 
 Lobby_Interface::~Lobby_Interface()
@@ -24,7 +23,6 @@ std::string Lobby_Interface::getName()
 {
 	return this->name;
 }
-
 
 void Lobby_Interface::getPLayers()
 {
@@ -48,11 +46,11 @@ void Lobby_Interface::getPLayers()
 
 
 }
+
 void Lobby_Interface::openInterface()
 {
 	std::string start1 = "true";
 	auto response3 = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
-	/*auto response = cpr::Put(cpr::Url{ "http://localhost:18080/lobbyActive" }, cpr::Parameters{ { "status", "true"},{"name",this->name}});*/
 
 	cpr::Response response7 = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
 	auto interfaceTypes = crow::json::load(response7.text);
@@ -91,6 +89,7 @@ void Lobby_Interface::openInterface()
 		{
 			delete this;
 		}
+
 		QTimer* runTimer = new QTimer(this);
 		connect(runTimer, SIGNAL(timeout()), this, SLOT(UserType()));
 		runTimer->start(60000);
@@ -116,4 +115,5 @@ void Lobby_Interface::on_start_game_clicked()
 	std::string start1 = "true";
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
 	openInterface();
+	runTime->stop(); 
 }

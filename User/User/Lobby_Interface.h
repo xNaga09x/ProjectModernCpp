@@ -40,6 +40,7 @@ private:
 	std::string name;
 	QTimer checkTimer;
 	int ok = 0;
+	QTimer* runTime = new QTimer(this); 
 };
 
 

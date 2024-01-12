@@ -29,6 +29,10 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget* parent)
 	QTimer* autoSaveTimer = new QTimer(this);
 	connect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(autoSaveImage()));
 	autoSaveTimer->start(5000);  // Setare interval de 2 secunde pentru salvare automat?
+
+	QTimer* sendImg = new QTimer(this);
+	connect(sendImg, SIGNAL(timeout()), this, SLOT(sendImage())); 
+	sendImg->start(5000); 
 }
 
 Drawer_Game_Interface::~Drawer_Game_Interface()
@@ -68,7 +72,7 @@ bool Drawer_Game_Interface::openImage(const QString& fileName)
 	resizeImage(&loadedImage, newSize);//redimensionare
 	image = loadedImage;
 	modified = false;
-	update();//update
+	update();
 	return true;
 }
 
@@ -87,6 +91,56 @@ bool Drawer_Game_Interface::saveImage(const QString& fileName, const char* fileF
 	return false;
 }
 
+void Drawer_Game_Interface::autoSaveImage()
+{
+	// Define?te un nume de fi?ier unic, de exemplu, bazat pe data ?i or?
+	QString fileName = "auto_save.png";
+
+	// Salveaz? imaginea cu numele de fi?ier generat
+	saveImage(fileName, "PNG");
+}
+
+void Drawer_Game_Interface::sendImage()
+{
+	// Convert the QImage to QByteArray for sending
+	QByteArray byteArray;
+	QBuffer buffer(&byteArray);
+	buffer.open(QIODevice::WriteOnly);
+	image.save(&buffer, "PNG"); // Save the image to the buffer in PNG format
+
+	// Make a POST request to send the image data to the server
+	cpr::Response response = cpr::Post(cpr::Url{ "http://localhost:18080/uploadImage" },
+		cpr::Body{ byteArray.toStdString() });
+
+	// Check the response status
+	if (response.status_code == 200) {
+		qDebug() << "Image sent successfully!";
+	}
+	else {
+		qDebug() << "Failed to send image. Status code: " << response.status_code;
+	}
+}
+
+//void Drawer_Game_Interface::sendImage()
+//{
+//	// Convert the QImage to a QByteArray
+//	QByteArray byteArray;
+//	QBuffer buffer(&byteArray);
+//	buffer.open(QIODevice::WriteOnly);
+//	image.save(&buffer, "PNG");
+//
+//	// Make a POST request to send the image data to the server
+//	cpr::Response response = cpr::Post(cpr::Url{ "http://localhost:18080/uploadImage" },
+//		cpr::Body{ byteArray.toStdString() });
+//
+//	// Check the response status
+//	if (response.status_code == 200) {
+//		qDebug() << "Image sent successfully!";
+//	}
+//	else {
+//		qDebug() << "Failed to send image. Status code: " << response.status_code;
+//	}
+//}
 void Drawer_Game_Interface::setPenColor(const QColor& newColor)
 {
 	//seteaza culoarea
@@ -439,14 +493,6 @@ void Drawer_Game_Interface::watch()
 	if (seconds == 0)this->close();
 }
 
-void Drawer_Game_Interface::autoSaveImage()
-{
-	// Define?te un nume de fi?ier unic, de exemplu, bazat pe data ?i or?
-	QString fileName = "auto_save.png";
-
-	// Salveaz? imaginea cu numele de fi?ier generat
-	saveImage(fileName, "PNG");
-}
 
 //void Drawer_Game_Interface::closeAndOpenGuesser()
 //{
@@ -495,4 +541,12 @@ void Drawer_Game_Interface::autoSaveImage()
 //		}
 //	}
 //}
+
+
+
+
+
+
+
+
 
