@@ -67,43 +67,43 @@ void Guess_Game_Interface::closeWindow()
 	//closeAndOpenDrawer();
 }
 
-void Guess_Game_Interface::updateImage()
-{
-	QPixmap newImage("auto_save.png");
-
-	if (newImage.isNull()) {
-		qDebug() << "Eroare la incarcarea imaginii!";
-	}
-	else {
-		image = newImage;
-		ui.label->setPixmap(image);
-	}
-}
-
-//void Guess_Game_Interface::updateImage() 
+//void Guess_Game_Interface::updateImage()
 //{
-//	// Make a GET request to fetch the image data from the server
-//	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/downloadImage" }); 
+//	QPixmap newImage("auto_save.png");
 //
-//	// Check the response status
-//	if (response.status_code == 200) {
-//		// Convert the image data to QPixmap and set it to the label
-//		QByteArray byteArray(response.text.c_str(), response.text.length());
-//		QPixmap newImage;
-//		newImage.loadFromData(byteArray);
-//
-//		if (newImage.isNull()) {
-//			qDebug() << "Error loading image from server!";
-//		}
-//		else {
-//			image = newImage;
-//			ui.label->setPixmap(image);
-//		}
+//	if (newImage.isNull()) {
+//		qDebug() << "Eroare la incarcarea imaginii!";
 //	}
 //	else {
-//		qDebug() << "Failed to fetch image from server. Status code: " << response.status_code;
+//		image = newImage;
+//		ui.label->setPixmap(image);
 //	}
 //}
+
+void Guess_Game_Interface::updateImage() 
+{
+	// Make a GET request to fetch the image data from the server
+	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/downloadImage" }); 
+
+	// Check the response status
+	if (response.status_code == 200) {
+		// Convert the image data to QPixmap and set it to the label
+		QByteArray byteArray(response.text.c_str(), response.text.length());
+		QPixmap newImage;
+		newImage.loadFromData(byteArray);
+
+		if (newImage.isNull()) {
+			qDebug() << "Error loading image from server!";
+		}
+		else {
+			image = newImage;
+			ui.label->setPixmap(image);
+		}
+	}
+	else {
+		qDebug() << "Failed to fetch image from server. Status code: " << response.status_code;
+	}
+}
 
 Guess_Game_Interface::~Guess_Game_Interface()
 {}
