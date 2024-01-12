@@ -67,19 +67,6 @@ void Guess_Game_Interface::closeWindow()
 	//closeAndOpenDrawer();
 }
 
-//void Guess_Game_Interface::updateImage()
-//{
-//	QPixmap newImage("auto_save.png");
-//
-//	if (newImage.isNull()) {
-//		qDebug() << "Eroare la incarcarea imaginii!";
-//	}
-//	else {
-//		image = newImage;
-//		ui.label->setPixmap(image);
-//	}
-//}
-
 void Guess_Game_Interface::updateImage() 
 {
 	// Make a GET request to fetch the image data from the server
@@ -197,3 +184,16 @@ void Guess_Game_Interface::watch()
 	}
 	if(seconds==0)this->close();
 }
+
+//void Guess_Game_Interface::updateImage()
+//{
+//	QPixmap newImage("auto_save.png");
+//
+//	if (newImage.isNull()) {
+//		qDebug() << "Eroare la incarcarea imaginii!";
+//	}
+//	else {
+//		image = newImage;
+//		ui.label->setPixmap(image);
+//	}
+//}

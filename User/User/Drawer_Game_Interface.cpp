@@ -37,6 +37,7 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget* parent)
 
 Drawer_Game_Interface::~Drawer_Game_Interface()
 {}
+
 void Drawer_Game_Interface::runGame()
 {
 	/*Transition* lobby = new Transition(this);
@@ -54,12 +55,11 @@ void Drawer_Game_Interface::setName(std::string name)
 	this->name = name;
 
 }
+
 std::string Drawer_Game_Interface::getName()
 {
 	return name;
 }
-
-
 
 bool Drawer_Game_Interface::openImage(const QString& fileName)
 {
@@ -121,26 +121,6 @@ void Drawer_Game_Interface::sendImage()
 	}
 }
 
-//void Drawer_Game_Interface::sendImage()
-//{
-//	// Convert the QImage to a QByteArray
-//	QByteArray byteArray;
-//	QBuffer buffer(&byteArray);
-//	buffer.open(QIODevice::WriteOnly);
-//	image.save(&buffer, "PNG");
-//
-//	// Make a POST request to send the image data to the server
-//	cpr::Response response = cpr::Post(cpr::Url{ "http://localhost:18080/uploadImage" },
-//		cpr::Body{ byteArray.toStdString() });
-//
-//	// Check the response status
-//	if (response.status_code == 200) {
-//		qDebug() << "Image sent successfully!";
-//	}
-//	else {
-//		qDebug() << "Failed to send image. Status code: " << response.status_code;
-//	}
-//}
 void Drawer_Game_Interface::setPenColor(const QColor& newColor)
 {
 	//seteaza culoarea
@@ -356,12 +336,11 @@ void Drawer_Game_Interface::yellowButtonClicked()
 	setPenColor(Qt::yellow);
 
 }
+
 void Drawer_Game_Interface::blackButtonClicked()
 {
 	setPenColor(Qt::black);
 }
-
-
 
 void Drawer_Game_Interface::cyanButtonClicked()
 {
@@ -379,8 +358,6 @@ void Drawer_Game_Interface::limeButtonClicked()
 {
 	setPenColor(Qt::green);
 }
-
-
 
 void Drawer_Game_Interface::pinkButtonClicked()
 {
@@ -483,6 +460,7 @@ void Drawer_Game_Interface::updateChat()
 		ui.chatDisplayDraw->append(qstrMessage);
 	}
 }
+
 void Drawer_Game_Interface::watch()
 {
 	seconds = seconds - 1;
@@ -542,11 +520,23 @@ void Drawer_Game_Interface::watch()
 //	}
 //}
 
-
-
-
-
-
-
-
-
+//void Drawer_Game_Interface::sendImage()
+//{
+//	// Convert the QImage to a QByteArray
+//	QByteArray byteArray;
+//	QBuffer buffer(&byteArray);
+//	buffer.open(QIODevice::WriteOnly);
+//	image.save(&buffer, "PNG");
+//
+//	// Make a POST request to send the image data to the server
+//	cpr::Response response = cpr::Post(cpr::Url{ "http://localhost:18080/uploadImage" },
+//		cpr::Body{ byteArray.toStdString() });
+//
+//	// Check the response status
+//	if (response.status_code == 200) {
+//		qDebug() << "Image sent successfully!";
+//	}
+//	else {
+//		qDebug() << "Failed to send image. Status code: " << response.status_code;
+//	}
+//}
