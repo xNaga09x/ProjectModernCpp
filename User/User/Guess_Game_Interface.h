@@ -30,7 +30,7 @@ public:
 	~Guess_Game_Interface();
 	void setName(std::string name);
 	std::string getName();
-	//void closeAndOpenDrawer();
+	/*void closeAndOpenDrawer();*/
 
 private slots:
 	void sendMessage();
@@ -55,7 +55,8 @@ private:
 	std::string word;
 	std::string secretword;
 	StopWatch stopwatch;
-
+	bool wordGuessed;
+	float score;
 	short int seconds;
 	QTimer timer;
 	QPixmap image;

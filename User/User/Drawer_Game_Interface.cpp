@@ -471,7 +471,6 @@ void Drawer_Game_Interface::watch()
 	if (seconds == 0)this->close();
 }
 
-
 //void Drawer_Game_Interface::closeAndOpenGuesser()
 //{
 //	std::string start1 = "true";

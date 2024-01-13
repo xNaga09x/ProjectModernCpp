@@ -24,6 +24,8 @@ namespace gartic
 		void SetDrawingState(bool state);
 		void SetId(int id);
 		void SetName(const std::string& name);
+		float GetScore() const;
+		void SetScore(float newScore);
 		/*void setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory);
 		void calculateHistoryAverage();
 		void setHistoryAverage(const float& historyAverage);*/
@@ -40,6 +42,7 @@ namespace gartic
 		std::string m_name;
 		bool m_guessed = false;
 		bool m_isDrawing = false;
+		float score;
 	};
 
 

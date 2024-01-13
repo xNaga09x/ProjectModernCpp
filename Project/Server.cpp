@@ -254,6 +254,7 @@ int main()
 				users_json.push_back(crow::json::wvalue{
 					{"id", user.GetId()},
 					{"name", user.GetName()},
+					{"score",user.GetScore()}
 					});
 			}
 			return crow::json::wvalue{ users_json };
@@ -265,6 +266,7 @@ int main()
 
 			gartic::User newUser;
 			newUser.SetName(name);
+			newUser.SetScore(0.0);
 			db.insert(newUser);
 
 			return crow::response(200);

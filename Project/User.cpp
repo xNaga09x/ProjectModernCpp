@@ -81,6 +81,16 @@ void User::SetName(const std::string& name)
 	m_name = name;
 }
 
+float gartic::User::GetScore() const
+{
+	return this->score;
+}
+
+void gartic::User::SetScore(float newScore)
+{
+	this->score = newScore;
+}
+
 //void User::setMatchHistory(const std::vector<std::pair<uint32_t, int>>& matchHistory)
 //{
 //	m_matchHistory = matchHistory;

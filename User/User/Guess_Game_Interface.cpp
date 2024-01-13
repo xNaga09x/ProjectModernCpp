@@ -1,7 +1,8 @@
 #include "Guess_Game_Interface.h"
 
 Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent),
+	wordGuessed(false)
 {
 	ui.setupUi(this);
 	setWindowTitle("Main Game");
@@ -159,10 +160,29 @@ void Guess_Game_Interface::sendMessage()
 	QString message = ui.messageInput->text();
 	if (!message.isEmpty())
 	{
-		
 		ui.messageInput->clear();
+
+		if (message.toLower() == word.c_str())
+		{
+			// Calcula?i punctajul în func?ie de formula dat?
+			
+
+			// Ad?uga?i puncte suplimentare dac? s-a ghicit cu 30 de secunde înainte
+			if (seconds > 30)
+			{
+				score += 100;
+			}
+			else float score = ((60 - seconds) * 100) / 60;
+
+			// Ad?uga?i punctajul juc?torului în func?ia de scorul calculat
+			this->score = score;
+
+			wordGuessed = true; // Seteaz? c? cuvântul a fost ghicit
+		}
+
+		// Trimite mesajul c?tre server
 		cpr::Response sendMessageResponse = cpr::Put(cpr::Url{ "http://localhost:18080/chat" }, cpr::Parameters{ { "Message" ,message.toStdString()},
-		{"Username",this->getName()}});
+		{"Username",this->getName()} });
 	}
 }
 
