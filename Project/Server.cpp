@@ -67,7 +67,7 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 
 
 		bool userType;
-		while (iterator / actives.size() != 4)
+		if (iterator / actives.size() != 4)
 		{
 			//vectorul de activi e de tip pointer
 			gameInstance.SetDrawer(*actives[iterator % actives.size()]);//
