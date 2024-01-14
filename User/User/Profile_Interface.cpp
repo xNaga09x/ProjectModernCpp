@@ -15,6 +15,9 @@ Profile_Interface::Profile_Interface(QWidget* parent)
             ui.imagelabel->setPixmap(pixmap.scaledToWidth(300, Qt::SmoothTransformation));
         }
     }
+    QPalette palette;
+    palette.setColor(QPalette::Window, Qt::cyan);
+    setPalette(palette);
 }
 
 Profile_Interface::~Profile_Interface()

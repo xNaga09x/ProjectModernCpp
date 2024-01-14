@@ -12,7 +12,9 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 
 
 	//connect(openTime, SIGNAL(timeout()), this, SLOT(Aux()));
-
+	QPalette palette;
+	palette.setColor(QPalette::Window, Qt::cyan);
+	setPalette(palette);
 
 
 }

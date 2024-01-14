@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Lobby_Interface</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="start_game">
     <property name="geometry">
@@ -27,6 +30,13 @@
      <font>
       <pointsize>36</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(150, 150, 150);
+border-style:outset;
+border-width:2px;
+border-radius:10px;
+border-color:black</string>
     </property>
     <property name="text">
      <string>Start Game</string>
@@ -48,6 +58,9 @@
       <underline>true</underline>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
     <property name="editTriggers">
      <set>QAbstractItemView::NoEditTriggers</set>
     </property>
@@ -58,11 +71,18 @@
    <widget class="QPushButton" name="profileButton">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>360</y>
-      <width>75</width>
-      <height>24</height>
+      <x>470</x>
+      <y>330</y>
+      <width>211</width>
+      <height>51</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(150, 150, 150);
+border-style:outset;
+border-width:2px;
+border-radius:10px;
+border-color:black</string>
     </property>
     <property name="text">
      <string>Profile</string>

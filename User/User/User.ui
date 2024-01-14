@@ -59,7 +59,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="lineEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255);</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -75,6 +79,13 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="Loggin">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(150, 150, 150);
+border-style:outset;
+border-width:2px;
+border-radius:10px;
+border-color:black</string>
+       </property>
        <property name="text">
         <string>Login</string>
        </property>
@@ -82,6 +93,13 @@
      </item>
      <item>
       <widget class="QPushButton" name="Register">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(150, 150, 150);
+border-style:outset;
+border-width:2px;
+border-radius:10px;
+border-color:black</string>
+       </property>
        <property name="text">
         <string>Register</string>
        </property>

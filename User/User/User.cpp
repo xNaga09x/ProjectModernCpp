@@ -6,6 +6,9 @@ User::User(QWidget* parent)
 {
 	ui.setupUi(this);
 	Lobby = nullptr;
+	QPalette palette;
+	palette.setColor(QPalette::Window, Qt::cyan);
+	setPalette(palette);
 }
 
 User::~User()
