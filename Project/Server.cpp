@@ -54,7 +54,7 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 
 
 		bool userType;
-		if (iterator / actives.size() != 4)
+		while (iterator / actives.size() != 4)
 		{
 
 			gameInstance.SetDrawer(actives[iterator % actives.size()]);
@@ -73,12 +73,17 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 
 			for (auto y : actives)
 			{
+				cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_random_word" });
+				auto jsonword = crow::json::load(response.text);
 
 				if (y.GetName() == gameInstance.GetDrawer().GetName())
 				{
+
+
 					cpr::Parameters parameters = {
 							{"name", y.GetName()},
-							{"guesser","true"}, };
+							{"guesser","true"},
+							{"word",jsonword["word"].s()} };
 
 					auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
 
@@ -87,22 +92,21 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 				{
 					cpr::Parameters parameters = {
 							{"name", y.GetName()},
-							{"guesser","false"}, };
+							{"guesser","false"},
+							{"word",jsonword["word"].s()} };
 					auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
 				}
 			}
 			iterator++;
 		}
-		else
-		{
+		/*
 			for (auto y : actives)
 			{
 				cpr::Parameters parameters = {
 										{"name", y.GetName()},
 										{"guesser","end"}, };
 				auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
-			}
-		}
+			}*/
 
 	}
 }
@@ -175,8 +179,8 @@ int main()
 		}
 		return crow::json::wvalue{ jsonMessage };
 
-		
-});
+
+		});
 
 	CROW_ROUTE(app, "/randomWord").methods(crow::HTTPMethod::Put)([&randomWord](const crow::request& req) {
 
@@ -199,14 +203,14 @@ int main()
 		return crow::response(200);
 		});
 
-	CROW_ROUTE(app, "/lobbyActive").methods(crow::HTTPMethod::Put)([&lobbyActive](const crow::request& req) 
+	CROW_ROUTE(app, "/lobbyActive").methods(crow::HTTPMethod::Put)([&lobbyActive](const crow::request& req)
 		{
-		std::string name{ req.url_params.get("status") };
-		std::string namex{ req.url_params.get("name") };
+			std::string name{ req.url_params.get("status") };
+			std::string namex{ req.url_params.get("name") };
 
-		lobbyActive = crow::json::wvalue{ {"status",name},{"name",namex}};
+			lobbyActive = crow::json::wvalue{ {"status",name},{"name",namex} };
 
-		return crow::response(200);
+			return crow::response(200);
 		});
 
 	CROW_ROUTE(app, "/uploadImage").methods(crow::HTTPMethod::Post)([&](const crow::request& req) {
@@ -234,7 +238,7 @@ int main()
 		// Respond with the image data
 		return crow::response(200, imageData.str());
 		});
-	
+
 	CROW_ROUTE(app, "/getLobbyActive").methods("GET"_method)([&lobbyActive]() {
 		return lobbyActive;
 		});
@@ -313,12 +317,13 @@ int main()
 		// Extract the message from the request body
 		std::string name{ req.url_params.get("name") };
 		std::string type{ req.url_params.get("guesser") };
+		std::string word{ req.url_params.get("word") };
 
 		// Store the message in the chatMessages deque
 		userType.push_back(crow::json::wvalue{
 			{"name",name},
-			{"guesser",type}
-			});
+			{"guesser",type},
+			{"word",word} });
 		return crow::response(200);
 		});
 
