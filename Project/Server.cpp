@@ -67,7 +67,7 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 
 
 		bool userType;
-		if (iterator / actives.size() != 4)
+		while (iterator / actives.size() != 4)
 		{
 			//vectorul de activi e de tip pointer
 			gameInstance.SetDrawer(*actives[iterator % actives.size()]);//
@@ -292,6 +292,33 @@ int main()
 
 			return crow::response(200);
 		});
+	CROW_ROUTE(app, "/putscore").methods(crow::HTTPMethod::Put)([&gameInstance](const crow::request& req)
+		{
+			std::string name{ req.url_params.get("name") };
+			std::string score {req.url_params.get("score") };
+
+			gameInstance->addScore(name, std::stof(score));
+			return crow::response(200);
+		});
+
+	CROW_ROUTE(app, "/get_score").methods("GET"_method)([&gameInstance]() {
+		crow::json::wvalue jsonScore;
+
+		for (auto x : gameInstance->GetScores())
+		{
+			jsonScore[x.first]=x.second;
+		}
+		return crow::json::wvalue{ jsonScore };
+		});
+
+	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
+		std::vector<crow::json::wvalue> jsonMessages;
+		for (auto x : chatMessages)
+		{
+			jsonMessages.push_back(crow::json::wvalue{ {x} });
+		}
+		return crow::json::wvalue{ jsonMessages };
+		});
 
 	CROW_ROUTE(app, "/chat").methods(crow::HTTPMethod::Put)([&chatMessages](const crow::request& req) {
 		// Extract the message from the request body
@@ -306,16 +333,6 @@ int main()
 
 		return crow::response(200);
 		});
-
-	CROW_ROUTE(app, "/get_chat").methods("GET"_method)([&chatMessages]() {
-		std::vector<crow::json::wvalue> jsonMessages;
-		for (auto x : chatMessages)
-		{
-			jsonMessages.push_back(crow::json::wvalue{ {x} });
-		}
-		return crow::json::wvalue{ jsonMessages };
-		});
-
 	CROW_ROUTE(app, "/getUsers").methods("GET"_method)([&active]() {
 		std::vector<crow::json::wvalue> jsonMessages;
 		for (auto x : active)

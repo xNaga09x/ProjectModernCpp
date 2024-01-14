@@ -97,12 +97,14 @@
     <QtUic Include="Drawer_Game_Interface.ui" />
     <QtUic Include="Guess_Game_Interface.ui" />
     <QtUic Include="Lobby_Interface.ui" />
+    <QtUic Include="Profile_Interface.ui" />
     <QtUic Include="Transition.ui" />
     <QtUic Include="User.ui" />
     <QtMoc Include="User.h" />
     <ClCompile Include="Drawer_Game_Interface.cpp" />
     <ClCompile Include="Guess_Game_Interface.cpp" />
     <ClCompile Include="Lobby_Interface.cpp" />
+    <ClCompile Include="Profile_Interface.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="Transition.cpp" />
@@ -125,6 +127,7 @@
     <QtMoc Include="Drawer_Game_Interface.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="Profile_Interface.h" />
     <ClInclude Include="StopWatch.h" />
     <QtMoc Include="Transition.h" />
   </ItemGroup>

@@ -17,15 +17,32 @@ void Game::SetPlayers(const std::vector<User> asd)
 	this->m_Players = asd;
 }
 
-void Game::SetPlayerScoreDefault(float score, User entity)
+//void Game::SetPlayerScoreDefault(float score, User entity)
+//{
+//	m_Scores.insert({ score, entity.GetId() });
+//}
+
+void Game::SetScores(const std::map<std::string, std::vector<float>>& scor)
 {
-	m_Scores.insert({ score, entity.GetId() });
+	m_Scores = scor;
+
 }
 
-void Game::SetScores(const std::map<float, int>& scores)
+void gartic::Game::addScore(std::string name, float score)
 {
-	m_Scores = scores;
+	for (auto i : m_Scores)
+	{
+		if (i.first == name)
+		{
+			i.second.push_back(score);
+		}
+	}
 }
+
+//void gartic::Game::addScore(const std::map<std::string, int>& scores)
+//{
+//	
+//}
 
 void Game::SetDrawer(const User& user)
 {
@@ -52,7 +69,7 @@ const std::vector<std::string>& Game::GetTips() const
 	return m_Tips;
 }
 
-const std::map<float, int>& Game::GetScores() const
+ std::map<std::string, std::vector<float>> Game::GetScores() 
 {
 	return m_Scores;
 }

@@ -10,7 +10,8 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 	runTime->start(1000);
 	connect(runTime, SIGNAL(timeout()), this, SLOT(verifyStarted()));
 
-	
+
+	//connect(openTime, SIGNAL(timeout()), this, SLOT(Aux()));
 
 
 
@@ -22,6 +23,10 @@ void Lobby_Interface::Aux()
 	auto users = crow::json::load(response10.text);
 	if (iterator != (users.size() * 4) - 1)
 		openInterface(iterator);
+	else
+	{
+		openTime->stop();
+	}
 }
 Lobby_Interface::~Lobby_Interface()
 {}
@@ -65,11 +70,14 @@ void Lobby_Interface::openInterface(int& it)
 	/*std::string start1 = "true";
 	auto response3 = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });*/
 
-	cpr::Response response7 = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
+	/*cpr::Response response7 = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
 	auto interfaceTypes = crow::json::load(response7.text);
 
 	cpr::Response response8 = cpr::Get(cpr::Url{ "http://localhost:18080/getUsers" });
-	auto users = crow::json::load(response8.text);
+	auto users = crow::json::load(response8.text);*/
+
+
+	if(interfaceTypes.size()==users.size()*4)
 	if (it == (users.size() * 4) - 1)
 	{
 		delete this;
@@ -116,13 +124,15 @@ void Lobby_Interface::openInterface(int& it)
 			}
 
 
-			
+
 			qDebug() << "open interface end\n";
 
 
 
 		}
+
 	}
+
 }
 
 void Lobby_Interface::verifyStarted()
@@ -144,6 +154,11 @@ void Lobby_Interface::on_start_game_clicked()
 {
 	std::string start1 = "true";
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
+	cpr::Response response7 = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
+	interfaceTypes = crow::json::load(response7.text);
+
+	cpr::Response response8 = cpr::Get(cpr::Url{ "http://localhost:18080/getUsers" });
+	users = crow::json::load(response8.text);
 	openInterface(iterator);
 	runTime->stop();
 
@@ -151,4 +166,10 @@ void Lobby_Interface::on_start_game_clicked()
 	connect(openTime, SIGNAL(timeout()), this, SLOT(Aux()));
 	qDebug() << "open timer start\n";
 
+}
+void Lobby_Interface::on_profileButton_clicked()
+{
+	Profile_Interface * profile = new Profile_Interface(this);
+	profile->setName(this->name);
+	profile->show();
 }

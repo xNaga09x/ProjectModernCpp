@@ -16,7 +16,7 @@
 #include <QStandardItem>
 
 #include "Transition.h"
-
+#include"Profile_Interface.h"
 
 class Lobby_Interface : public QMainWindow
 {
@@ -30,12 +30,14 @@ public:
 
 public slots:
 	void on_start_game_clicked();
+	void on_profileButton_clicked();
 
 	void getPLayers();
 	void openInterface(int& );
 	void verifyStarted();
 
 	void Aux();
+
 private:
 	Ui::Lobby_InterfaceClass ui;
 	std::string name;
@@ -45,7 +47,8 @@ private:
 	int iterator = 0;
 
 	QTimer* openTime = new QTimer(this);
-
+	crow::json::rvalue interfaceTypes;
+	crow::json::rvalue users;
 
 };
 
