@@ -31,18 +31,31 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 		auto Users = crow::json::load(usersResponse1.text);
 		std::cout << usersResponse1.text;
 
-		std::vector<User> actives;
+
+		//folosesc smart pointer de tip:shared_ptr:acesta faciliteaza ciclul de viata a obiecetlor de tip User activi
+		// si evita scurgerile de memorie at cand obiectele nu mai sunt accesate.Contine Rule of 5 acre faciliteaza eficienta 
+		std::vector<std::shared_ptr<User>> actives;//
 
 		for (auto userAct : activeUsers)
 		{
 			for (auto user : Users)
 			{
 				if (userAct["name"].s() == user["name"].s())
-
-					actives.push_back(User(user["id"].i(), userAct["name"].s()));
+				{
+					auto userPtr = std::make_shared<User>(user["id"].i(), userAct["name"].s());
+					actives.push_back(userPtr);
+				}
 			}
 		}
-		gameInstance.SetPlayers(actives);
+		//gameInstance.SetPlayers(actives);
+		// Extrage obiectele User din obiectele shared_ptr,le adauga intr-un vector separat de  gartic::User pt a putea apea setPlayers
+		std::vector<gartic::User> users;                                    //
+		for (const auto& userPtr : actives) {
+			users.push_back(*userPtr);
+		}
+		gameInstance.SetPlayers(users);
+
+
 		for (auto x : gameInstance.GetPlayers())
 			std::cout << x.GetName() << " ";
 
@@ -56,8 +69,9 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 		bool userType;
 		while (iterator / actives.size() != 4)
 		{
-
-			gameInstance.SetDrawer(actives[iterator % actives.size()]);
+			//vectorul de activi e de tip pointer
+			gameInstance.SetDrawer(*actives[iterator % actives.size()]);//
+			//gameInstance.SetDrawer(actives[iterator % actives.size()]);
 			std::cout << gameInstance.GetDrawer().GetName() << "\n\n\n\n";
 
 			std::string word = gameInstance.selectRandomWord(gameInstance.GetWords());
@@ -76,22 +90,22 @@ void run(const std::vector<crow::json::wvalue>& gameVerify, const std::vector<cr
 				cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_random_word" });
 				auto jsonword = crow::json::load(response.text);
 
-				if (y.GetName() == gameInstance.GetDrawer().GetName())
+				if (y->GetName() == gameInstance.GetDrawer().GetName())
 				{
 
 
 					cpr::Parameters parameters = {
-							{"name", y.GetName()},
+							{"name", y->GetName()},
 							{"guesser","true"},
 							{"word",jsonword["word"].s()} };
 
 					auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
 
 				}
-				if (y.GetName() != gameInstance.GetDrawer().GetName())
+				if (y->GetName() != gameInstance.GetDrawer().GetName())
 				{
 					cpr::Parameters parameters = {
-							{"name", y.GetName()},
+							{"name", y->GetName()},
 							{"guesser","false"},
 							{"word",jsonword["word"].s()} };
 					auto response = cpr::Put(cpr::Url{ "http://localhost:18080/UserType" }, parameters);
@@ -130,7 +144,10 @@ int main()
 	int iterator = 0;
 
 	crow::SimpleApp app;
-	Game gameInstance;
+
+	//unique_ptr:ajuta la gestionarea automata a memoriei si prevenirea scurgerilor de memorie,se foloseste unique_ptr pt ca jocul e unic. 
+	std::unique_ptr<Game> gameInstance = std::make_unique<Game>();//Smart pointer de tip unique_ptr pentru joc
+	//Game gameInstance;
 	db.sync_schema();
 
 	auto initUsersCount = db.count<User>();
@@ -164,7 +181,7 @@ int main()
 		iterator;
 		std::string start{ req.url_params.get("start") };
 		gameVerify.push_back(crow::json::wvalue{ { "start",start } });
-		run(gameVerify, active, gameInstance, iterator);
+		run(gameVerify, active, *gameInstance, iterator);
 		return crow::response(200);
 		});
 
@@ -245,7 +262,7 @@ int main()
 
 	CROW_ROUTE(app, "/verifyMethod").methods("GET"_method)([&gameVerify, &active, &gameInstance, &iterator]() {
 
-		run(gameVerify, active, gameInstance, iterator);
+		run(gameVerify, active, *gameInstance, iterator);
 		return crow::response(200);
 		});
 
