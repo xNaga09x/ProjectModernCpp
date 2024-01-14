@@ -9,8 +9,20 @@ Lobby_Interface::Lobby_Interface(QWidget* parent)
 
 	runTime->start(1000);
 	connect(runTime, SIGNAL(timeout()), this, SLOT(verifyStarted()));
-}
 
+	
+
+
+
+}
+void Lobby_Interface::Aux()
+{
+
+	cpr::Response response10 = cpr::Get(cpr::Url{ "http://localhost:18080/getUsers" });
+	auto users = crow::json::load(response10.text);
+	if (iterator != (users.size() * 4) - 1)
+		openInterface(iterator);
+}
 Lobby_Interface::~Lobby_Interface()
 {}
 
@@ -47,52 +59,69 @@ void Lobby_Interface::getPLayers()
 
 }
 
-void Lobby_Interface::openInterface()
+void Lobby_Interface::openInterface(int& it)
 {
-	std::string start1 = "true";
-	auto response3 = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
+	std::string word;
+	/*std::string start1 = "true";
+	auto response3 = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });*/
 
 	cpr::Response response7 = cpr::Get(cpr::Url{ "http://localhost:18080/getUserType" });
 	auto interfaceTypes = crow::json::load(response7.text);
 
-	if (interfaceTypes) {
-		// Preia?i valoarea boolean? pentru utilizatorul curent
-		std::string userIsDrawer = "false";  // Seteaz? la true dac? utilizatorul curent este desenatorul
+	cpr::Response response8 = cpr::Get(cpr::Url{ "http://localhost:18080/getUsers" });
+	auto users = crow::json::load(response8.text);
+	if (it == (users.size() * 4) - 1)
+	{
+		delete this;
+	}
+	else
+	{
 
-		for (const auto& interfaceType : interfaceTypes)
-		{
-			std::string playerName = interfaceType["name"].s();
-			std::string boolValue = interfaceType["guesser"].s();
-			qDebug() << playerName << " " << boolValue;
+		if (interfaceTypes[it + users.size() - 1]) {
+			// Preia?i valoarea boolean? pentru utilizatorul curent
+			std::string userIsDrawer = "false";  // Seteaz? la true dac? utilizatorul curent este desenatorul
 
-			if (playerName == this->getName()) {
-				userIsDrawer = boolValue;
-				break;
+			/*for (const auto& interfaceType : interfaceTypes)*/
+			for (int i = it; i < it + users.size(); i++)
+			{
+				std::string playerName = interfaceTypes[i]["name"].s();
+				std::string boolValue = interfaceTypes[i]["guesser"].s();
+				word = interfaceTypes[i]["word"].s();
+				qDebug() << playerName << " " << boolValue;
+
+				if (playerName == this->getName()) {
+					userIsDrawer = boolValue;
+					break;
+				}
 			}
-		}
+			if (userIsDrawer == "true") {
+				it += users.size();
+				Drawer_Game_Interface* draw = new Drawer_Game_Interface(this);
+				draw->setName(this->getName());
+				draw->setWord(word);
+				//this->close();
+				this->hide();
+				draw->show();
 
-		if (userIsDrawer == "true") {
-			Drawer_Game_Interface* draw = new Drawer_Game_Interface(this);
-			draw->setName(this->getName());
-			//this->close();
-			this->hide();
-			draw->show();
-		}
-		else if (userIsDrawer == "false") {
-			Guess_Game_Interface* guesser = new Guess_Game_Interface(this);
-			guesser->setName(this->getName());
-			//this->close();
-			this->hide();
-			guesser->show();
-		}
-		else if (userIsDrawer == "end")
-		{
-			delete this;
-		}
+			}
+			else if (userIsDrawer == "false") {
+				it += users.size();
+				Guess_Game_Interface* guesser = new Guess_Game_Interface(this);
+				guesser->setName(this->getName());
+				guesser->setWord(word);
 
-		QTimer* runTimer = new QTimer(this);
-		connect(runTimer, SIGNAL(timeout()), this, SLOT(UserType()));
-		runTimer->start(60000);
+				//this->close();
+				this->hide();
+				guesser->show();
+			}
+
+
+			
+			qDebug() << "open interface end\n";
+
+
+
+		}
 	}
 }
 
@@ -105,8 +134,9 @@ void Lobby_Interface::verifyStarted()
 		if (checked["start"].s() == "true" && ok == 0)
 		{
 			ok = 1;
-			openInterface();
+			openInterface(iterator);
 		}
+
 	}
 }
 
@@ -114,6 +144,11 @@ void Lobby_Interface::on_start_game_clicked()
 {
 	std::string start1 = "true";
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/startGame" }, cpr::Parameters{ { "start", start1} });
-	openInterface();
-	runTime->stop(); 
+	openInterface(iterator);
+	runTime->stop();
+
+	openTime->start(62000);
+	connect(openTime, SIGNAL(timeout()), this, SLOT(Aux()));
+	qDebug() << "open timer start\n";
+
 }

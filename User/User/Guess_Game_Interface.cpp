@@ -21,7 +21,6 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	connect(imageTimer, SIGNAL(timeout()), this, SLOT(updateImage()));
 	imageTimer->start(1000);
 
-	setWord();
 	updateTimer = new QTimer(this); 
 	getPLayers(); 
 	// Connect signals and slots
@@ -34,19 +33,7 @@ Guess_Game_Interface::Guess_Game_Interface(QWidget* parent)
 	connect(chatUpdateTimer, SIGNAL(timeout()), this, SLOT(updateChat())); 
 	chatUpdateTimer->start(3000);
 
-	for (int i = 0; i < word.size(); i++)
-	{
-		if(i< word.size()-1)
-		secretword += "_ ";
-		else
-			secretword += "_";
-	}
-	const QString qword = QString::fromStdString(secretword);
-
-	ui.GuessWord->setText(qword);
-	ui.GuessWord->setAlignment(Qt::AlignCenter);
-
-	ui.GuessWord->show();
+	
 	
 	QTimer* runTimer = new QTimer(this);
 	connect(runTimer, SIGNAL(timeout()), this, SLOT(closeWindow()));
@@ -186,13 +173,25 @@ void Guess_Game_Interface::sendMessage()
 	}
 }
 
-void Guess_Game_Interface::setWord()
+void Guess_Game_Interface::setWord(std::string guessword)
 {
-	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_random_word" });
-	auto jsonword = crow::json::load(response.text);
+	
 
-	this->word = jsonword["word"].s();
+	this->word = guessword;
 	qDebug() << word;
+	for (int i = 0; i < word.size(); i++)
+	{
+		if (i < word.size() - 1)
+			secretword += "_ ";
+		else
+			secretword += "_";
+	}
+	const QString qword = QString::fromStdString(secretword);
+
+	ui.GuessWord->setText(qword);
+	ui.GuessWord->setAlignment(Qt::AlignCenter);
+
+	ui.GuessWord->show();
 }
 
 void Guess_Game_Interface::watch()

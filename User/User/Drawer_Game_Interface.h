@@ -67,6 +67,7 @@ public slots:
 	void runGame();
 	void setName(std::string);
 	std::string getName();
+	void setWord(std::string);              //functie de setword pentru fiecare joc .
 
 	void watch();
 	void autoSaveImage();
@@ -79,7 +80,6 @@ protected:
 	bool isPointInsideAllowedRegion(const QPoint& point);
 	void paintEvent(QPaintEvent* event) override;       // pt. updatarea desenului
 	void resizeEvent(QResizeEvent* event) override;     // verif. ca QImaginea pe care desenam sa fie minim de dimensiunea widgetului
-	void setWord();              //functie de setword pentru fiecare joc .
 
 private:
 	Ui::Drawer_Game_InterfaceClass ui;

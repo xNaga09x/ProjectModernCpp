@@ -32,15 +32,21 @@ public slots:
 	void on_start_game_clicked();
 
 	void getPLayers();
-	void openInterface();
+	void openInterface(int& );
 	void verifyStarted();
 
+	void Aux();
 private:
 	Ui::Lobby_InterfaceClass ui;
 	std::string name;
 	QTimer checkTimer;
 	int ok = 0;
 	QTimer* runTime = new QTimer(this); 
+	int iterator = 0;
+
+	QTimer* openTime = new QTimer(this);
+
+
 };
 
 

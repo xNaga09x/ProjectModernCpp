@@ -41,12 +41,12 @@ private slots:
 
 	void updateChat();
 
-	void setWord();
 	void closeWindow();
 
 public slots:
 	void watch();
 	void updateImage();
+	void setWord(std::string);
 
 private:
 	Ui::Guess_Game_InterfaceClass ui;

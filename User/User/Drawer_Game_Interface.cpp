@@ -7,7 +7,6 @@ Drawer_Game_Interface::Drawer_Game_Interface(QWidget* parent)
 	ui.setupUi(this);
 
 
-	setWord();
 	updateTimer = new QTimer(this);
 	updateTimer->start(10000);
 	getPLayers();
@@ -279,12 +278,10 @@ void Drawer_Game_Interface::resizeEvent(QResizeEvent* event)
 	QWidget::resizeEvent(event);
 }
 
-void Drawer_Game_Interface::setWord()
+void Drawer_Game_Interface::setWord(std::string guessword)
 {
-	cpr::Response response = cpr::Get(cpr::Url{ "http://localhost:18080/get_random_word" });
-	auto jsonword = crow::json::load(response.text);
-
-	this->word = jsonword["word"].s();
+	
+	this->word = guessword;
 	qDebug() << word;
 }
 
@@ -470,6 +467,9 @@ void Drawer_Game_Interface::watch()
 	}
 	if (seconds == 0)this->close();
 }
+
+
+
 
 //void Drawer_Game_Interface::closeAndOpenGuesser()
 //{
