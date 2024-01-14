@@ -201,14 +201,29 @@ void Guess_Game_Interface::watch()
 	{
 		ui.stopWatch->display(seconds);
 
-		// Adaug? cod pentru a afi?a o liter? dup? 30 de secunde
+
 		if (seconds == 30 && !wordGuessed)
 		{
-			// Afi?eaz? prima liter? a cuvântului în loc de "_"
+
 			secretword[0] = word[0];
 			const QString qword = QString::fromStdString(secretword);
 			ui.GuessWord->setText(qword);
 		}
+		if (seconds == 20 && !wordGuessed)
+		{
+
+			secretword[1] = word[1];
+			const QString qword = QString::fromStdString(secretword);
+			ui.GuessWord->setText(qword);
+		}
+		if (seconds == 10 && !wordGuessed)
+		{
+
+			secretword[2] = word[2];
+			const QString qword = QString::fromStdString(secretword);
+			ui.GuessWord->setText(qword);
+		}
+		ui.GuessWord->setAlignment(Qt::AlignCenter);
 	}
 
 	if (seconds == 0)
